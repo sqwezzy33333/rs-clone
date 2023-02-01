@@ -1,6 +1,6 @@
 export const enum PageIds{
   MainPage = 'main-page',
-  SettingsPage = 'settings-page'
+  Favorite = 'favorite'
 }
 
 export abstract class Page{

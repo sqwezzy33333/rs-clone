@@ -1,5 +1,5 @@
-import './main.scss';
-import { Example } from './components/example';
+import "./main.scss";
+import { App } from "./pages/app/index";
 
-let b = new Example();
-console.log(b)
+let app = new App();
+app.run();
