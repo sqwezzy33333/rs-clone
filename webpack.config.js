@@ -7,7 +7,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const isDev = process.env.NODE_ENV === 'development';
 
 const baseConfig = {
-  entry: path.resolve(__dirname, './src/app.ts'),
+  entry: path.resolve(__dirname, './src/index.ts'),
   mode: 'development',
   devServer: {
     hot: isDev,

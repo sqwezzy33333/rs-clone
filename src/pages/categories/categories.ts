@@ -1,8 +1,8 @@
 import { Page } from "../../templates/pages";
 
-export class MainPage extends Page {
+export class CategoriesPage extends Page {
   static TextObject = {
-    MainTitle: "Main Page",
+    MainTitle: "Categories Page",
   };
 
   constructor(id: string) {
@@ -10,7 +10,7 @@ export class MainPage extends Page {
   }
 
   render(): HTMLElement {
-    const title = this.createHeaderTitle(MainPage.TextObject.MainTitle);
+    const title = this.createHeaderTitle(CategoriesPage.TextObject.MainTitle);
     this.container.append(title);
     return this.container;
   }

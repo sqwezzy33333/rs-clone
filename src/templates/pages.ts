@@ -1,6 +1,9 @@
 export const enum PageIds{
-  MainPage = 'main-page',
-  Favorite = 'favorite'
+  MainPage = 'home',
+  Favorite = 'favorite',
+  Playlist = 'playlist',
+  Profile = 'profile',
+  Categories = 'categories'
 }
 
 export abstract class Page{

@@ -4,11 +4,23 @@ import { PageIds } from "../../templates/pages";
 const Buttons = [
   {
     id: PageIds.MainPage,
-    text: "MainPage",
+    text: "Home",
   },
   {
     id: PageIds.Favorite,
-    text: "favorite",
+    text: "Favorite",
+  },
+  {
+    id: PageIds.Playlist,
+    text: "Playlist",
+  },
+  {
+    id: PageIds.Profile,
+    text: "Profile"
+  },
+  {
+    id: PageIds.Categories,
+    text: "Categories",
   },
 ];
 
@@ -21,6 +33,7 @@ export class Aside extends Component {
     const navBlock = document.createElement("div");
     navBlock.className = 'nav__wrapper';
     Buttons.forEach((el) => {
+      console.log(el)
       const btn = document.createElement("a");
       btn.href = `#${el.id}`
       btn.innerText = el.text;
