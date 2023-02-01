@@ -33,7 +33,6 @@ export class Aside extends Component {
     const navBlock = document.createElement("div");
     navBlock.className = 'nav__wrapper';
     Buttons.forEach((el) => {
-      console.log(el)
       const btn = document.createElement("a");
       btn.href = `#${el.id}`
       btn.innerText = el.text;

@@ -27,7 +27,7 @@ export class App {
   }
 
   fillMainWrapper() {
-    this.mainWrapper.append(this.homePage.render());
+    this.mainWrapper.append(this.profilePage.render());
   }
 
   renderNewPage(idPage: string) {
@@ -59,7 +59,6 @@ export class App {
       if (location.hash) {
         history.replaceState({}, "", hash);
       }
-      console.log(hash);
       this.renderNewPage(hash);
     });
   }
@@ -78,5 +77,7 @@ export class App {
     App.container.append(this.mainWrapper);
 
     this.enableRouteChange();
+
+    this.profilePage.addevent();
   }
 }
