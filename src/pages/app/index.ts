@@ -40,6 +40,10 @@ export class App {
   private enableRouteChange() {
     window.addEventListener("hashchange", () => {
       const hash = window.location.hash.slice(1);
+      if (location.hash) {
+        history.replaceState({}, '', hash);
+      }
+      console.log(hash)
       this.renderNewPage(hash);
     });
   }
@@ -54,7 +58,7 @@ export class App {
     this.fillMainWrapper();
 
     this.mainWrapper.className = 'main-wrapper'
-    
+
     App.container.append(this.mainWrapper);
 
     this.enableRouteChange();

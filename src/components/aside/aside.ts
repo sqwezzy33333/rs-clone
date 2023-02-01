@@ -8,7 +8,7 @@ const Buttons = [
   },
   {
     id: PageIds.Favorite,
-    text: "Favorite",
+    text: "favorite",
   },
 ];
 
