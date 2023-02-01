@@ -4,11 +4,11 @@ import { PageIds } from "../../templates/pages";
 const Buttons = [
   {
     id: PageIds.MainPage,
-    text: "бебра",
+    text: "MainPage",
   },
   {
     id: PageIds.Favorite,
-    text: "favorite",
+    text: "Favorite",
   },
 ];
 
@@ -22,7 +22,7 @@ export class Aside extends Component {
     navBlock.className = 'nav__wrapper';
     Buttons.forEach((el) => {
       const btn = document.createElement("a");
-      btn.href = el.id;
+      btn.href = `#${el.id}`
       btn.innerText = el.text;
       navBlock.append(btn);
     });
