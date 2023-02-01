@@ -5,7 +5,7 @@ import { Aside } from "../../components/Aside/aside";
 import { FavoritePage } from "../favorite/favorite";
 
 export class App {
-  static container: HTMLElement = document.body;
+  static container: HTMLElement = document.createElement("div");
   private mainWrapper: HTMLElement = document.createElement("section");
   private initialPage: MainPage;
   private aside: Aside;
@@ -45,9 +45,18 @@ export class App {
   }
 
   run() {
+    App.container.className = "container";
+
+    document.body.append(App.container);
+
     App.container.append(this.aside.render());
+
     this.fillMainWrapper();
+
+    this.mainWrapper.className = 'main-wrapper'
+    
     App.container.append(this.mainWrapper);
+
     this.enableRouteChange();
   }
 }
