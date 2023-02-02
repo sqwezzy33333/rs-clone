@@ -30,7 +30,7 @@ export class App {
   }
 
   fillMainWrapper() {
-    this.mainWrapper.append(this.loginPage.render());
+    this.mainWrapper.append(this.registrationPage.render());
   }
 
   renderNewPage(idPage: string) {
@@ -65,7 +65,7 @@ export class App {
       if (location.hash) {
         history.replaceState({}, "", hash);
       }
-      
+
       this.renderNewPage(hash);
     });
   }
