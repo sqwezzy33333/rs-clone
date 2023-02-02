@@ -38,6 +38,9 @@ export class LoginPage extends Page {
   public render(): HTMLElement {
     const block = this.drowSignInBlock();
     this.container.append(block);
+
+    this.addEvent();
+    
     return this.container;
   }
 

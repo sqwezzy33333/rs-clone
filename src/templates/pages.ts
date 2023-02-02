@@ -2,7 +2,7 @@ export const enum PageIds {
   MainPage = "home",
   Favorite = "favorite",
   Playlist = "playlist",
-  Profile = 'profile',
+  Profile = 'login',
   Login = "login",
   Categories = "categories",
   Registration = "registration",
@@ -11,6 +11,7 @@ export const enum PageIds {
 export abstract class Page {
   protected container: HTMLElement;
   static TextObject = {};
+  
   constructor(id: string) {
     this.container = document.createElement("div");
     this.container.id = id;
