@@ -9,9 +9,9 @@ export class RegistrationPage extends Page {
   form = document.createElement("form");
   constructor(id: string) {
     super(id);
-    this.mainBlock.className = "profile-wrapper";
-    this.title.innerHTML = '<h2 id="h2">Registration</h2>'
-    this.registrationSpan.innerHTML = `<span class="registration-span">don't have an account? please <a href="#registration" style="color: green;">register</a></span>`;
+    this.mainBlock.className = "profile-wrapper"; 
+    this.title.innerHTML = '<h2 class="h2">Registration</h2>'
+    this.registrationSpan.innerHTML = `<span class="registration-span">have an account? <a href="#login" style="color: green;">please Login</a></span>`;
     this.form.className = "form";
     this.form.id = "registr-form";
   }
@@ -28,10 +28,10 @@ export class RegistrationPage extends Page {
     <input name="password" type="password" id="registr-password" class="form-input" placeholder="password">
 
     <span class="form-span">Confirm Password</span>
-    <input name="password" type="password" id="registr-password" class="form-input" placeholder="password">
+    <input name="password" type="password" id="registr-confirm" class="form-input" placeholder="password">
 
     <span class="form-span">Change Phone Number</span>
-    <input name="password" type="tel" id="registr-password" class="form-input" placeholder="phone number">
+    <input name="password" type="tel" id="registr-number" class="form-input" placeholder="phone number">
 
     <input type="submit" value="Sign in" id="regist-form-btn">
     `
@@ -42,13 +42,13 @@ export class RegistrationPage extends Page {
     return this.mainBlock;
   }
 
-  render(): HTMLElement {
+  public render(): HTMLElement {
     const block = this.drawRegistrationBlock();
     this.container.append(block);
     return this.container;
   }
 
-  addevent() {
+  public addEvent() {
     this.form.addEventListener("submit", (e) => {
       e.preventDefault();
       const formData = new FormData(this.form);

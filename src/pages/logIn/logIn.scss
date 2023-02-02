@@ -27,7 +27,7 @@
   color: rgba(181, 181, 181, 1);
 }
 
-#h2 {
+.h2 {
   font-size: 24px;
   font-weight: 500;
   line-height: 36px;
@@ -77,4 +77,8 @@
 .error-span{
   font-size: 14px;
   color: rgb(119, 17, 17);
+}
+
+#signIn-form-btn{
+  margin-bottom: 18px !important;
 }

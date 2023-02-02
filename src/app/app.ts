@@ -25,12 +25,12 @@ export class App {
     this.favoritePage = new FavoritePage("favorite");
     this.categoriesPage = new CategoriesPage("categories");
     this.playlistPage = new PlaylistPage("playlist");
-    this.loginPage = new LoginPage("profile");
-    this.registrationPage = new RegistrationPage("registration")
+    this.loginPage = new LoginPage("login");
+    this.registrationPage = new RegistrationPage("registration");
   }
 
   fillMainWrapper() {
-    this.mainWrapper.append(this.registrationPage.render());
+    this.mainWrapper.append(this.loginPage.render());
   }
 
   renderNewPage(idPage: string) {
@@ -46,7 +46,7 @@ export class App {
       page = new CategoriesPage(idPage);
     } else if (idPage === PageIds.Playlist) {
       page = new PlaylistPage(idPage);
-    } else if (idPage === PageIds.Profile) {
+    } else if (idPage === PageIds.Login) {
       page = new LoginPage(idPage);
     } else if (idPage === PageIds.Registration) {
       page = new RegistrationPage(idPage);
@@ -68,6 +68,10 @@ export class App {
     });
   }
 
+  private addEventListeners = () => {
+    this.loginPage.addEvent();
+  };
+
   run() {
     App.container.className = "container";
 
@@ -83,6 +87,6 @@ export class App {
 
     this.enableRouteChange();
 
-    this.loginPage.addevent();
+    this.addEventListeners();
   }
 }
