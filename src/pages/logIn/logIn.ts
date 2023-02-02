@@ -14,7 +14,7 @@ export class LoginPage extends Page {
     this.title.innerHTML = '<h2 class="h2">Login</h2>';
     this.registrationSpan.innerHTML = `<span class="registration-span">don't have an account? please <a href="#registration" style="color: green;">register</a></span>`;
     this.form.className = "form";
-    this.form.action = '#';
+    this.form.action = "#";
     this.form.id = "registr-form";
   }
 
@@ -30,7 +30,7 @@ export class LoginPage extends Page {
     `;
     this.mainBlock.append(this.title);
     this.mainBlock.append(this.form);
-    this.mainBlock.append(this.errorBlock)
+    this.mainBlock.append(this.errorBlock);
     this.mainBlock.append(this.registrationSpan);
     return this.mainBlock;
   }
@@ -40,14 +40,18 @@ export class LoginPage extends Page {
     this.container.append(block);
 
     this.addEvent();
-    
+
     return this.container;
   }
 
   private async logIn(login?: string, password?: string) {
     let user = Parse.User.logIn(login, password)
-      .then(function (user: any) {
-        console.log(user.attributes);
+      .then(() => {
+        window.location.hash = "profile";
+        const profileLink = document.getElementById(
+          "aside-Profile"
+        ) as HTMLLinkElement;
+        profileLink.href = "#profile";
       })
       .catch((error: { code: string; message: string }) => {
         if (error instanceof Error) {

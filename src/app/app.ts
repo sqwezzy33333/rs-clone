@@ -35,7 +35,7 @@ export class App {
   }
 
   fillMainWrapper() {
-    this.mainWrapper.append(this.profilePage.render());
+    this.mainWrapper.append(this.homePage.render());
   }
 
   renderNewPage(idPage: string) {

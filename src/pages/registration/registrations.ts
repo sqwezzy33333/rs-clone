@@ -62,11 +62,15 @@ export class RegistrationPage extends Page {
 
         userValues.forEach((el) => {
           user.set(`${el[0]}`, `${el[1]}`);
-          console.log(`${el[0]}`, `${el[1]}`);
         });
         
         let userResult = await user.signUp();
         console.log('succsess: ',userResult);
+        window.location.hash = "profile";
+        const profileLink = document.getElementById(
+          "aside-Profile"
+        ) as HTMLLinkElement;
+        profileLink.href = "#profile";
       } else this.addErrorSpan({"message": "passwords don't match"});
     } catch (error: any) {
       this.addErrorSpan(error);
