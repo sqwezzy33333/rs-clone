@@ -74,7 +74,7 @@ export class RegistrationPage extends Page {
     }
   }
 
-  private addErrorSpan(error: any) {
+  private addErrorSpan(error: { message: string; }) {
     const spanError = document.createElement("span");
     this.errorBlock.innerHTML = "";
     spanError.innerHTML = `<span class="error-span">${error.message}</span>`;

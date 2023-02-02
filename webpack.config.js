@@ -29,11 +29,12 @@ const baseConfig = {
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
-        test: /\.(png|jpg|svg|gif|webp)$/,
-        loader: 'file-loader',
-        options: {
-          outputPath: 'assets/images',
-        },
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+        ],
       },
       {
         test: /\.(woff(2)?|eot|ttf|otf)$/i,
@@ -55,14 +56,14 @@ const baseConfig = {
       filename: 'index.html',
     }),
     new CleanWebpackPlugin(),
-    /* new CopyPlugin({
+    new CopyPlugin({
       patterns: [
         {
           from: 'src/assets',
           to: 'assets',
         },
       ],
-    }), */
+    }), 
   ],
 };
 

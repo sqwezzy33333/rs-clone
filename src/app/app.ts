@@ -7,6 +7,7 @@ import { CategoriesPage } from "../pages/categories/categories";
 import { PlaylistPage } from "../pages/playlist/playlist";
 import { LoginPage } from "../pages/logIn/logIn";
 import { RegistrationPage } from "../pages/registration/registrations";
+import { ProfilePage } from "../pages/profile/profile";
 
 export class App {
   static container: HTMLElement = document.createElement("div");
@@ -18,6 +19,7 @@ export class App {
   private playlistPage: PlaylistPage;
   private loginPage: LoginPage;
   private registrationPage: RegistrationPage;
+  private profilePage: ProfilePage;
 
   constructor() {
     this.homePage = new HomePage("home-page");
@@ -27,10 +29,11 @@ export class App {
     this.playlistPage = new PlaylistPage("playlist");
     this.loginPage = new LoginPage("login");
     this.registrationPage = new RegistrationPage("registration");
+    this.profilePage = new ProfilePage("profile");
   }
 
   fillMainWrapper() {
-    this.mainWrapper.append(this.registrationPage.render());
+    this.mainWrapper.append(this.profilePage.render());
   }
 
   renderNewPage(idPage: string) {
@@ -50,6 +53,8 @@ export class App {
       page = new LoginPage(idPage);
     } else if (idPage === PageIds.Registration) {
       page = new RegistrationPage(idPage);
+    } else if (idPage === PageIds.Profile) {
+      page = new ProfilePage(idPage);
     }
 
     if (page) {
@@ -70,7 +75,6 @@ export class App {
     });
   }
 
-
   run() {
     App.container.className = "container";
 
@@ -85,6 +89,5 @@ export class App {
     App.container.append(this.mainWrapper);
 
     this.enableRouteChange();
-
   }
 }
