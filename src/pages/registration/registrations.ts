@@ -1,5 +1,5 @@
 import { Page } from "../../templates/pages";
-import { RegistrationUser } from "../../templates/types";
+import { UserInfo } from "../../templates/types";
 const Parse = require("parse");
 
 export class RegistrationPage extends Page {
@@ -51,7 +51,7 @@ export class RegistrationPage extends Page {
     return this.container;
   }
 
-  private async registrationUser(userObject: RegistrationUser) {
+  private async registrationUser(userObject: UserInfo) {
     const user = new Parse.User();
     try {
       if (userObject.password === userObject.confirmPass) {

@@ -20,6 +20,8 @@ export class App {
   private loginPage: LoginPage;
   private registrationPage: RegistrationPage;
   private profilePage: ProfilePage;
+  private currentUser: string =
+  "Parse/fHTtYX3oryuYW1MNXV6nvRxfu2xGoRXPu71vYXWH/currentUser";
 
   constructor() {
     this.homePage = new HomePage("home-page");
