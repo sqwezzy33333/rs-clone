@@ -4,6 +4,7 @@ export const enum PageIds {
   Playlist = "playlist",
   Profile = "profile",
   Categories = "categories",
+  Registration = "registration",
 }
 
 export abstract class Page {
@@ -18,7 +19,7 @@ export abstract class Page {
     headerTitle.innerText = text;
     return headerTitle;
   }
-  
+
   render(): HTMLElement {
     return this.container;
   }

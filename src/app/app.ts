@@ -5,7 +5,8 @@ import { Aside } from "../components/Aside/aside";
 import { FavoritePage } from "../pages/favorite/favorite";
 import { CategoriesPage } from "../pages/categories/categories";
 import { PlaylistPage } from "../pages/playlist/playlist";
-import { ProfilePage } from "../pages/profile/profile";
+import { LoginPage } from "../pages/logIn/logIn";
+import { RegistrationPage } from "../pages/registration/registrations";
 
 export class App {
   static container: HTMLElement = document.createElement("div");
@@ -15,7 +16,8 @@ export class App {
   private favoritePage: FavoritePage;
   private categoriesPage: CategoriesPage;
   private playlistPage: PlaylistPage;
-  private profilePage: ProfilePage;
+  private loginPage: LoginPage;
+  private registrationPage: RegistrationPage;
 
   constructor() {
     this.homePage = new HomePage("home-page");
@@ -23,11 +25,12 @@ export class App {
     this.favoritePage = new FavoritePage("favorite");
     this.categoriesPage = new CategoriesPage("categories");
     this.playlistPage = new PlaylistPage("playlist");
-    this.profilePage = new ProfilePage("profile");
+    this.loginPage = new LoginPage("profile");
+    this.registrationPage = new RegistrationPage("registration")
   }
 
   fillMainWrapper() {
-    this.mainWrapper.append(this.profilePage.render());
+    this.mainWrapper.append(this.registrationPage.render());
   }
 
   renderNewPage(idPage: string) {
@@ -44,14 +47,16 @@ export class App {
     } else if (idPage === PageIds.Playlist) {
       page = new PlaylistPage(idPage);
     } else if (idPage === PageIds.Profile) {
-      page = new ProfilePage(idPage);
+      page = new LoginPage(idPage);
+    } else if (idPage === PageIds.Registration) {
+      page = new RegistrationPage(idPage);
     }
+
     if (page) {
       const pageHTML = page.render();
       this.mainWrapper.append(pageHTML);
     }
   }
-
 
   private enableRouteChange() {
     window.addEventListener("hashchange", () => {
@@ -78,6 +83,6 @@ export class App {
 
     this.enableRouteChange();
 
-    this.profilePage.addevent();
+    this.loginPage.addevent();
   }
 }

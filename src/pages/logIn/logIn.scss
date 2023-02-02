@@ -31,19 +31,18 @@
   font-size: 24px;
   font-weight: 500;
   line-height: 36px;
-
   margin-bottom: 3px;
 }
 
-#login {
+#signIn-login {
   margin-bottom: 27px;
 }
 
-#password {
+#signIn-password {
   margin-bottom: 28px;
 }
 
-#form-btn {
+#signIn-form-btn {
   background: rgba(135, 207, 101, 1);
   width: 100px;
   height: 35px;
@@ -64,6 +63,7 @@
   font-size: 11px;
   font-weight: 500;
   line-height: 16px;
+  padding-left: 4px;
 }
 
 .form-span {
@@ -71,4 +71,10 @@
   font-weight: 400;
   line-height: 21px;
   margin-bottom: 6px;
+  padding-left: 10px;
+}
+
+.error-span{
+  font-size: 14px;
+  color: rgb(119, 17, 17);
 }
