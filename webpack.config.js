@@ -7,7 +7,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const isDev = process.env.NODE_ENV === 'development';
 
 const baseConfig = {
-  entry: path.resolve(__dirname, './src/app.ts'),
+  entry: path.resolve(__dirname, './src/index.ts'),
   mode: 'development',
   devServer: {
     hot: isDev,
@@ -29,11 +29,12 @@ const baseConfig = {
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
-        test: /\.(png|jpg|svg|gif|webp)$/,
-        loader: 'file-loader',
-        options: {
-          outputPath: 'assets/images',
-        },
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+        ],
       },
       {
         test: /\.(woff(2)?|eot|ttf|otf)$/i,
@@ -55,14 +56,14 @@ const baseConfig = {
       filename: 'index.html',
     }),
     new CleanWebpackPlugin(),
-    /* new CopyPlugin({
+    new CopyPlugin({
       patterns: [
         {
           from: 'src/assets',
           to: 'assets',
         },
       ],
-    }), */
+    }), 
   ],
 };
 
