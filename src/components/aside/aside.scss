@@ -5,7 +5,21 @@
   z-index: 1;
 }
 
+.aside__title {
+  padding: 21px 0 74px;
+  text-align: center;
+}
+
 .nav__wrapper {
   display: flex;
   flex-direction: column;
+  padding-left: 31px;
+  a {
+    @include font($size: 2.4rem, $height: 5.7rem, $weight: 300);
+    color: $color-text;
+    &:hover {
+      color: $color-hover-text;
+      @extend %transition;
+    }
+  }
 }
