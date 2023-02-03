@@ -8,6 +8,8 @@ import { PlaylistPage } from "../pages/playlist/playlist";
 import { LoginPage } from "../pages/logIn/logIn";
 import { RegistrationPage } from "../pages/registration/registrations";
 import { ProfilePage } from "../pages/profile/profile";
+import { getArtistAlbums, getArtistTracks } from "../api/api";
+
 
 export class App {
   static container: HTMLElement = document.createElement("div");
@@ -33,7 +35,7 @@ export class App {
   }
 
   fillMainWrapper() {
-    this.mainWrapper.append(this.profilePage.render());
+    this.mainWrapper.append(this.loginPage.render());
   }
 
   renderNewPage(idPage: string) {
@@ -89,5 +91,7 @@ export class App {
     App.container.append(this.mainWrapper);
 
     this.enableRouteChange();
+    // getArtistTracks('color out', "byName");
+    // getArtistAlbums('color out', "byName");
   }
 }
