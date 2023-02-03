@@ -1,9 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap');
+@import './style/placeholders.scss';
+@import './style/mixins.scss';
+@import './style/constants.scss';
 @import './assets/resource/reset.scss';
 @import './components/aside/aside.scss';
 @import './pages/logIn/logIn.scss';
 @import './pages/registration/registration.scss';
 @import './pages/profile/profile.scss';
+
+html {
+  font-size: 10px;
+  box-sizing: border-box;
+}
+
+*, *::after, *::before {
+  box-sizing: inherit;
+}
+
+body {
+  @extend %font-default;
+  @include font($size:1.6rem, $height:2.1rem);
+}
 
 .container{
   display: flex;

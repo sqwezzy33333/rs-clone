@@ -1,6 +1,8 @@
 .aside{
   min-width: 248px;
-  border: 2px dashed black;
+  background-color: $color-background;
+  box-shadow: 7px 0px 27px 0px rgba(102, 173, 195, 0.26);
+  z-index: 1;
 }
 
 .nav__wrapper {
