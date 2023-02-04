@@ -1,15 +1,14 @@
 import { CardTrack } from "./card-track";
 import { BaseComponent } from "../../../templates/basecomponent";
+import { getArtistAlbums, getArtistTracks } from "../../../api/api";
 
-export class Recomend extends CardTrack {
+export class Recomend extends BaseComponent {
   private cards: CardTrack[] = [];
   
   constructor() {
-    super('div', 'Songs Name', ['pop', 'jazz', 'rock'])
-    //вынести тайтл их конструктора
-    const recTitle = new BaseComponent('h1', 'recomend__title', 'Recomended for you');
-    this.element.append(recTitle.element);
+    super('div', 'recomend__container');
   }
+
 
   addCardsTracks(cards: CardTrack[]) {
     this.cards = cards;
