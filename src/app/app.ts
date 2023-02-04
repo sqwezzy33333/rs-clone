@@ -21,7 +21,7 @@ export class App {
   private registrationPage: RegistrationPage;
   private profilePage: ProfilePage;
   private currentUser: string =
-  "Parse/fHTtYX3oryuYW1MNXV6nvRxfu2xGoRXPu71vYXWH/currentUser";
+    "Parse/fHTtYX3oryuYW1MNXV6nvRxfu2xGoRXPu71vYXWH/currentUser";
 
   constructor() {
     this.homePage = new HomePage("home-page");
@@ -35,7 +35,7 @@ export class App {
   }
 
   fillMainWrapper() {
-    this.mainWrapper.append(this.homePage.render());
+    this.mainWrapper.append(this.profilePage.render());
   }
 
   renderNewPage(idPage: string) {
