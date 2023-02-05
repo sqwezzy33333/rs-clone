@@ -53,7 +53,8 @@ export const getArtistTracks = async (name: string, order: sortOrderStrings) => 
       },
     ],
   } = data;
-  const audio = tracks.map((track: Track) => console.log(track.audio));
+  return await data;
+  // const audio = tracks.map((track: Track) => console.log(track.audio));
   // console.log(data);
 };
 
@@ -71,6 +72,7 @@ export const getArtistAlbums = async (name: string, order: sortOrderStrings) => 
       },
     ],
   } = data;
+  return await data;
   // console.log(data);
 };
 

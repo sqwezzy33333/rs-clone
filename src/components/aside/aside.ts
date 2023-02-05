@@ -1,4 +1,5 @@
 import { Component } from "../../templates/components";
+import { BaseComponent } from "../../templates/basecomponent";
 import { PageIds } from "../../templates/pages";
 
 function changeHash() {
@@ -39,6 +40,8 @@ const Buttons = [
 export class Aside extends Component {
   constructor(tagName: string, className: string) {
     super(tagName, className);
+    const appTitle = new BaseComponent('h1', 'aside__title', 'RS Music');
+    this.container.append(appTitle.element);
   }
 
   renderPageBtns() {

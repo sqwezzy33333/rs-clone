@@ -1,0 +1,38 @@
+.track__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // background-color: rgb(242, 152, 242);
+  border: 2px solid black;
+  height: 450px;
+  width: 300px;
+}
+
+.recomend__container {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+  padding-top: 10px;
+}
+
+.track__tag {
+  background-color: rgb(83 198 255);
+  border-radius: 15px;
+  padding: 0 18px;
+  color: white;
+}
+
+.track__image {
+  width: 300px;
+  height: 300px;
+}
+
+.track__title {
+  margin: 11px 0;
+  color: #646464;
+}
+
+.artist__title {
+  margin-top: 5px;
+  @include font($size:2.1rem, $height:2.7rem);
+}

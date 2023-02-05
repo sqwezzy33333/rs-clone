@@ -1,20 +1,40 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap');
+@import './style/placeholders.scss';
+@import './style/mixins.scss';
+@import './style/constants.scss';
 @import './assets/resource/reset.scss';
+@import './components/search/search.scss';
 @import './components/aside/aside.scss';
 @import './pages/logIn/logIn.scss';
 @import './pages/registration/registration.scss';
 @import './pages/profile/profile.scss';
+@import './pages/home/home.scss';
+
+html {
+  font-size: 10px;
+  box-sizing: border-box;
+}
+
+*, *::after, *::before {
+  box-sizing: inherit;
+}
+
+body {
+  @extend %font-default;
+  @include font($size:1.6rem, $height:2.1rem);
+  background-color: $color-background;
+}
 
 .container{
   display: flex;
-  padding: 0px 20px;
-  max-width: 1440px;
+  // padding: 0px 20px;
+  max-width: $content-width;
   margin: 0 auto;
   min-height: 100vh;
-  border: 1px solid red;
 }
 
 .main-wrapper{
   flex: 1 1 auto;
+  padding: 30px;
 }
 

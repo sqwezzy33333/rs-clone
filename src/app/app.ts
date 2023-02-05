@@ -8,7 +8,7 @@ import { PlaylistPage } from "../pages/playlist/playlist";
 import { LoginPage } from "../pages/logIn/logIn";
 import { RegistrationPage } from "../pages/registration/registrations";
 import { ProfilePage } from "../pages/profile/profile";
-import { getArtistAlbums, getArtistTracks } from "../api/api";
+import { Search } from "../components/search/search";
 
 
 export class App {
@@ -22,8 +22,9 @@ export class App {
   private loginPage: LoginPage;
   private registrationPage: RegistrationPage;
   private profilePage: ProfilePage;
+  private search: Search;
   private currentUser: string =
-    "Parse/fHTtYX3oryuYW1MNXV6nvRxfu2xGoRXPu71vYXWH/currentUser";
+  "Parse/fHTtYX3oryuYW1MNXV6nvRxfu2xGoRXPu71vYXWH/currentUser";
 
   constructor() {
     this.homePage = new HomePage("home-page");
@@ -34,6 +35,7 @@ export class App {
     this.loginPage = new LoginPage("login");
     this.registrationPage = new RegistrationPage("registration");
     this.profilePage = new ProfilePage("profile");
+    this.search = new Search();
   }
 
   fillMainWrapper() {
@@ -63,6 +65,8 @@ export class App {
 
     if (page) {
       const pageHTML = page.render();
+      // const search = this.search.render();
+      // this.mainWrapper.append(search, pageHTML);
       this.mainWrapper.append(pageHTML);
     }
   }
@@ -90,10 +94,9 @@ export class App {
 
     this.mainWrapper.className = "main-wrapper";
 
+    
     App.container.append(this.mainWrapper);
 
     this.enableRouteChange();
-    // getArtistTracks('color out', "byName");
-    // getArtistAlbums('color out', "byName");
   }
 }
