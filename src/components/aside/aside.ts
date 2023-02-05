@@ -2,6 +2,18 @@ import { Component } from "../../templates/components";
 import { BaseComponent } from "../../templates/basecomponent";
 import { PageIds } from "../../templates/pages";
 
+function changeHash() {
+  if (
+    localStorage.getItem(
+      "Parse/fHTtYX3oryuYW1MNXV6nvRxfu2xGoRXPu71vYXWH/currentUser"
+    )
+  ) {
+    return "profile";
+  } else {
+    return "login";
+  }
+}
+
 const Buttons = [
   {
     id: PageIds.MainPage,
@@ -13,11 +25,11 @@ const Buttons = [
   },
   {
     id: PageIds.Playlist,
-    text: "Playlist",
+    text: "Playlist"
   },
   {
-    id: PageIds.Profile,
-    text: "Profile"
+    id: changeHash(),
+    text: "Profile",
   },
   {
     id: PageIds.Categories,
@@ -34,10 +46,11 @@ export class Aside extends Component {
 
   renderPageBtns() {
     const navBlock = document.createElement("div");
-    navBlock.className = 'nav__wrapper';
+    navBlock.className = "nav__wrapper";
     Buttons.forEach((el) => {
       const btn = document.createElement("a");
-      btn.href = `#${el.id}`
+      btn.href = `#${el.id}`;
+      btn.id = `aside-${el.text}`
       btn.innerText = el.text;
       navBlock.append(btn);
     });

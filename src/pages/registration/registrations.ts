@@ -1,5 +1,5 @@
 import { Page } from "../../templates/pages";
-import { RegistrationUser } from "../../templates/types";
+import { UserInfo } from "../../templates/types";
 const Parse = require("parse");
 
 export class RegistrationPage extends Page {
@@ -51,7 +51,7 @@ export class RegistrationPage extends Page {
     return this.container;
   }
 
-  private async registrationUser(userObject: RegistrationUser) {
+  private async registrationUser(userObject: UserInfo) {
     const user = new Parse.User();
     try {
       if (userObject.password === userObject.confirmPass) {
@@ -62,11 +62,15 @@ export class RegistrationPage extends Page {
 
         userValues.forEach((el) => {
           user.set(`${el[0]}`, `${el[1]}`);
-          console.log(`${el[0]}`, `${el[1]}`);
         });
         
         let userResult = await user.signUp();
         console.log('succsess: ',userResult);
+        window.location.hash = "profile";
+        const profileLink = document.getElementById(
+          "aside-Profile"
+        ) as HTMLLinkElement;
+        profileLink.href = "#profile";
       } else this.addErrorSpan({"message": "passwords don't match"});
     } catch (error: any) {
       this.addErrorSpan(error);

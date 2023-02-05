@@ -23,6 +23,8 @@ export class App {
   private registrationPage: RegistrationPage;
   private profilePage: ProfilePage;
   private search: Search;
+  private currentUser: string =
+  "Parse/fHTtYX3oryuYW1MNXV6nvRxfu2xGoRXPu71vYXWH/currentUser";
 
   constructor() {
     this.homePage = new HomePage("home-page");
