@@ -1,5 +1,7 @@
+.profile-wrapper {
+  padding: 50px 0px;
+}
 .userBlock__wrapper {
-  padding-top: 80px;
   width: 600px;
 }
 
@@ -16,6 +18,7 @@
 
 #profile-flex {
   display: flex;
+  margin-bottom: 49px;
 }
 .userBlock {
   flex: 1 0 100%;
@@ -44,11 +47,30 @@
     line-height: 36px;
     margin-bottom: 21px;
   }
+  &__title-wrap {
+    width: 600px;
+    font-size: 18px;
+    cursor: pointer;
+    user-select: none;
+  }
+}
+
+#settings-form{
+  display: none;
+}
+
+#settings-form input {
+  margin-bottom: 27px;
+  width: 400px;
+}
+
+#settings-form span {
+  margin-bottom: 7px;
 }
 
 #settings-form-btn {
   background: rgba(135, 207, 101, 1);
-  width: 100px;
+  max-width: 100px;
   height: 35px;
   border: none;
   border-radius: 17.5px;
@@ -63,9 +85,15 @@
   cursor: pointer;
 }
 
-#settings-form input{
-  margin-bottom: 27px;
+#spoiler-settings-wrap{
+  position: relative;
 }
-#settings-form span{
-  margin-bottom: 7px;
+
+#spoiler-settings{
+  position: absolute;
+  font-size: 30px;
+  font-weight: 900;
+  color: rgba(135, 207, 101, 1);
+  top: 0px;
+  left: 118px;
 }
