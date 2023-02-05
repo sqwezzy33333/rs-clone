@@ -10,7 +10,6 @@ import { RegistrationPage } from "../pages/registration/registrations";
 import { ProfilePage } from "../pages/profile/profile";
 import { Search } from "../components/search/search";
 
-
 export class App {
   static container: HTMLElement = document.createElement("div");
   private mainWrapper: HTMLElement = document.createElement("section");
@@ -24,7 +23,7 @@ export class App {
   private profilePage: ProfilePage;
   private search: Search;
   private currentUser: string =
-  "Parse/fHTtYX3oryuYW1MNXV6nvRxfu2xGoRXPu71vYXWH/currentUser";
+    "Parse/fHTtYX3oryuYW1MNXV6nvRxfu2xGoRXPu71vYXWH/currentUser";
 
   constructor() {
     this.homePage = new HomePage("home-page");
@@ -39,7 +38,11 @@ export class App {
   }
 
   fillMainWrapper() {
-    this.mainWrapper.append(this.loginPage.render());
+    if (window.location.hash) {
+      this.renderNewPage(window.location.hash.slice(1));
+    } else {
+      this.mainWrapper.append(this.loginPage.render());
+    }
   }
 
   renderNewPage(idPage: string) {
@@ -73,13 +76,13 @@ export class App {
 
   private enableRouteChange() {
     window.addEventListener("hashchange", () => {
-      const hash = window.location.hash.slice(1);
+      const hash = window.location.hash;
 
       if (location.hash) {
         history.replaceState({}, "", hash);
       }
 
-      this.renderNewPage(hash);
+      this.renderNewPage(hash.slice(1));
     });
   }
 
@@ -94,7 +97,6 @@ export class App {
 
     this.mainWrapper.className = "main-wrapper";
 
-    
     App.container.append(this.mainWrapper);
 
     this.enableRouteChange();
