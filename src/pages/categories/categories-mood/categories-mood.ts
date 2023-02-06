@@ -1,5 +1,6 @@
 import { Page } from '../../../templates/pages';
 import { Aside } from '../../../components/Aside/aside';
+import { TagsCategories } from '../components-categories/tag';
 
 export class CategoriesMoodPage extends Page {
   static TextObject = {
@@ -16,7 +17,7 @@ export class CategoriesMoodPage extends Page {
       CategoriesMoodPage.TextObject.MainTitle
     );
     this.container.append(title);
-    
+    this.container.append((new TagsCategories("tags_mood", "tags__categories")).render("mood"));
     return this.container;
   }
 }

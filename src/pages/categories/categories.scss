@@ -25,3 +25,27 @@
     color: $color-text;
 }
 
+.tags__categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  width: 80%;
+  height: auto;
+  margin-top: 40px;
+
+  button {
+    background: $color-background;
+    &:hover {
+      background: $color-hover-text;
+      @extend %transition;
+    }
+  }
+}
+
+.tag__categorie {
+  min-width: 70px;
+  height: auto;
+  margin: 3px 3px;
+  align-content: center;
+  border-radius: 15px;
+}
