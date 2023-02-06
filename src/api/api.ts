@@ -14,7 +14,7 @@ const enum BaseRequest {
 
 export let storeTracks = {
   limit: '5',
-  artistName: 'Color out',
+  artistName: 'Steep',
   artistId: '',
   artistImage: '',
   tracks: [
@@ -54,7 +54,7 @@ const allGenres = ['pop', 'rock', 'electronic', 'hiphop', 'jazz', 'indie', 'punk
 
 //получать описание и тэги
 export const getMusicInfo = async () => {
-  const response = await fetch(`${BaseRequest.MusicInfo}/?client_id=${clientId}&format=jsonpretty&name=${storeTracks.artistName}`);
+  const response = await fetch(`${BaseRequest.MusicInfo}/?client_id=${clientId}&format=jsonpretty&limit=${storeTracks.limit}&name=${storeTracks.artistName}`);
   const data = await response.json();
   const {
     results: [

@@ -68,9 +68,9 @@ export class App {
 
     if (page) {
       const pageHTML = page.render();
-      // const search = this.search.render();
-      // this.mainWrapper.append(search, pageHTML);
-      this.mainWrapper.append(pageHTML);
+      const search = this.search.render();
+      this.mainWrapper.append(search, pageHTML);
+      // this.mainWrapper.append(pageHTML);
     }
   }
 
