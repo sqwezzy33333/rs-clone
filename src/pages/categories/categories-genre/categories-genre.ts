@@ -1,6 +1,6 @@
 import { Page } from '../../../templates/pages';
 import { Aside } from '../../../components/Aside/aside';
-import { TagsCategories } from '../components-categories/tag';
+import { TagsCategories } from '../components-categories/tag-categories';
 
 export class CategoriesGenrePage extends Page {
   static TextObject = {
@@ -17,7 +17,9 @@ export class CategoriesGenrePage extends Page {
       CategoriesGenrePage.TextObject.MainTitle
     );
     this.container.append(title);
-    this.container.append((new TagsCategories("tags_genre", "tags__categories")).render("theme"));
+    this.container.append(
+      new TagsCategories('tags_genre', 'tags__categories').render('genre')
+    );
     return this.container;
   }
 }

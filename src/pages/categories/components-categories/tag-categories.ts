@@ -1,3 +1,5 @@
+import { Tag } from "../../../components/tag/tag";
+
 export class TagsCategories {
     protected container: HTMLElement;
     constructor(id: string, className: string) {
@@ -17,13 +19,9 @@ export class TagsCategories {
         return this.container;
     }
 
-    renderTags(cat: string) {
+    renderTags(categorie: string) {
         for(let i = 0; i < 16; i++) {
-            let el = document.createElement('button');
-            el.id = `tag_${cat + i}`;
-            el.innerText = `${cat + i}`;
-            el.className = "tag__categorie";
-            this.container.append(el);
+            this.container.append((new Tag(`tag_${categorie + i}`, "button", "tag", `${categorie + i}`)).render());
         }
     }
 }
