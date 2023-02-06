@@ -4,11 +4,24 @@ const clientSecret = '7ea7bd4a6d0feab592e6525c8cf5b8d6';
 
 const enum BaseRequest {
   ArtistTrack = 'https://api.jamendo.com/v3.0/artists/tracks',
+  MusicInfo = 'https://api.jamendo.com/v3.0/artists/musicinfo',
   ArtistAlbums = 'https://api.jamendo.com/v3.0/artists/albums',
   ArtistLocation = 'https://api.jamendo.com/v3.0/artists/locations',
   Playlist = 'https://api.jamendo.com/v3.0/playlists',
   Albums = 'https://api.jamendo.com/v3.0/albums',
   Tracks = 'https://api.jamendo.com/v3.0/tracks',
+}
+
+export let storeTracks = {
+  limit: '5',
+  artistName: 'Color out',
+  artistId: '',
+  artistImage: '',
+  tracks: [
+    {audio:'', audiodownload:'', duration:'',  name: '', image:'', id:''},
+  ],
+  description: '',
+  tags:[]
 }
 
 // опции для сортировки треков
@@ -39,23 +52,64 @@ enum allLocation {
 
 const allGenres = ['pop', 'rock', 'electronic', 'hiphop', 'jazz', 'indie', 'punk', 'metal', 'chillout', 'house', 'classical', 'blues'];
 
-// получать трек конкретного исполнителя
-export const getArtistTracks = async (name: string, order: sortOrderStrings) => {
-  const response = await fetch(`${BaseRequest.ArtistTrack}/?client_id=${clientId}&format=jsonpretty&name=${name}&order=${sortOrder[order]}`);
+//получать описание и тэги
+export const getMusicInfo = async () => {
+  const response = await fetch(`${BaseRequest.MusicInfo}/?client_id=${clientId}&format=jsonpretty&name=${storeTracks.artistName}`);
   const data = await response.json();
   const {
     results: [
       {
-        id,
+        musicinfo: {
+          description,
+          tags
+        }
+      },
+    ],
+  } = data;
+
+  storeTracks = {
+    ...storeTracks,
+    description,
+    tags
+  }
+  return await data;
+}
+
+// получать трек конкретного исполнителя
+export const getArtistTracks = async (order: sortOrderStrings) => {
+  const response = await fetch(`${BaseRequest.ArtistTrack}/?client_id=${clientId}&format=jsonpretty&limit=${storeTracks.limit}&name=${storeTracks.artistName}&order=${sortOrder[order]}`);
+  const data = await response.json();
+  const {
+    results: [
+      {
         name: artistName,
-        image,
+        id: artistId,
+        image: artistImage,
         tracks,
       },
     ],
   } = data;
+
+  const track = tracks.map((track: Track) => track);
+
+  // const [
+  //   {
+  //   audio, 
+  //   audiodownload,
+  //   duration,
+  //   name: trackName,
+  //   image: trackImage,
+  //   id: trackId
+  //   },
+  // ] = track;
+
+  storeTracks = {
+    ...storeTracks,
+    artistId,
+    artistImage,
+    tracks: track
+  }
   return await data;
-  // const audio = tracks.map((track: Track) => console.log(track.audio));
-  // console.log(data);
 };
 
 // получать альбом конкретного исполнителя

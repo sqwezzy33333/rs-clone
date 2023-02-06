@@ -1,7 +1,9 @@
-import { getArtistTracks } from "../../api/api";
+import { getArtistTracks, getMusicInfo } from "../../api/api";
 import { Page } from "../../templates/pages";
 import { CardTrack } from "./recomend/card-track";
 import { Recomend } from "./recomend/recomendation";
+import { storeTracks } from "../../api/api";
+
 
 export class HomePage extends Page {
   private readonly recomendContainer: Recomend;
@@ -19,24 +21,17 @@ export class HomePage extends Page {
   }
 
   async getInfo() {
-    const data = await getArtistTracks('LITTLE SUSPICIONS', 'byName');
-    const {
-      results: [
-        {
-          id,
-          name: artistName,
-          image,
-          tracks,
-        },
-      ],
-    } = data;
-    console.log(image);
-    this.newRecomendation([image, image, image]);
+    const data = await getArtistTracks('byName');
+    const tag = await getMusicInfo();
+    this.newRecomendation();
   }
 
-  newRecomendation(images: string[]) {
-      //дописать логику рендера картинок
-      const cards = images.map((url) => new CardTrack(url,'Artist Name', 'Track Name',['tag','tag','tag']));
+  newRecomendation() {
+      let props = storeTracks.tracks;
+      const cards = props.map(({name,image}) => new CardTrack(
+        image,
+        storeTracks.artistName,
+        name, storeTracks.tags));
       this.recomendContainer.addCardsTracks(cards);
   }
 

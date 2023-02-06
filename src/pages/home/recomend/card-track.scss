@@ -13,17 +13,18 @@
   justify-content: space-between;
   gap: 5px;
   padding-top: 10px;
+  flex-wrap: wrap;
 }
 
 .track__tag {
   background-color: rgb(83 198 255);
   border-radius: 15px;
-  padding: 0 18px;
+  padding: 0 18px 4px;
   color: white;
 }
 
 .track__image {
-  width: 300px;
+  width: 296px;
   height: 300px;
 }
 
