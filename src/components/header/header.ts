@@ -1,6 +1,6 @@
 import { BaseComponent } from "../../templates/basecomponent";
 import { Search } from "./search/search";
-import { LogOut } from "../../pages/logIn/logout";
+import { LogOut } from "../logout/logout";
 
 export class Header extends BaseComponent {
   private search: Search;
