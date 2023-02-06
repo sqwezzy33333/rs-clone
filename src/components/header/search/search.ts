@@ -1,4 +1,4 @@
-import { BaseComponent } from "../../templates/basecomponent";
+import { BaseComponent } from "../../../templates/basecomponent";
 
 export class Search extends BaseComponent {
   constructor() {
