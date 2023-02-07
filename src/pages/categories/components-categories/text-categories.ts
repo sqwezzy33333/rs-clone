@@ -16,3 +16,4 @@ export class TextCategories extends BaseComponent {
     return this.element;
   }
 }
+
