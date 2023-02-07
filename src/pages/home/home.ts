@@ -1,34 +1,39 @@
-import { getArtistTracks, getMusicInfo } from "../../api/api";
+import { getArtistTracks, getMusicInfo, getPlaylist } from "../../api/api";
 import { Page } from "../../templates/pages";
 import { CardTrack } from "./recomend/card-track";
 import { Recomend } from "./recomend/recomendation";
 import { storeTracks } from "../../api/api";
+import { getRandomArtist } from "../../api/random";
 
 
 export class HomePage extends Page {
   private readonly recomendContainer: Recomend;
 
   static TextObject = {
-    MainTitle: "Home",
+    recomendTitle: "Recomended for you",
   };
 
   constructor(id: string) {
     super(id);
-    const title = this.createHeaderTitle(HomePage.TextObject.MainTitle);
-    const recTitle = this.createHeaderTitle('Recomended for you');
+    const recTitle = this.createHeaderTitle(HomePage.TextObject.recomendTitle);
+    recTitle.className = 'recomend__title';
     this.recomendContainer = new Recomend();
-    this.container.append(title,recTitle, this.recomendContainer.element);
+    this.container.append(recTitle, this.recomendContainer.element);
   }
 
   async getInfo() {
+    for(let i = 0; i < 3; i++) {
+    storeTracks.artistName = getRandomArtist();
     const data = await getArtistTracks('byName');
     const tag = await getMusicInfo();
     this.newRecomendation();
+    }
   }
 
   newRecomendation() {
-      let props = storeTracks.tracks;
-      const cards = props.map(({name,image}) => new CardTrack(
+      let tracks= storeTracks.tracks;
+      const randomTrack= [tracks[Math.floor(Math.random() * tracks.length)]];
+      const cards = randomTrack.map(({name,image}) => new CardTrack(
         image,
         storeTracks.artistName,
         name, storeTracks.tags));

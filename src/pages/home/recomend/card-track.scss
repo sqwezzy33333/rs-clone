@@ -2,9 +2,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  // background-color: rgb(242, 152, 242);
-  border: 2px solid black;
-  height: 450px;
+  justify-content: space-between;
+  height: 440px;
   width: 300px;
 }
 
@@ -14,6 +13,14 @@
   gap: 5px;
   padding-top: 10px;
   flex-wrap: wrap;
+}
+
+.track__tags {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
 }
 
 .track__tag {
@@ -26,6 +33,8 @@
 .track__image {
   width: 296px;
   height: 300px;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .track__title {

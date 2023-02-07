@@ -1,3 +1,4 @@
+import { getRandomArtist } from "./random";
 import { Track } from "./type";
 const clientId = 'c39d7345';
 const clientSecret = '7ea7bd4a6d0feab592e6525c8cf5b8d6';
@@ -13,8 +14,8 @@ const enum BaseRequest {
 }
 
 export let storeTracks = {
-  limit: '5',
-  artistName: 'Steep',
+  limit: '10',
+  artistName: '',
   artistId: '',
   artistImage: '',
   tracks: [
@@ -147,16 +148,18 @@ export const getArtistLocation = async (country: allLocationStrings, limit: numb
 
 // получать плейлист по названию
 export const getPlaylist = async (name: string) => {
-  const response = await fetch(`${BaseRequest.Playlist}/?client_id=${clientId}&format=jsonpretty&namesearch=${name}`);
+  const response = await fetch(`${BaseRequest.Playlist}/?client_id=${clientId}&format=jsonpretty&namesearch=${name}&datebetween=2021-01-01_2023-02-01`);
   const data = await response.json();
   const {
     results: [
       {
         name: playlistName,
+        shareurl,
+        zip
       },
     ],
   } = data;
-  // console.log(data);
+  console.log(data);
 };
 
 // получать альбомы по названию
@@ -193,3 +196,5 @@ export const getTracksByTag = async (tag: string[], limit: number) => {
   } = data;
   // console.log(data);
 };
+
+
