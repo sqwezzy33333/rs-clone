@@ -40,8 +40,9 @@ const Buttons = [
 export class Aside extends Component {
   constructor(tagName: string, className: string) {
     super(tagName, className);
-    const appTitle = new BaseComponent('h1', 'aside__title', 'RS Music');
+    const appTitle = new BaseComponent('h1', 'aside__title','RS Music');
     this.container.append(appTitle.element);
+    
   }
 
   renderPageBtns() {

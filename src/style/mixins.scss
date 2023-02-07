@@ -9,6 +9,11 @@
   @media (max-width: $desktop-width) { @content; }
 }
 
+
+@mixin content-desktop {
+  @media (max-width: $content-width) { @content; }
+}
+
 @mixin media-tablet {
   @media (max-width: $tablet-width) { @content; }
 }
