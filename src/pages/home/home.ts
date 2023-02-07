@@ -11,6 +11,7 @@ export class HomePage extends Page {
 
   static TextObject = {
     recomendTitle: "Recomended for you",
+    albumsTitle: "New Albums"
   };
 
   constructor(id: string) {
@@ -18,7 +19,9 @@ export class HomePage extends Page {
     const recTitle = this.createHeaderTitle(HomePage.TextObject.recomendTitle);
     recTitle.className = 'recomend__title';
     this.recomendContainer = new Recomend();
-    this.container.append(recTitle, this.recomendContainer.element);
+    const albumsTitle = this.createHeaderTitle(HomePage.TextObject.albumsTitle);
+    albumsTitle.className = 'albums__title';
+    this.container.append(recTitle, this.recomendContainer.element, albumsTitle);
   }
 
   async getInfo() {

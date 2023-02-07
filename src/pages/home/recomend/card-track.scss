@@ -9,10 +9,36 @@
 
 .recomend__container {
   display: flex;
-  justify-content: space-between;
-  gap: 5px;
+  justify-content: space-around;
+  gap: 12px;
   padding-top: 10px;
   flex-wrap: wrap;
+}
+
+.hover-button {
+  position: relative;
+  width: 100%;
+  &:hover {
+    .play-button {
+      opacity: 1;
+    }
+  }
+}
+
+.play-button {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  right:43%;
+  top: 43%;
+  text-align: center;
+  opacity: 0;
+  transition: opacity .5s ease;
+  background-color: rgb(255 255 255 / 80%);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .track__tags {
