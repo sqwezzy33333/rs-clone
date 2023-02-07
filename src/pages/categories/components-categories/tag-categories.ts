@@ -1,4 +1,5 @@
 import { Tag } from "../../../components/tag/tag";
+import { TextCategories } from "../components-categories/text-categories";
 
 export class TagsCategories {
   protected container: HTMLElement;
@@ -9,12 +10,19 @@ export class TagsCategories {
   }
 
   render(categorie: string) {
-    if (categorie === "genre") {
-      this.renderTags("genre");
-    } else if (categorie === "mood") {
-      this.renderTags("mood");
-    } else if (categorie === "theme") {
-      this.renderTags("theme");
+    switch (categorie) {
+      case "genre":
+        this.renderTags("genre");
+        this.renderText("genre");
+        break;
+      case "mood":
+        this.renderTags("mood");
+        this.renderText("mood");
+        break;
+      case "theme":
+        this.renderTags("theme");
+        this.renderText("theme");
+        break;
     }
     return this.container;
   }
@@ -30,5 +38,11 @@ export class TagsCategories {
         ).render()
       );
     }
+  }
+
+  renderText(categorie: string) {
+    this.container.append(
+      new TextCategories(`text_${categorie}`, "p", "text__categories").render()
+    );
   }
 }
