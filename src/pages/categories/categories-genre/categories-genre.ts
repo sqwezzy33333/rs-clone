@@ -1,10 +1,10 @@
-import { Page } from '../../../templates/pages';
-import { Aside } from '../../../components/Aside/aside';
-import { TagsCategories } from '../components-categories/tag-categories';
+import { Page } from "../../../templates/pages";
+import { Aside } from "../../../components/Aside/aside";
+import { TagsCategories } from "../components-categories/tag-categories";
 
 export class CategoriesGenrePage extends Page {
   static TextObject = {
-    MainTitle: 'GENRE',
+    MainTitle: "GENRE",
   };
 
   constructor(id: string) {
@@ -18,7 +18,7 @@ export class CategoriesGenrePage extends Page {
     );
     this.container.append(title);
     this.container.append(
-      new TagsCategories('tags_genre', 'tags__categories').render('genre')
+      new TagsCategories("tags_genre", "tags__categories").render("genre")
     );
     return this.container;
   }

@@ -1,8 +1,12 @@
 import { BaseComponent } from "../../templates/basecomponent";
 
-export class Tag extends BaseComponent{
-
-  constructor(id: string, tagName: keyof HTMLElementTagNameMap,className: string, innerText?: string) {
+export class Tag extends BaseComponent {
+  constructor(
+    id: string,
+    tagName: keyof HTMLElementTagNameMap,
+    className: string,
+    innerText?: string
+  ) {
     super(tagName, className, innerText);
     this.element.id = id;
     this.element.style.background = this.randomColor();
