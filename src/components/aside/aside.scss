@@ -1,5 +1,5 @@
 .aside{
-  min-width: 248px;
+  width: $aside-width;
   background-color: $color-background;
   box-shadow: 7px 0px 27px 0px rgba(102, 173, 195, 0.26);
   z-index: 1;
@@ -22,4 +22,12 @@
       @extend %transition;
     }
   }
+}
+
+#nav__categories {
+  display: none;
+  flex-direction: column;
+  margin-left: 50px;
+  font-size: 2.0rem;
+  line-height: 3.7rem;
 }

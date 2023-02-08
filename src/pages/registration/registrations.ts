@@ -32,7 +32,7 @@ export class RegistrationPage extends Page {
     <input name="confirm-password" type="password" id="registr-confirm" class="form-input" placeholder="password">
 
     <span class="form-span">Change Phone Number</span>
-    <input name="phone" type="tel" id="registr-number" class="form-input" placeholder="phone number">
+    <input name="phone" type="tel" id="registr-phone" class="form-input" placeholder="phone number">
 
     <input type="submit" value="Sign in" id="regist-form-btn">
     `;

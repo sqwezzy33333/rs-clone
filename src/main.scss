@@ -10,6 +10,9 @@
 @import './pages/registration/registration.scss';
 @import './pages/profile/profile.scss';
 @import './pages/home/home.scss';
+@import './pages/categories/categories.scss';
+@import './components/tag/tag.scss';
+@import './components/player/player.scss';
 
 html {
   font-size: 10px;
@@ -27,6 +30,7 @@ body {
 }
 
 .container{
+  position: relative;
   display: flex;
   // padding: 0px 20px;
   max-width: $content-width;

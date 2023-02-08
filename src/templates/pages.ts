@@ -8,6 +8,9 @@ export const enum PageIds {
   Login = "login",
   Categories = "categories",
   Registration = "registration",
+  CategoriesGenre = "genre",
+  CategoriesMood = "mood",
+  CategoriesTheme = "theme",
 }
 
 export abstract class Page {
