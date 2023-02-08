@@ -1,0 +1,35 @@
+#categories {
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.categories-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 60%;
+  height: 24px;
+  margin-top: 20px;
+  a {
+    @include font($size: 2rem, $height: 5.7rem, $weight: 300);
+    color: $color-text;
+    &:hover {
+      color: $color-hover-text;
+      @extend %transition;
+    }
+  }
+}
+
+.categorie-name {
+  cursor: pointer;
+  color: $color-text;
+}
+
+.tags__categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  width: 90%;
+  height: auto;
+  margin-top: 40px;
+}
