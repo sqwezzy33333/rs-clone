@@ -196,10 +196,8 @@ export class Player extends Component {
   }
 
   private changeVolume(): void {
-    console.log(this.volume.inputElement);
     this.volume.inputElement.addEventListener("change", () => {
       this.audio.volume = Number(this.volume.inputElement.value) / 10;
-      console.log(this.audio.volume);
       localStorage.setItem("volume-value", `${this.audio.volume}`);
     });
   }
@@ -218,21 +216,15 @@ export class Player extends Component {
       let soundPlay: string | null = localStorage.getItem("sound");
       if (soundPlay === "on") {
         img.src = "../../assets/images/panel/noSound.svg";
-
         localStorage.setItem("sound", "off");
-
         this.audio.volume = 0;
-
         this.volumeWrapp.element.innerHTML = `
         <input type="range" min="0" max="10" value="0">
         `;
       } else if (soundPlay === "off") {
         img.src = "../../assets/images/panel/sound.svg";
-
         localStorage.setItem("sound", "on");
-
         if (volumeValue) this.audio.volume = Number(volumeValue);
-
         if (volumeValue) {
           this.volumeWrapp.element.innerHTML = `
         <input type="range" min="0" max="10" value="${
