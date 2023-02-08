@@ -12,12 +12,14 @@ import { LoginPage } from "../pages/logIn/logIn";
 import { RegistrationPage } from "../pages/registration/registrations";
 import { ProfilePage } from "../pages/profile/profile";
 import { Search } from "../components/search/search";
+import { Player } from "../components/player/player";
 
 export class App {
   static container: HTMLElement = document.createElement("div");
-  private mainWrapper: HTMLElement = document.createElement("section");
+  static mainWrapper: HTMLElement = document.createElement("section");
   private homePage: HomePage;
-  private aside: Aside;
+  static aside: Aside;
+  private player: Player;
   private favoritePage: FavoritePage;
   private categoriesPage: CategoriesPage;
   private categoriesGenrePage: CategoriesGenrePage;
@@ -33,7 +35,7 @@ export class App {
 
   constructor() {
     this.homePage = new HomePage("home-page");
-    this.aside = new Aside("aside", "aside");
+    App.aside = new Aside("aside", "aside");
     this.favoritePage = new FavoritePage("favorite");
     this.categoriesPage = new CategoriesPage("categories");
     this.categoriesGenrePage = new CategoriesGenrePage("categorie-genre");
@@ -44,18 +46,20 @@ export class App {
     this.registrationPage = new RegistrationPage("registration");
     this.profilePage = new ProfilePage("profile");
     this.search = new Search();
+    this.player = new Player("div", "player__wrapper");
   }
 
   fillMainWrapper() {
+    App.mainWrapper.id = "main-wrap";
     if (window.location.hash) {
       this.renderNewPage(window.location.hash.slice(1));
     } else {
-      this.mainWrapper.append(this.loginPage.render());
+      App.mainWrapper.append(this.loginPage.render());
     }
   }
 
   renderNewPage(idPage: string) {
-    this.mainWrapper.innerHTML = "";
+    App.mainWrapper.innerHTML = "";
 
     let page: Page | null = null;
 
@@ -91,8 +95,8 @@ export class App {
     if (page) {
       const pageHTML = page.render();
       // const search = this.search.render();
-      // this.mainWrapper.append(search, pageHTML);
-      this.mainWrapper.append(pageHTML);
+      // App.mainWrapper.append(search, pageHTML);
+      App.mainWrapper.append(pageHTML);
     }
   }
 
@@ -110,16 +114,19 @@ export class App {
 
   run() {
     App.container.className = "container";
+    App.container.id = "container";
 
     document.body.append(App.container);
 
-    App.container.append(this.aside.render());
+    App.container.append(App.aside.render());
 
     this.fillMainWrapper();
 
-    this.mainWrapper.className = "main-wrapper";
+    App.mainWrapper.className = "main-wrapper";
 
-    App.container.append(this.mainWrapper);
+    App.container.append(App.mainWrapper);
+
+    App.container.append(this.player.render());
 
     this.enableRouteChange();
   }

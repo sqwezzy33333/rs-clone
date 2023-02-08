@@ -25,7 +25,7 @@ const Buttons = [
   },
   {
     id: PageIds.Playlist,
-    text: "Playlist",
+    text: "Playlist"
   },
   {
     id: changeHash(),
@@ -57,6 +57,7 @@ export class Aside extends Component {
     super(tagName, className);
     const appTitle = new BaseComponent("h1", "aside__title", "RS Music");
     this.container.append(appTitle.element);
+    
   }
 
   renderPageBtns() {
