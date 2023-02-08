@@ -1,0 +1,11 @@
+@import '../logout/logout.scss';
+@import './search/search.scss';
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.search__container {
+  flex: 1;
+}

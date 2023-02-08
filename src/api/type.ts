@@ -5,3 +5,10 @@ export interface Track {
   duration: number,
   name: string
 }
+
+export interface Album {
+  id: string,
+  image: string,
+  name: string,
+  releasedate: string
+}

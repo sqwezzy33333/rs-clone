@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap');
+@import './components/preloader/preloader.scss';
 @import './style/placeholders.scss';
 @import './style/mixins.scss';
 @import './style/constants.scss';
 @import './assets/resource/reset.scss';
-@import './components/search/search.scss';
+@import './components/header/header.scss';
 @import './components/aside/aside.scss';
 @import './pages/logIn/logIn.scss';
 @import './pages/registration/registration.scss';

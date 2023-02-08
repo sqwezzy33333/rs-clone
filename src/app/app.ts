@@ -11,7 +11,7 @@ import { PlaylistPage } from "../pages/playlist/playlist";
 import { LoginPage } from "../pages/logIn/logIn";
 import { RegistrationPage } from "../pages/registration/registrations";
 import { ProfilePage } from "../pages/profile/profile";
-import { Search } from "../components/search/search";
+import { Header } from "../components/header/header";
 import { Player } from "../components/player/player";
 
 export class App {
@@ -29,7 +29,7 @@ export class App {
   private loginPage: LoginPage;
   private registrationPage: RegistrationPage;
   private profilePage: ProfilePage;
-  private search: Search;
+  private header: Header;
   private currentUser: string =
     "Parse/fHTtYX3oryuYW1MNXV6nvRxfu2xGoRXPu71vYXWH/currentUser";
 
@@ -45,7 +45,7 @@ export class App {
     this.loginPage = new LoginPage("login");
     this.registrationPage = new RegistrationPage("registration");
     this.profilePage = new ProfilePage("profile");
-    this.search = new Search();
+    this.header = new Header();
     this.player = new Player("div", "player__wrapper");
   }
 
@@ -94,9 +94,8 @@ export class App {
 
     if (page) {
       const pageHTML = page.render();
-      // const search = this.search.render();
-      // App.mainWrapper.append(search, pageHTML);
-      App.mainWrapper.append(pageHTML);
+      const header = this.header.render();
+      App.mainWrapper.append(header, pageHTML);
     }
   }
 
