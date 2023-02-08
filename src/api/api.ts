@@ -1,5 +1,6 @@
-import { getRandomArtist } from "./random";
 import { Track } from "./type";
+import { Album } from "../pages/home/albums/albums";
+
 const clientId = 'c39d7345';
 const clientSecret = '7ea7bd4a6d0feab592e6525c8cf5b8d6';
 
@@ -22,8 +23,20 @@ export let storeTracks = {
     {audio:'', audiodownload:'', duration:'',  name: '', image:'', id:''},
   ],
   description: '',
-  tags:[]
+  tags:[],
 }
+
+export let storeAlbums = {
+  albumId: '',
+  albumName: '',
+  albumImage: '',
+  albums: [
+    {id: '', image: '', name: '', releasedate: ''}
+  ],
+  artistNameAlbum: ''
+}
+
+
 
 // опции для сортировки треков
 enum sortOrder {
@@ -83,8 +96,8 @@ export const getArtistTracks = async (order: sortOrderStrings) => {
   const {
     results: [
       {
-        name: artistName,
-        id: artistId,
+        // name: artistName,
+        // id: artistId,
         image: artistImage,
         tracks,
       },
@@ -106,7 +119,6 @@ export const getArtistTracks = async (order: sortOrderStrings) => {
 
   storeTracks = {
     ...storeTracks,
-    artistId,
     artistImage,
     tracks: track
   }
@@ -114,22 +126,32 @@ export const getArtistTracks = async (order: sortOrderStrings) => {
 };
 
 // получать альбом конкретного исполнителя
-export const getArtistAlbums = async (name: string, order: sortOrderStrings) => {
-  const response = await fetch(`${BaseRequest.ArtistAlbums}/?client_id=${clientId}&format=jsonpretty&name=${name}&order=${sortOrder[order]}`);
+export const getArtistAlbums = async (order: sortOrderStrings) => {
+  const response = await fetch(`${BaseRequest.ArtistAlbums}/?client_id=${clientId}&format=jsonpretty&name=${storeTracks.artistName}&order=${sortOrder[order]}`);
   const data = await response.json();
   const {
     results: [
       {
-        id,
-        name: artistName,
-        image,
+        id: albumId,
+        // name: albumName,
+        image: albumImage,
         albums,
       },
     ],
   } = data;
+
+  const album = albums.map((album: Album) => album);
+
+  storeAlbums = {
+    ...storeAlbums,
+    albumId,
+    // albumName,
+    albumImage,
+    albums: album
+  }
   return await data;
-  // console.log(data);
 };
+
 
 // получать исполнителей по локации
 export const getArtistLocation = async (country: allLocationStrings, limit: number) => {
@@ -163,20 +185,25 @@ export const getPlaylist = async (name: string) => {
 };
 
 // получать альбомы по названию
-export const getAlbums = async (name: string) => {
-  const response = await fetch(`${BaseRequest.Albums}/?client_id=${clientId}&format=jsonpretty&name=${name}`);
+export const getAlbums = async () => {
+  const response = await fetch(`${BaseRequest.Albums}/?client_id=${clientId}&format=jsonpretty&name=${storeAlbums.albumName}`);
   const data = await response.json();
   const {
     results: [
       {
-        artist_name: artistName,
-        name: trackName,
-        image,
+        // name: albumName,
+        image: albumImage,
         releasedate,
+        zip
       },
     ],
   } = data;
-  // console.log(data);
+
+  storeAlbums = {
+    ...storeAlbums,
+    // albumName,
+    albumImage
+  }
 };
 
 // получать треки по тэгам

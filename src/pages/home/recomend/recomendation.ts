@@ -8,7 +8,12 @@ export class Recomend extends BaseComponent {
     super('div', 'recomend__container');
   }
 
-  addCardsTracks(cards: CardTrack[]) {
+  clear() {
+    this.cards = [];
+    this.element.innerHTML = '';
+  }
+
+  addCards(cards: CardTrack[]) {
     this.cards = cards;
     this.cards.forEach((card) => this.element.append(card.element))
   }

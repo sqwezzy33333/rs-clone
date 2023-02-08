@@ -89,15 +89,15 @@ export class App {
     App.container.className = "container";
 
     document.body.append(App.container);
-
+    
     App.container.append(this.aside.render());
-
+    
     this.fillMainWrapper();
-
+    
     this.mainWrapper.className = "main-wrapper";
-
+    
     App.container.append(this.mainWrapper);
-
+    
     this.enableRouteChange();
   }
 }
