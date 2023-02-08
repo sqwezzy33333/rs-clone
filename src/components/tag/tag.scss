@@ -1,0 +1,13 @@
+.tag {
+    min-width: 140px;
+    height: auto;
+    margin: 3px 3px;
+    align-content: center;
+    border-radius: 15px;
+    border: 2px solid $color-background;
+    cursor: pointer;
+    &:hover {
+      border: 2px solid $color-text;
+      transition: all 800ms ease;
+    }
+  }

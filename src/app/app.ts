@@ -4,6 +4,9 @@ import { PageIds } from "../templates/pages";
 import { Aside } from "../components/Aside/aside";
 import { FavoritePage } from "../pages/favorite/favorite";
 import { CategoriesPage } from "../pages/categories/categories";
+import { CategoriesGenrePage } from "../pages/categories/categories-genre/categories-genre";
+import { CategoriesMoodPage } from "../pages/categories/categories-mood/categories-mood";
+import { CategoriesThemePage } from "../pages/categories/categories-theme/categories-theme";
 import { PlaylistPage } from "../pages/playlist/playlist";
 import { LoginPage } from "../pages/logIn/logIn";
 import { RegistrationPage } from "../pages/registration/registrations";
@@ -19,6 +22,9 @@ export class App {
   private player: Player;
   private favoritePage: FavoritePage;
   private categoriesPage: CategoriesPage;
+  private categoriesGenrePage: CategoriesGenrePage;
+  private categoriesMoodPage: CategoriesMoodPage;
+  private categoriesThemePage: CategoriesThemePage;
   private playlistPage: PlaylistPage;
   private loginPage: LoginPage;
   private registrationPage: RegistrationPage;
@@ -32,6 +38,9 @@ export class App {
     App.aside = new Aside("aside", "aside");
     this.favoritePage = new FavoritePage("favorite");
     this.categoriesPage = new CategoriesPage("categories");
+    this.categoriesGenrePage = new CategoriesGenrePage("categorie-genre");
+    this.categoriesMoodPage = new CategoriesMoodPage("categorie-mood");
+    this.categoriesThemePage = new CategoriesThemePage("categorie-theme");
     this.playlistPage = new PlaylistPage("playlist");
     this.loginPage = new LoginPage("login");
     this.registrationPage = new RegistrationPage("registration");
@@ -56,18 +65,31 @@ export class App {
 
     if (idPage === PageIds.MainPage) {
       page = new HomePage(idPage);
+      Aside.renderCategoriesBtns(false);
     } else if (idPage === PageIds.Favorite) {
       page = new FavoritePage(idPage);
+      Aside.renderCategoriesBtns(false);
     } else if (idPage === PageIds.Categories) {
       page = new CategoriesPage(idPage);
+      Aside.renderCategoriesBtns(true);
     } else if (idPage === PageIds.Playlist) {
       page = new PlaylistPage(idPage);
+      Aside.renderCategoriesBtns(false);
     } else if (idPage === PageIds.Login) {
       page = new LoginPage(idPage);
+      Aside.renderCategoriesBtns(false);
     } else if (idPage === PageIds.Registration) {
       page = new RegistrationPage(idPage);
+      Aside.renderCategoriesBtns(false);
     } else if (idPage === PageIds.Profile) {
       page = new ProfilePage(idPage);
+      Aside.renderCategoriesBtns(false);
+    } else if (idPage === PageIds.CategoriesGenre) {
+      page = new CategoriesGenrePage(idPage);
+    } else if (idPage === PageIds.CategoriesMood) {
+      page = new CategoriesMoodPage(idPage);
+    } else if (idPage === PageIds.CategoriesTheme) {
+      page = new CategoriesThemePage(idPage);
     }
 
     if (page) {
