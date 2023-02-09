@@ -18,6 +18,7 @@ export class Player extends Component {
   wrapperForPanel: BaseComponent;
   audio: HTMLAudioElement = new Audio();
   audioUrl: string | null = localStorage.getItem("currentTrackUrl");
+
   constructor(tagName: string, className: string) {
     super(tagName, className);
     this.playerContainer = new BaseComponent("div", "player__container");
@@ -64,10 +65,10 @@ export class Player extends Component {
     this.startTrack();
     this.changeVolume();
     this.volumeBtnEvents();
+    this.onloadProgress();
   }
 
   private createProgress(): void {
-    localStorage.setItem("sound", "on");
     const progressBar = document.createElement("div") as HTMLElement;
     progressBar.className = "progress__bar";
     this.progressBar.element.append(progressBar);
@@ -128,6 +129,7 @@ export class Player extends Component {
 
     if (volumeValue)
       this.volume.inputElement.value = (Number(volumeValue) * 10).toString();
+    this.audio.volume = Number(volumeValue);
 
     if (localStorage.getItem("sound") !== "on") {
       this.volume.inputElement.value = "0";
@@ -151,6 +153,22 @@ export class Player extends Component {
     });
   }
 
+  private onloadProgress() {
+    this.audio.addEventListener("canplaythrough", () => {
+      const progresLine = this.progressBar.element.children[0] as HTMLElement;
+
+      let whidthOfPlayer: number = this.player.element.offsetWidth;
+      let currentTimeFromStorage = localStorage.getItem("currentTime");
+
+      if (currentTimeFromStorage) {
+        progresLine.style.width =
+          (whidthOfPlayer / this.audio.duration) *
+            Number(currentTimeFromStorage) +
+          "px";
+      }
+    });
+  }
+
   private changeProgress(): void {
     const progresLine = this.progressBar.element.children[0] as HTMLElement;
 
@@ -163,6 +181,7 @@ export class Player extends Component {
       progresLine.style.width = clickX + "px";
 
       this.audio.currentTime = (clickX / whidthOfPlayer) * this.audio.duration;
+      localStorage.setItem("currentTime", `${this.audio.currentTime}`);
     });
   }
 
@@ -172,20 +191,26 @@ export class Player extends Component {
       let whidthOfPlayer: number = this.player.element.offsetWidth;
       progresLine.style.width =
         (whidthOfPlayer / this.audio.duration) * this.audio.currentTime + "px";
+      localStorage.setItem("currentTime", `${this.audio.currentTime}`);
     });
   }
 
   private startTrack(): void {
     const img = this.playOrPauseBlock.element.children[0] as HTMLImageElement;
-    localStorage.setItem("currentTrackUrl", "../../assets/yamakasi.mp3");
-    localStorage.setItem("isPlay", "false");
+
     let playImgSrc: string = `../../assets/images/panel/play.svg`;
     let pauseImgSrc: string = `../../assets/images/panel/pause.svg`;
+
+    localStorage.setItem("currentTrackUrl", "../../assets/yamakasi.mp3");
+    localStorage.setItem("isPlay", "false");
 
     this.playOrPauseBlock.element.addEventListener("click", () => {
       if (localStorage.getItem("isPlay") === "false") {
         img.src = pauseImgSrc;
         localStorage.setItem("isPlay", "true");
+        let currentTimeFromStorage = localStorage.getItem("currentTime");
+        this.audio.currentTime = Number(currentTimeFromStorage);
+        if (localStorage.getItem("sound") === "off") this.audio.volume = 0;
         this.audio.play();
       } else {
         img.src = playImgSrc;
