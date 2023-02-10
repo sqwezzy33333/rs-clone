@@ -177,7 +177,7 @@ export class Player extends Component {
 
   private startTrack(): void {
     const img = this.playOrPauseBlock.element.children[0] as HTMLImageElement;
-    localStorage.setItem("currentTrackUrl", "../../assets/yamakasi.mp3");
+    // localStorage.setItem("currentTrackUrl", "../../assets/yamakasi.mp3");
     localStorage.setItem("isPlay", "false");
     let playImgSrc: string = `../../assets/images/panel/play.svg`;
     let pauseImgSrc: string = `../../assets/images/panel/pause.svg`;

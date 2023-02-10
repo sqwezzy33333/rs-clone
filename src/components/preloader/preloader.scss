@@ -5,7 +5,7 @@
   right: 0;
   bottom: 0;
   z-index: 1001;
-  background-color: #337ab7;
+  background-color: rgb(247, 250, 255);
 }
 
 .preloader__item {
@@ -93,10 +93,10 @@
   }
 }
 
-// .loaded_hiding .preloader {
-//   transition: 0.3s opacity;
-//   opacity: 0;
-// }
+.loaded_hiding .preloader {
+  transition: 0.3s opacity;
+  opacity: 0;
+}
 
 .loaded .preloader {
   display: none;

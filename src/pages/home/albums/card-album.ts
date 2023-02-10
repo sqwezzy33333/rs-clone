@@ -2,7 +2,7 @@ import { BaseComponent } from "../../../templates/basecomponent";
 
 export class AlbumCard extends BaseComponent {
   constructor(image: string, albumName: string) {
-    super('div', 'album') 
+    super('div', 'album keen-slider__slide') 
     this.element.innerHTML = `
     <div class="album__container">
     <img class="album__image" src=${image} alt="album_image">

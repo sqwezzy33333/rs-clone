@@ -20,10 +20,13 @@ export let storeTracks = {
   artistId: '',
   artistImage: '',
   tracks: [
-    {audio:'', audiodownload:'', duration:'',  name: '', image:'', id:''},
+    {audio:'', audiodownload:'', duration:'',  name: '', image:'', id: 0},
   ],
   description: '',
   tags:[],
+  audio: '',
+  trackId: 0,
+  trackName: ''
 }
 
 export let storeAlbums = {
@@ -166,6 +169,7 @@ export const getArtistLocation = async (country: allLocationStrings, limit: numb
     ],
   } = data;
   // console.log(data);
+  return await data;
 };
 
 // получать плейлист по названию
@@ -181,7 +185,7 @@ export const getPlaylist = async (name: string) => {
       },
     ],
   } = data;
-  console.log(data);
+  return await data;
 };
 
 // получать альбомы по названию
@@ -195,15 +199,16 @@ export const getAlbums = async () => {
         image: albumImage,
         releasedate,
         zip
-      },
-    ],
+      }
+    ]
   } = data;
 
   storeAlbums = {
     ...storeAlbums,
     // albumName,
-    albumImage
+    albumImage,
   }
+  return await data;
 };
 
 // получать треки по тэгам
@@ -222,6 +227,27 @@ export const getTracksByTag = async (tag: string[], limit: number) => {
     ],
   } = data;
   // console.log(data);
+  return await data;
+};
+
+
+// получать треки
+export const getTracks = async (id: number[]) => {
+  const response = await fetch(`${BaseRequest.Tracks}/?client_id=${clientId}&format=jsonpretty&id=${id}`);
+  const data = await response.json();
+  const {
+    results: [
+      {
+        audio
+      },
+    ],
+  } = data;
+
+  storeTracks = {
+    ...storeTracks,
+    audio,
+  }
+  return await data;
 };
 
 

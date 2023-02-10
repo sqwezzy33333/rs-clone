@@ -5,7 +5,7 @@ export class Album extends BaseComponent {
   private cards: AlbumCard[] = [];
   
   constructor() {
-    super('div', 'albums__container');
+    super('div', 'albums__container keen-slider');
   }
 
   clear() {
