@@ -11,7 +11,8 @@ export class TextCategories extends BaseComponent {
     this.element.id = id;
   }
 
-  render() {this.element.innerText = `This is a music recommendation with the genre that you can listen to and download for free. (Free Music List only links and creates alternative links from copyright-free music on the internet)`;
+  render() {
+    this.element.innerText = `This is a music recommendation with the genre that you can listen to and download for free. (Free Music List only links and creates alternative links from copyright-free music on the internet)`;
     return this.element;
   }
 }
