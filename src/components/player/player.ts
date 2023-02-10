@@ -1,20 +1,27 @@
 import { BaseComponent } from "../../templates/basecomponent";
-import { App } from "../../app/app";
 import { Component } from "../../templates/components";
 
 export class Player extends Component {
   static playOrPauseBlock: BaseComponent;
   static audio: HTMLAudioElement = new Audio();
-  static audioUrl: string | null = localStorage.getItem("currentTrackUrl");
-  static startTrack(): void {
-    if (localStorage.getItem("currentTrackUrl")) {
-      const img = Player.playOrPauseBlock.element
-        .children[0] as HTMLImageElement;
-      Player.audio.currentTime = 0;
-      Player.audio.play();
-      img.src = `../../assets/images/panel/pause.svg`;
-      localStorage.setItem("isPlay", "true");
-    }
+  static imageBlock = document.createElement("div") as HTMLElement;
+  static aboutBlock = document.createElement("div") as HTMLElement;
+
+  static startTrack(data: any, id: string): void {
+    console.log(data[0])
+    const imgTrack = Player.imageBlock.children[0] as HTMLImageElement;
+    const imgPause = Player.playOrPauseBlock.element.children[0] as HTMLImageElement;
+    imgTrack.src = data[0].image;
+    Player.audio.src = data[0].audio;
+   
+    let pauseImgSrc: string = `../../assets/images/panel/pause.svg`;
+    imgPause.src = pauseImgSrc;
+    Player.aboutBlock.innerHTML = `
+                            <span class="info-block__song-name">${data[0].name}</span>
+                            <div class="info-block__author">${data[0].artist_name}</div>
+    `;
+    localStorage.setItem("isPlay", "true");
+    Player.audio.play();
   }
 
   private progressBar: BaseComponent;
@@ -50,7 +57,6 @@ export class Player extends Component {
     this.volume = new BaseComponent("input", "player__volume", "", "volume");
     this.wrapperForPanel = new BaseComponent("div", "player__panel-wrap");
     this.volumeWrapp = new BaseComponent("div", "player__volume");
-    if (Player.audioUrl) Player.audio = new Audio(Player.audioUrl);
   }
 
   public render(): HTMLElement {
@@ -89,17 +95,17 @@ export class Player extends Component {
 
   private createInfoBlock(): void {
     this.infoBlock.element.classList.add("info-block");
-    const imageBlock = document.createElement("div") as HTMLElement;
-    const aboutBlock = document.createElement("div") as HTMLElement;
-    aboutBlock.className = "info-block__about-wrapp";
-    imageBlock.className = "info-block__image";
-    aboutBlock.innerHTML = `
-                            <span class="info-block__song-name">Yamakasi</span>
-                            <div class="info-block__author">Miyagi</div>
+    Player.imageBlock = document.createElement("div") as HTMLElement;
+    Player.aboutBlock = document.createElement("div") as HTMLElement;
+    Player.aboutBlock.className = "info-block__about-wrapp";
+    Player.imageBlock.className = "info-block__image";
+    Player.aboutBlock.innerHTML = `
+                            <span class="info-block__song-name"></span>
+                            <div class="info-block__author"></div>
     `;
-    imageBlock.innerHTML = `<img src="https://avatars.yandex.net/get-music-content/2358262/410e8a7a.a.11322908-1/m1000x1000" alt="">`;
-    this.infoBlock.element.append(imageBlock);
-    this.infoBlock.element.append(aboutBlock);
+    Player.imageBlock.innerHTML = `<img src="https://avatars.yandex.net/get-music-content/2358262/410e8a7a.a.11322908-1/m1000x1000" alt="">`;
+    this.infoBlock.element.append(Player.imageBlock);
+    this.infoBlock.element.append(Player.aboutBlock);
   }
 
   private createLikeBlock(): void {

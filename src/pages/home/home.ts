@@ -8,6 +8,7 @@ import { AlbumCard } from "./albums/card-album";
 import { Album } from "./albums/albums";
 import { Preloader } from "../../components/preloader/preloader";
 import KeenSlider from 'keen-slider/keen-slider';
+import { Player } from "../../components/player/player";
 
 
 
@@ -106,7 +107,11 @@ export class HomePage extends Page {
         const parent = btn.closest('.track__container') as HTMLElement;
         const trackName = parent.querySelector('.track__title') as HTMLElement;
         storeTracks.trackId = Number(trackName.id);
-        await getTracks([storeTracks.trackId]);
+
+        let dataForPlay = await getTracks([storeTracks.trackId]);
+        console.log(dataForPlay)
+        Player.startTrack(dataForPlay.results, trackName.id);
+
         localStorage.setItem("currentTrackUrl", storeTracks.audio);
       }))
     }
