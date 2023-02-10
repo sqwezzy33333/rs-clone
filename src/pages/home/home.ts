@@ -1,4 +1,4 @@
-import { getArtistAlbums, getArtistTracks, getMusicInfo, getAlbums} from "../../api/api";
+import { getArtistAlbums, getArtistTracks, getMusicInfo, getAlbums, getTracks} from "../../api/api";
 import { Page } from "../../templates/pages";
 import { CardTrack } from "./recomend/card-track";
 import { Recomend } from "./recomend/recomendation";
@@ -6,11 +6,15 @@ import { storeTracks, storeAlbums } from "../../api/api";
 import { getRandomAlbums, getRandomArtist } from "../../api/random";
 import { AlbumCard } from "./albums/card-album";
 import { Album } from "./albums/albums";
+import { Preloader } from "../../components/preloader/preloader";
+import KeenSlider from 'keen-slider/keen-slider';
+
 
 
 export class HomePage extends Page {
   private readonly recomendContainer: Recomend;
   private readonly albumsContainer: Album;
+  private preloader: Preloader;
 
   static TextObject = {
     recomendTitle: "Recomended for you",
@@ -19,6 +23,8 @@ export class HomePage extends Page {
 
   constructor(id: string) {
     super(id);
+    this.preloader = new Preloader();
+    this.container.append(this.preloader.element);
     const recTitle = this.createHeaderTitle(HomePage.TextObject.recomendTitle);
     recTitle.className = 'recomend__title';
     this.recomendContainer = new Recomend();
@@ -35,26 +41,29 @@ export class HomePage extends Page {
     const tag = await getMusicInfo();
     this.newRecomendation();
     }
+    this.windowOnload();
+    this.playSong();
   }
 
   async getNewAlbums() {
-    this.albumsContainer.clear();
-    for(let i = 0; i < 5; i++) {
-      storeAlbums.albumName = getRandomAlbums();
-      if(storeAlbums.albumName !== getRandomAlbums()) {
+    for(let i = 0; i < 10; i++) {
+      const random = getRandomAlbums()
+      if(storeAlbums.albumName !== random) {
+      storeAlbums.albumName = random;
         const albums = await getAlbums();
         this.newAlbums();
       }
     }
+    this.windowOnload();
    }
 
   newRecomendation() {
-      let tracks= storeTracks.tracks;
+      let tracks = storeTracks.tracks;
       const randomTrack = [tracks[Math.floor(Math.random() * tracks.length)]];
-      const cards = randomTrack.map(({name,image}) => new CardTrack(
+      const cards = randomTrack.map(({name,image, id}) => new CardTrack(
         image,
         storeTracks.artistName,
-        name, storeTracks.tags));
+        name, storeTracks.tags, id));
       this.recomendContainer.addCards(cards);
   }
 
@@ -62,8 +71,45 @@ export class HomePage extends Page {
     const albumCards = new AlbumCard(
      storeAlbums.albumImage,
      storeAlbums.albumName);
-      this.albumsContainer.addCards([albumCards]);
+     this.albumsContainer.addCards([albumCards]);
   }
+
+  windowOnload() {
+      document.body.classList.add('loaded_hiding');
+      window.setTimeout(function () {
+        document.body.classList.add('loaded');
+        document.body.classList.remove('loaded_hiding');
+      }, 3000);
+      this.slider();
+  }
+
+  slider() {
+    const slider = new KeenSlider(
+      this.albumsContainer.element,
+      {
+        loop: true,
+            mode: "free-snap",
+            slides: {
+              perView: 5,
+              spacing: 0,
+            },
+        created: () => {
+          // console.log('created')
+        },
+      },
+    )
+  }
+
+   playSong() {
+      const playBtn = document.querySelectorAll('.play-button') as NodeListOf<HTMLElement>;
+      playBtn.forEach(btn => btn.addEventListener('click', async () => {
+        const parent = btn.closest('.track__container') as HTMLElement;
+        const trackName = parent.querySelector('.track__title') as HTMLElement;
+        storeTracks.trackId = Number(trackName.id);
+        await getTracks([storeTracks.trackId]);
+        localStorage.setItem("currentTrackUrl", storeTracks.audio);
+      }))
+    }
 
   render(): HTMLElement {
     this.getRecomendationTracks();

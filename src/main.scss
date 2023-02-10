@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap');
 @import './components/preloader/preloader.scss';
-@import './style/placeholders.scss';
 @import './style/mixins.scss';
 @import './style/constants.scss';
 @import './assets/resource/reset.scss';
@@ -13,6 +12,8 @@
 @import './pages/categories/categories.scss';
 @import './components/tag/tag.scss';
 @import './components/player/player.scss';
+@import './style/placeholders.scss';
+@import 'keen-slider/keen-slider.scss';
 
 html {
   font-size: 10px;
@@ -32,7 +33,6 @@ body {
 .container{
   position: relative;
   display: flex;
-  // padding: 0px 20px;
   max-width: $content-width;
   margin: 0 auto;
   min-height: 100vh;
@@ -41,5 +41,7 @@ body {
 .main-wrapper{
   flex: 1 1 auto;
   padding: 30px;
+  margin-bottom: 70px;
+  max-width: 1040px;
 }
 

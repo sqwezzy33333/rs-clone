@@ -12,3 +12,7 @@ export interface Album {
   name: string,
   releasedate: string
 }
+
+export interface Audio {
+  audio: string;
+}
