@@ -1,5 +1,6 @@
 import { Tag } from "../../../components/tag/tag";
 import { TextCategories } from "../components-categories/text-categories";
+import { allGenres } from "../../../api/api";
 
 export class TagsCategories {
   protected container: HTMLElement;
@@ -28,13 +29,13 @@ export class TagsCategories {
   }
 
   renderTags(categorie: string) {
-    for (let i = 0; i < 16; i++) {
+    for (let i = 0; i < allGenres.length; i++) {
       this.container.append(
         new Tag(
           `tag_${categorie + i}`,
           "button",
           "tag",
-          `${categorie + i}`
+          `${allGenres[i]}`
         ).render()
       );
     }
