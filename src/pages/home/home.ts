@@ -107,6 +107,7 @@ export class HomePage extends Page {
         const trackName = parent.querySelector('.track__title') as HTMLElement;
         storeTracks.trackId = Number(trackName.id);
         await getTracks([storeTracks.trackId]);
+        console.log(storeTracks)
         localStorage.setItem("currentTrackUrl", storeTracks.audio);
       }))
     }
