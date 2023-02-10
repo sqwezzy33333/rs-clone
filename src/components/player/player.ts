@@ -3,21 +3,32 @@ import { App } from "../../app/app";
 import { Component } from "../../templates/components";
 
 export class Player extends Component {
-  progressBar: BaseComponent;
-  playerContainer: BaseComponent;
-  player: BaseComponent;
-  infoBlock: BaseComponent;
-  likeBlock: BaseComponent;
-  panel: BaseComponent;
-  sound: BaseComponent;
-  playOrPauseBlock: BaseComponent;
-  previous: BaseComponent;
-  next: BaseComponent;
-  volume: BaseComponent;
-  volumeWrapp: BaseComponent;
-  wrapperForPanel: BaseComponent;
-  audio: HTMLAudioElement = new Audio();
-  audioUrl: string | null = localStorage.getItem("currentTrackUrl");
+  static playOrPauseBlock: BaseComponent;
+  static audio: HTMLAudioElement = new Audio();
+  static audioUrl: string | null = localStorage.getItem("currentTrackUrl");
+  static startTrack(): void {
+    if (localStorage.getItem("currentTrackUrl")) {
+      const img = Player.playOrPauseBlock.element
+        .children[0] as HTMLImageElement;
+      Player.audio.currentTime = 0;
+      Player.audio.play();
+      img.src = `../../assets/images/panel/pause.svg`;
+      localStorage.setItem("isPlay", "true");
+    }
+  }
+
+  private progressBar: BaseComponent;
+  private playerContainer: BaseComponent;
+  private player: BaseComponent;
+  private infoBlock: BaseComponent;
+  private likeBlock: BaseComponent;
+  private panel: BaseComponent;
+  private sound: BaseComponent;
+  private previous: BaseComponent;
+  private next: BaseComponent;
+  private volume: BaseComponent;
+  private volumeWrapp: BaseComponent;
+  private wrapperForPanel: BaseComponent;
 
   constructor(tagName: string, className: string) {
     super(tagName, className);
@@ -28,25 +39,27 @@ export class Player extends Component {
     this.likeBlock = new BaseComponent("div", "player__like");
     this.panel = new BaseComponent("div", "player__panel");
     this.sound = new BaseComponent("div", "player__sound");
-    this.playOrPauseBlock = new BaseComponent("div", "panel__btn", "", "play");
+    Player.playOrPauseBlock = new BaseComponent(
+      "div",
+      "panel__btn",
+      "",
+      "play"
+    );
     this.previous = new BaseComponent("div", "panel__btn", "", "previos");
     this.next = new BaseComponent("div", "panel__btn", "", "next");
     this.volume = new BaseComponent("input", "player__volume", "", "volume");
     this.wrapperForPanel = new BaseComponent("div", "player__panel-wrap");
     this.volumeWrapp = new BaseComponent("div", "player__volume");
-    if (this.audioUrl) this.audio = new Audio(this.audioUrl);
+    if (Player.audioUrl) Player.audio = new Audio(Player.audioUrl);
   }
 
   public render(): HTMLElement {
     this.createPlayer();
-
     this.player.element.append(this.progressBar.element);
     this.player.element.append(this.wrapperForPanel.element);
     this.playerContainer.element.append(this.player.element);
     this.container.append(this.playerContainer.element);
-
     this.soundEvents();
-
     return this.container;
   }
 
@@ -101,15 +114,13 @@ export class Player extends Component {
   }
 
   private createPanelBlock(): void {
-    this.playOrPauseBlock.element.classList.add("pause");
+    Player.playOrPauseBlock.element.classList.add("pause");
     let srcPauseOrPlay: string = `<img src="../../assets/images/panel/play.svg" alt="#">`;
-
     this.previous.element.innerHTML = `<img src="../../assets/images/panel/previos.svg" alt="#">`;
-    this.playOrPauseBlock.element.innerHTML = srcPauseOrPlay;
+    Player.playOrPauseBlock.element.innerHTML = srcPauseOrPlay;
     this.next.element.innerHTML = `<img src="../../assets/images/panel/next.svg" alt="#">`;
-
     this.panel.element.append(this.previous.element);
-    this.panel.element.append(this.playOrPauseBlock.element);
+    this.panel.element.append(Player.playOrPauseBlock.element);
     this.panel.element.append(this.next.element);
   }
 
@@ -126,43 +137,35 @@ export class Player extends Component {
     this.volume.inputElement.type = "range";
     this.volume.inputElement.min = "0";
     this.volume.inputElement.max = "10";
-
     if (volumeValue)
       this.volume.inputElement.value = (Number(volumeValue) * 10).toString();
-    this.audio.volume = Number(volumeValue);
-
+    Player.audio.volume = Number(volumeValue);
     if (localStorage.getItem("sound") !== "on") {
       this.volume.inputElement.value = "0";
     }
-
     this.volumeWrapp.element.append(this.volume.inputElement);
     this.player.element.append(this.volumeWrapp.element);
-
     this.sound.element.addEventListener("mouseover", () => {
       this.volumeWrapp.element.style.visibility = "visible";
     });
-
     this.sound.element.addEventListener("mouseout", () => {
       setTimeout(() => {
         this.volumeWrapp.element.style.visibility = "hidden";
       }, 1500);
     });
-
     this.volume.inputElement.addEventListener("mouseover", () => {
       this.volumeWrapp.element.style.visibility = "visibility";
     });
   }
 
   private onloadProgress() {
-    this.audio.addEventListener("canplaythrough", () => {
+    Player.audio.addEventListener("canplaythrough", () => {
       const progresLine = this.progressBar.element.children[0] as HTMLElement;
-
       let whidthOfPlayer: number = this.player.element.offsetWidth;
       let currentTimeFromStorage = localStorage.getItem("currentTime");
-
       if (currentTimeFromStorage) {
         progresLine.style.width =
-          (whidthOfPlayer / this.audio.duration) *
+          (whidthOfPlayer / Player.audio.duration) *
             Number(currentTimeFromStorage) +
           "px";
       }
@@ -171,59 +174,55 @@ export class Player extends Component {
 
   private changeProgress(): void {
     const progresLine = this.progressBar.element.children[0] as HTMLElement;
-
     this.progressBar.element.addEventListener("click", (e) => {
       const infoAboutProgress = progresLine.getBoundingClientRect();
       let whidthOfPlayer: number = this.player.element.offsetWidth;
       let clickX: number = e.pageX - infoAboutProgress.left;
       let percentOfSong: number = (clickX / whidthOfPlayer) * 100;
-
       progresLine.style.width = clickX + "px";
-
-      this.audio.currentTime = (clickX / whidthOfPlayer) * this.audio.duration;
-      localStorage.setItem("currentTime", `${this.audio.currentTime}`);
+      Player.audio.currentTime =
+        (clickX / whidthOfPlayer) * Player.audio.duration;
+      localStorage.setItem("currentTime", `${Player.audio.currentTime}`);
     });
   }
 
   private uploadProgress(): void {
     const progresLine = this.progressBar.element.children[0] as HTMLElement;
-    this.audio.addEventListener("timeupdate", (e) => {
+    Player.audio.addEventListener("timeupdate", (e) => {
       let whidthOfPlayer: number = this.player.element.offsetWidth;
       progresLine.style.width =
-        (whidthOfPlayer / this.audio.duration) * this.audio.currentTime + "px";
-      localStorage.setItem("currentTime", `${this.audio.currentTime}`);
+        (whidthOfPlayer / Player.audio.duration) * Player.audio.currentTime +
+        "px";
+      localStorage.setItem("currentTime", `${Player.audio.currentTime}`);
     });
   }
 
   private startTrack(): void {
-    const img = this.playOrPauseBlock.element.children[0] as HTMLImageElement;
-
+    const img = Player.playOrPauseBlock.element.children[0] as HTMLImageElement;
     let playImgSrc: string = `../../assets/images/panel/play.svg`;
     let pauseImgSrc: string = `../../assets/images/panel/pause.svg`;
-
     localStorage.setItem("currentTrackUrl", "../../assets/yamakasi.mp3");
     localStorage.setItem("isPlay", "false");
-
-    this.playOrPauseBlock.element.addEventListener("click", () => {
+    Player.playOrPauseBlock.element.addEventListener("click", () => {
       if (localStorage.getItem("isPlay") === "false") {
         img.src = pauseImgSrc;
         localStorage.setItem("isPlay", "true");
         let currentTimeFromStorage = localStorage.getItem("currentTime");
-        this.audio.currentTime = Number(currentTimeFromStorage);
-        if (localStorage.getItem("sound") === "off") this.audio.volume = 0;
-        this.audio.play();
+        Player.audio.currentTime = Number(currentTimeFromStorage);
+        if (localStorage.getItem("sound") === "off") Player.audio.volume = 0;
+        Player.audio.play();
       } else {
         img.src = playImgSrc;
         localStorage.setItem("isPlay", "false");
-        this.audio.pause();
+        Player.audio.pause();
       }
     });
   }
 
   private changeVolume(): void {
     this.volume.inputElement.addEventListener("change", () => {
-      this.audio.volume = Number(this.volume.inputElement.value) / 10;
-      localStorage.setItem("volume-value", `${this.audio.volume}`);
+      Player.audio.volume = Number(this.volume.inputElement.value) / 10;
+      localStorage.setItem("volume-value", `${Player.audio.volume}`);
     });
   }
 
@@ -242,14 +241,14 @@ export class Player extends Component {
       if (soundPlay === "on") {
         img.src = "../../assets/images/panel/noSound.svg";
         localStorage.setItem("sound", "off");
-        this.audio.volume = 0;
+        Player.audio.volume = 0;
         this.volumeWrapp.element.innerHTML = `
         <input type="range" min="0" max="10" value="0">
         `;
       } else if (soundPlay === "off") {
         img.src = "../../assets/images/panel/sound.svg";
         localStorage.setItem("sound", "on");
-        if (volumeValue) this.audio.volume = Number(volumeValue);
+        if (volumeValue) Player.audio.volume = Number(volumeValue);
         if (volumeValue) {
           this.volumeWrapp.element.innerHTML = `
         <input type="range" min="0" max="10" value="${
@@ -257,7 +256,7 @@ export class Player extends Component {
         }">
         `;
         } else {
-          this.audio.volume = 1;
+          Player.audio.volume = 1;
         }
       }
     });
