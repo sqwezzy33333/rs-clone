@@ -247,6 +247,8 @@ export const getTracks = async (id: number[]) => {
     ...storeTracks,
     audio,
   }
+
+  console.log('getTracks', data);
   return await data;
 };
 

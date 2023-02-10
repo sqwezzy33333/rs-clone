@@ -8,7 +8,6 @@ import { AlbumCard } from "./albums/card-album";
 import { Album } from "./albums/albums";
 import { Preloader } from "../../components/preloader/preloader";
 import KeenSlider from 'keen-slider/keen-slider';
-import { Track } from "../../api/type";
 
 
 
@@ -65,8 +64,6 @@ export class HomePage extends Page {
         image,
         storeTracks.artistName,
         name, storeTracks.tags, id));
-        // const idTrack = randomTrack.map(({id}) => storeTracks.trackId = id);
-        // console.log(idTrack)
       this.recomendContainer.addCards(cards);
   }
 
@@ -87,7 +84,6 @@ export class HomePage extends Page {
   }
 
   slider() {
-    console.log(this.albumsContainer.element);
     const slider = new KeenSlider(
       this.albumsContainer.element,
       {
@@ -98,7 +94,7 @@ export class HomePage extends Page {
               spacing: 0,
             },
         created: () => {
-          console.log('created')
+          // console.log('created')
         },
       },
     )
