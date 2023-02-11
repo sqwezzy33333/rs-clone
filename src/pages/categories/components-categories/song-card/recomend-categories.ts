@@ -3,6 +3,7 @@ import { BaseComponent } from "../../../../templates/basecomponent";
 
 export class RecomendCategorie extends BaseComponent {
     private cards: SongCard[] = [];
+
     
     constructor() {
       super('div', 'recomend__cotegorie_container');
@@ -13,8 +14,11 @@ export class RecomendCategorie extends BaseComponent {
       this.element.innerHTML = '';
     }
   
-    addCards(cards: SongCard[]) {
+    addCards(cards: SongCard[], categ: string[]) {
       this.cards = cards;
+      let titleCategorie = ""
+      categ.map((el) => titleCategorie = titleCategorie + " • "+ el);
+       this.element.innerHTML = `<div class="title__categorie">${titleCategorie} •</div>`;
       this.cards.forEach((card) => this.element.append(card.element))
     }
   }

@@ -46,4 +46,12 @@ export class TagsCategories {
       new TextCategories(`text_${categorie}`, "p", "text__categories").render()
     );
   }
+
+  static changeColorBorderTag() {
+    const colorBorders = document.getElementById("tags_genre");
+    const arrTags = colorBorders!.querySelectorAll("button");
+    for (let i = 0; i < arrTags.length; i++) {
+      arrTags[i].style.border = `2px solid white`;
+    }
+  }
 }

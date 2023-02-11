@@ -25,11 +25,17 @@ export class PlayTrack extends BaseComponent {
   }
 
   static async click(id: string) {
-    console.log(id);
+    const img = Player.playOrPauseBlock.element.children[0] as HTMLImageElement;
     storeTracks.trackId = Number(id);
     let dataForPlay = await getTracks([storeTracks.trackId]);
-    console.log(dataForPlay);
-    Player.startTrack(dataForPlay.results, id);
-    localStorage.setItem("currentTrackUrl", storeTracks.audio);
+    if (localStorage.getItem("isPlay") === "false") {
+      localStorage.setItem("isPlay", "true");
+      Player.startTrack(dataForPlay.results, id);
+      localStorage.setItem("currentTrackUrl", storeTracks.audio);
+    } else {
+      img.src = `../../assets/images/panel/play.svg`;
+      localStorage.setItem("isPlay", "false");
+      Player.audio.pause();
+    }
   }
 }
