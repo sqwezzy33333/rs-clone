@@ -8,11 +8,10 @@ export class BlockButtonTrack extends BaseComponent {
     super("div", "song__icons");
   }
 
-  render() {
-    this.element.append((new PlayTrack()).render());
-    this.element.append((new DownloadTrack()).render());
-    this.element.append((new LikeTrack()).render());
+  render(id: string) {
+    this.element.append(new PlayTrack(id).render());
+    this.element.append(new DownloadTrack().render());
+    this.element.append(new LikeTrack().render());
     return this.element;
   }
-
 }
