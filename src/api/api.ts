@@ -240,7 +240,6 @@ export const getTracksByTag = async (tag: string[], limit: number) => {
     ...storeTrackCategorie,
     tracks: track,
   };
-  console.log(data);
   return await data;
 };
 
