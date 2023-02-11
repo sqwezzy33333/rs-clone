@@ -20,10 +20,13 @@ export let storeTracks = {
   artistId: "",
   artistImage: "",
   tracks: [
-    { audio: "", audiodownload: "", duration: "", name: "", image: "", id: "" },
+    { audio: "", audiodownload: "", duration: "", name: "", image: "", id: 0 },
   ],
   description: "",
   tags: [],
+  audio: '',
+  trackId: 0,
+  trackName: ''
 };
 
 export let storeAlbums = {
@@ -247,5 +250,26 @@ export const getTracksByTag = async (tag: string[], limit: number) => {
     ...storeTrackCategorie,
     tracks: track,
   };
+  return await data;
+};
+
+// получать треки
+export const getTracks = async (id: number[]) => {
+  const response = await fetch(`${BaseRequest.Tracks}/?client_id=${clientId}&format=jsonpretty&id=${id}`);
+  const data = await response.json();
+  const {
+    results: [
+      {
+        audio
+      },
+    ],
+  } = data;
+
+  storeTracks = {
+    ...storeTracks,
+    audio,
+  }
+
+  console.log('getTracks', data);
   return await data;
 };
