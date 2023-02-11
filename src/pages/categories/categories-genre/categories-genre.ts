@@ -41,16 +41,16 @@ export class CategoriesGenrePage extends Page {
 
   async getRecomendationGenre(categ: string[]) {
     const data = await getTracksByTag(categ, 12);
-    this.newRecomendation();
+    this.newRecomendation(categ);
   }
 
-  newRecomendation() {
+  newRecomendation(categ: string[]) {
     let tracks = storeTrackCategorie.tracks;
     const cards = tracks.map(
       (el) =>
         new SongCard(el.id, el.image, el.artist_name, el.name, el.releasedate)
     );
     this.recomendCategorieContainer.clear();
-    this.recomendCategorieContainer.addCards(cards);
+    this.recomendCategorieContainer.addCards(cards, categ);
   }
 }
