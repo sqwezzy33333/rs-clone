@@ -11,12 +11,6 @@ export class PlayTrack extends BaseComponent {
     this.element.setAttribute("src", src);
     this.element.addEventListener("click", function () {
       PlayTrack.click(id);
-      let el = this.getAttribute("src");
-      if (el === "../../assets/images/play-track.svg") {
-        this.setAttribute("src", "../../assets/images/Pause_Button.svg");
-      } else {
-        this.setAttribute("src", "../../assets/images/play-track.svg");
-      }
     });
   }
 
@@ -28,14 +22,8 @@ export class PlayTrack extends BaseComponent {
     const img = Player.playOrPauseBlock.element.children[0] as HTMLImageElement;
     storeTracks.trackId = Number(id);
     let dataForPlay = await getTracks([storeTracks.trackId]);
-    if (localStorage.getItem("isPlay") === "false") {
       localStorage.setItem("isPlay", "true");
       Player.startTrack(dataForPlay.results, id);
       localStorage.setItem("currentTrackUrl", storeTracks.audio);
-    } else {
-      img.src = `../../assets/images/panel/play.svg`;
-      localStorage.setItem("isPlay", "false");
-      Player.audio.pause();
-    }
   }
 }
