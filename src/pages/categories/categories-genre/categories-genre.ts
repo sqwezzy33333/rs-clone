@@ -19,7 +19,9 @@ export class CategoriesGenrePage extends Page {
     this.recomendCategorieContainer = new RecomendCategorie();
     this.tagsCateg = new TagsCategories("tags_genre", "tags__categories");
     this.container.addEventListener("click", (e) => {
+      TagsCategories.changeColorBorderTag();
       if ((<HTMLInputElement>e.target).classList.contains("tag")) {
+        (<HTMLInputElement>e.target).style.border = `2px solid black`;
         let arrGenre = [];
         arrGenre.push((<HTMLInputElement>e.target).innerText);
         this.getRecomendationGenre(arrGenre);
@@ -53,4 +55,6 @@ export class CategoriesGenrePage extends Page {
     this.recomendCategorieContainer.clear();
     this.recomendCategorieContainer.addCards(cards, categ);
   }
+
+  
 }
