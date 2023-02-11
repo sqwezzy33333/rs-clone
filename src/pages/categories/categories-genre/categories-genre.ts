@@ -19,8 +19,9 @@ export class CategoriesGenrePage extends Page {
     this.recomendCategorieContainer = new RecomendCategorie();
     this.tagsCateg = new TagsCategories("tags_genre", "tags__categories");
     this.container.addEventListener("click", (e) => {
-      TagsCategories.changeColorBorderTag("genre");
+      
       if ((<HTMLInputElement>e.target).classList.contains("tag")) {
+        TagsCategories.changeColorBorderTag("genre");
         (<HTMLInputElement>e.target).style.border = `2px solid black`;
         let arrGenre = [];
         arrGenre.push((<HTMLInputElement>e.target).innerText);
