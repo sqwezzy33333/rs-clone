@@ -24,9 +24,9 @@ export let storeTracks = {
   ],
   description: "",
   tags: [],
-  audio: '',
+  audio: "",
   trackId: 0,
-  trackName: ''
+  trackName: "",
 };
 
 export let storeAlbums = {
@@ -220,10 +220,7 @@ export const getAlbums = async () => {
 };
 
 export let storeTrackCategorie = {
- tracks: [{artist_name: "",
-  image: "",
-  name: "",
-  releasedate: "",}]
+  tracks: [{ artist_name: "", image: "", name: "", releasedate: "", id: "" }],
 };
 
 // получать треки по тэгам
@@ -232,44 +229,36 @@ export const getTracksByTag = async (tag: string[], limit: number) => {
     `${BaseRequest.Tracks}/?client_id=${clientId}&format=jsonpretty&limit=${limit}&tags=${tag}`
   );
   const data = await response.json();
-  
+
   const {
-    results: [
-      {
-        artist_name,
-        name,
-        image,
-        releasedate,
-      },
-    ],
+    results: [{ artist_name, name, image, releasedate, id }],
   } = data;
 
-  let track = data.results.map((track: Track) => track)
+  let track = data.results.map((track: Track) => track);
 
   storeTrackCategorie = {
     ...storeTrackCategorie,
     tracks: track,
   };
+  console.log(data);
   return await data;
 };
 
 // получать треки
 export const getTracks = async (id: number[]) => {
-  const response = await fetch(`${BaseRequest.Tracks}/?client_id=${clientId}&format=jsonpretty&id=${id}`);
+  const response = await fetch(
+    `${BaseRequest.Tracks}/?client_id=${clientId}&format=jsonpretty&id=${id}`
+  );
   const data = await response.json();
   const {
-    results: [
-      {
-        audio
-      },
-    ],
+    results: [{ audio }],
   } = data;
 
   storeTracks = {
     ...storeTracks,
     audio,
-  }
+  };
 
-  console.log('getTracks', data);
+  console.log("getTracks", data);
   return await data;
 };
