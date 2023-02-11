@@ -1,3 +1,5 @@
+@import "./components-categories/song-card/song-card.scss";
+
 #categories {
   width: 100%;
   margin-bottom: 40px;
@@ -32,4 +34,9 @@
   width: 90%;
   height: auto;
   margin-top: 40px;
+}
+
+.text__categories {
+  width: 100%;
+  margin-top: 20px;
 }
