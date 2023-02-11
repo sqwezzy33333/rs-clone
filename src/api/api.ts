@@ -78,6 +78,10 @@ export const allGenres = [
   "blues",
 ];
 
+export const allMood = ["Angry", "Bright", "Dark", "Funky", "Horror", "Happy", "Inspiration", "Romantic", "Sad", "Dramatic", "Calm"];
+
+export const allTheme = ["Music for Vlog", "Music for Film", "Cinematic Music", "Music for Podcast", "Background Music"];
+
 //получать описание и тэги
 export const getMusicInfo = async () => {
   const response = await fetch(
