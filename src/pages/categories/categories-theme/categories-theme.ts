@@ -21,6 +21,7 @@ export class CategoriesThemePage extends Page {
     this.container.addEventListener("click", (e) => {
       TagsCategories.changeColorBorderTag("theme");
       if ((<HTMLInputElement>e.target).classList.contains("tag")) {
+        TagsCategories.changeColorBorderTag("theme");
         (<HTMLInputElement>e.target).style.border = `2px solid black`;
         let arrGenre = [];
         arrGenre.push((<HTMLInputElement>e.target).innerText);

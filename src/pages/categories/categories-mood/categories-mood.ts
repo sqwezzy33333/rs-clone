@@ -19,8 +19,9 @@ export class CategoriesMoodPage extends Page {
     this.recomendCategorieContainer = new RecomendCategorie();
     this.tagsCateg = new TagsCategories("tags_mood", "tags__categories");
     this.container.addEventListener("click", (e) => {
-      TagsCategories.changeColorBorderTag("mood");
+      
       if ((<HTMLInputElement>e.target).classList.contains("tag")) {
+        TagsCategories.changeColorBorderTag("mood");
         (<HTMLInputElement>e.target).style.border = `2px solid black`;
         let arrGenre = [];
         arrGenre.push((<HTMLInputElement>e.target).innerText);
