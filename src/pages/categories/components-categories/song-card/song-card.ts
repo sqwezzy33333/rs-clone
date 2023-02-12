@@ -7,7 +7,8 @@ export class SongCard extends BaseComponent {
     image: string,
     artistName: string,
     songName: string,
-    releaseDate: string
+    releaseDate: string,
+    link: string,
   ) {
     super("div", "song");
     this.element.innerHTML = `
@@ -18,6 +19,6 @@ export class SongCard extends BaseComponent {
       <div class="song__releasedate">${releaseDate}</div>
       </div>
     `;
-    this.element.append(new BlockButtonTrack().render(id));
+    this.element.append(new BlockButtonTrack().render(id, link));
   }
 }

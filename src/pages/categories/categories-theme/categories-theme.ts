@@ -51,7 +51,7 @@ export class CategoriesThemePage extends Page {
     let tracks = storeTrackCategorie.tracks;
     const cards = tracks.map(
       (el) =>
-        new SongCard(el.id, el.image, el.artist_name, el.name, el.releasedate)
+        new SongCard(el.id, el.image, el.artist_name, el.name, el.releasedate, el.audiodownload)
     );
     this.recomendCategorieContainer.clear();
     this.recomendCategorieContainer.addCards(cards, categ);
