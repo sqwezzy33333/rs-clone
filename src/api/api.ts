@@ -224,7 +224,7 @@ export const getAlbums = async () => {
 };
 
 export let storeTrackCategorie = {
-  tracks: [{ artist_name: "", image: "", name: "", releasedate: "", id: "" }],
+  tracks: [{ artist_name: "", image: "", name: "", releasedate: "", id: "", audiodownload: ""}],
 };
 
 // получать треки по тэгам
@@ -235,7 +235,7 @@ export const getTracksByTag = async (tag: string[], limit: number) => {
   const data = await response.json();
 
   const {
-    results: [{ artist_name, name, image, releasedate, id }],
+    results: [{ artist_name, name, image, releasedate, id, audiodownload }],
   } = data;
 
   let track = data.results.map((track: Track) => track);

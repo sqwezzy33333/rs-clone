@@ -1,4 +1,5 @@
 export class BaseComponent {
+  [x: string]: any;
   readonly element: HTMLElement;
   readonly inputElement: HTMLInputElement;
 
