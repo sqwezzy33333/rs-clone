@@ -19,13 +19,15 @@ export class CategoriesThemePage extends Page {
     this.recomendCategorieContainer = new RecomendCategorie();
     this.tagsCateg = new TagsCategories("tags_theme", "tags__categories");
     this.container.addEventListener("click", (e) => {
-      TagsCategories.changeColorBorderTag("theme");
       if ((<HTMLInputElement>e.target).classList.contains("tag")) {
         TagsCategories.changeColorBorderTag("theme");
         (<HTMLInputElement>e.target).style.border = `2px solid black`;
-        let arrGenre = [];
-        arrGenre.push((<HTMLInputElement>e.target).innerText);
-        this.getRecomendationGenre(arrGenre);
+        const arrGenre = [];
+        const titleCateg = [];
+        const categorie = (<HTMLInputElement>e.target).innerText;
+        titleCateg.push(categorie);
+        arrGenre.push(this.selectionTag(categorie));
+        this.getRecomendationGenre(arrGenre, titleCateg);
       }
     });
   }
@@ -37,23 +39,52 @@ export class CategoriesThemePage extends Page {
     );
     this.container.append(title);
     this.container.append(this.tagsCateg.render("theme"));
-    this.getRecomendationGenre(["Music for Vlog"]);
+    this.getRecomendationGenre(["Vlog"], ["Music for Vlog"]);
     this.container.append(this.recomendCategorieContainer.element);
     return this.container;
   }
 
-  async getRecomendationGenre(categ: string[]) {
+  async getRecomendationGenre(categ: string[], titleCateg: string[]) {
     const data = await getTracksByTag(categ, 12);
-    this.newRecomendation(categ);
+    this.newRecomendation(titleCateg);
   }
 
-  newRecomendation(categ: string[]) {
+  newRecomendation(titleCateg: string[]) {
     let tracks = storeTrackCategorie.tracks;
     const cards = tracks.map(
       (el) =>
-        new SongCard(el.id, el.image, el.artist_name, el.name, el.releasedate, el.audiodownload)
+        new SongCard(
+          el.id,
+          el.image,
+          el.artist_name,
+          el.name,
+          el.releasedate,
+          el.audiodownload
+        )
     );
     this.recomendCategorieContainer.clear();
-    this.recomendCategorieContainer.addCards(cards, categ);
+    this.recomendCategorieContainer.addCards(cards, titleCateg);
+  }
+
+  selectionTag(categorie: string) {
+    let tempCategorie: string = "";
+    switch (categorie) {
+      case "Music for Vlog":
+        tempCategorie = "Vlog";
+        break;
+      case "Music for Film":
+        tempCategorie = "Film";
+        break;
+      case "Cinematic Music":
+        tempCategorie = "Cinematic";
+        break;
+      case "Music for Podcast":
+        tempCategorie = "Podcast";
+        break;
+      case "Background Music":
+        tempCategorie = "Background";
+        break;
+    }
+    return tempCategorie;
   }
 }
