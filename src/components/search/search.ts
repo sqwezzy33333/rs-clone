@@ -13,7 +13,7 @@ export class Search extends BaseComponent {
       <div class="search__close"></div>
   </div>`
   }
-  
+
   render() {
     return this.element;
   }

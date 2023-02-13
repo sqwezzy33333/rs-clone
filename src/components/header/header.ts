@@ -12,9 +12,19 @@ export class Header extends BaseComponent {
     this.logout = new LogOut();
   }
 
+  getSearchTrack() {
+    const searchTrack = this.search.element.querySelector('.search__input') as HTMLInputElement;
+    searchTrack.addEventListener('keyup', (event) => {
+      const target = event.target as HTMLSelectElement;
+      const searchString = target.value.toLowerCase();
+      console.log(searchString);
+    })
+  }
+
   render() {
     this.element.append(this.search.element, this.logout.element);
     this.logout.logOut();
+    this.getSearchTrack();
     return this.element;
   }
 }
