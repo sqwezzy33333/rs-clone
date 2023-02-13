@@ -5,9 +5,9 @@ export class Search extends BaseComponent {
     super('div', 'search__container')
     this.element.innerHTML = `
     <div class="search">
-      <form action="" class="search-bar">
+      <form action="#search" class="search-bar">
         <input type="text" class="search__input" placeholder="Search.." name="q"/>
-        <button type="submit"><img src=../../assets/images/search.svg></button>
+        <button type="submit"> <img src=../../assets/images/search.svg></button>
       </form>
     </div>`
   }

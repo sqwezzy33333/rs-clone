@@ -13,6 +13,7 @@ import { RegistrationPage } from "../pages/registration/registrations";
 import { ProfilePage } from "../pages/profile/profile";
 import { Header } from "../components/header/header";
 import { Player } from "../components/player/player";
+import { SearchPage } from "../pages/search/search-page";
 
 export class App {
   static container: HTMLElement = document.createElement("div");
@@ -30,6 +31,7 @@ export class App {
   private registrationPage: RegistrationPage;
   private profilePage: ProfilePage;
   private header: Header;
+  private searchPage: SearchPage;
   private currentUser: string =
     "Parse/fHTtYX3oryuYW1MNXV6nvRxfu2xGoRXPu71vYXWH/currentUser";
 
@@ -47,6 +49,7 @@ export class App {
     this.profilePage = new ProfilePage("profile");
     this.header = new Header();
     this.player = new Player("div", "player__wrapper");
+    this.searchPage = new SearchPage("search")
   }
 
   fillMainWrapper() {
@@ -90,6 +93,8 @@ export class App {
       page = new CategoriesMoodPage(idPage);
     } else if (idPage === PageIds.CategoriesTheme) {
       page = new CategoriesThemePage(idPage);
+    } else if (idPage === PageIds.Search) {
+      page = new SearchPage(idPage);
     }
 
     if (page) {

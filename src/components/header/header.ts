@@ -1,6 +1,7 @@
 import { BaseComponent } from "../../templates/basecomponent";
 import { Search } from "./search/search";
 import { LogOut } from "../logout/logout";
+import { getSearchTracks } from "../../api/api";
 
 export class Header extends BaseComponent {
   private search: Search;
@@ -14,10 +15,11 @@ export class Header extends BaseComponent {
 
   getSearchTrack() {
     const searchTrack = this.search.element.querySelector('.search__input') as HTMLInputElement;
-    searchTrack.addEventListener('keyup', (event) => {
+    searchTrack.addEventListener('keyup', async (event) => {
       const target = event.target as HTMLSelectElement;
       const searchString = target.value.toLowerCase();
       console.log(searchString);
+      await getSearchTracks(searchString);
     })
   }
 

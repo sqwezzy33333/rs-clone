@@ -282,3 +282,15 @@ export const getTracks = async (id: number[]) => {
   console.log("getTracks", data);
   return await data;
 };
+
+
+//поиск треков
+export const getSearchTracks = async(name: string) => {
+  const response = await fetch(
+    `${BaseRequest.Tracks}/?client_id=${clientId}&format=jsonpretty&namesearch=${name}`
+  );
+  const data = await response.json();
+  console.log(data);
+
+  return await data;
+}
