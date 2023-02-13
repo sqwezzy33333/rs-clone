@@ -7,6 +7,9 @@
   padding: 0px 80px 11px 21px;
   box-shadow: 0px -4px 19px 0px rgba(102, 173, 195, 0.25);
   background-color: #fff;
+  moz-user-select: none !important;
+    -khtml-user-select: none !important;
+    user-select: none !important;
 
   @include content-desktop {
     width: calc(100vw - 248px);
@@ -192,4 +195,8 @@
     -khtml-user-select: none;
     user-select: none;
   }
+}
+
+.current-track{
+  box-shadow: 0px 4px 4px rgb(23, 136, 0);
 }

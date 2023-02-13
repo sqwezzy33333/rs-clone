@@ -5,6 +5,7 @@ import { SongCard } from "../components-categories/song-card/song-card";
 import { RecomendCategorie } from "../components-categories/song-card/recomend-categories";
 import { getTracksByTag } from "../../../api/api";
 import { storeTrackCategorie } from "../../../api/api";
+import { Player } from "../../../components/player/player";
 
 export class CategoriesGenrePage extends Page {
   private readonly recomendCategorieContainer: RecomendCategorie;
@@ -49,6 +50,7 @@ export class CategoriesGenrePage extends Page {
 
   newRecomendation(categ: string[]) {
     let tracks = storeTrackCategorie.tracks;
+    Player.getArray(tracks);
     const cards = tracks.map(
       (el) =>
         new SongCard(el.id, el.image, el.artist_name, el.name, el.releasedate, el.audiodownload)

@@ -5,6 +5,7 @@ import { SongCard } from "../components-categories/song-card/song-card";
 import { RecomendCategorie } from "../components-categories/song-card/recomend-categories";
 import { getTracksByTag } from "../../../api/api";
 import { storeTrackCategorie } from "../../../api/api";
+import { Player } from "../../../components/player/player";
 
 export class CategoriesMoodPage extends Page {
   private readonly recomendCategorieContainer: RecomendCategorie;
@@ -19,7 +20,6 @@ export class CategoriesMoodPage extends Page {
     this.recomendCategorieContainer = new RecomendCategorie();
     this.tagsCateg = new TagsCategories("tags_mood", "tags__categories");
     this.container.addEventListener("click", (e) => {
-      
       if ((<HTMLInputElement>e.target).classList.contains("tag")) {
         TagsCategories.changeColorBorderTag("mood");
         (<HTMLInputElement>e.target).style.border = `2px solid black`;
@@ -49,9 +49,17 @@ export class CategoriesMoodPage extends Page {
 
   newRecomendation(categ: string[]) {
     let tracks = storeTrackCategorie.tracks;
+    Player.getArray(tracks);
     const cards = tracks.map(
       (el) =>
-        new SongCard(el.id, el.image, el.artist_name, el.name, el.releasedate, el.audiodownload)
+        new SongCard(
+          el.id,
+          el.image,
+          el.artist_name,
+          el.name,
+          el.releasedate,
+          el.audiodownload
+        )
     );
     this.recomendCategorieContainer.clear();
     this.recomendCategorieContainer.addCards(cards, categ);

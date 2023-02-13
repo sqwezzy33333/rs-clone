@@ -6,22 +6,44 @@ export class Player extends Component {
   static audio: HTMLAudioElement = new Audio();
   static imageBlock = document.createElement("div") as HTMLElement;
   static aboutBlock = document.createElement("div") as HTMLElement;
+  static currentTrackIndex: number;
+  static arrayOfTracks: any;
+  static borderedSongBlock: HTMLElement;
 
   static startTrack(data: any, id: string): void {
-    console.log(data[0])
+    const currentTrackData = data.filter((el: any) => el.id == id);
+    let currentTrackIndex: number = Player.arrayOfTracks.findIndex(
+      (el: any) => el.id === id
+    );
+    Player.currentTrackIndex = currentTrackIndex;
     const imgTrack = Player.imageBlock.children[0] as HTMLImageElement;
-    const imgPause = Player.playOrPauseBlock.element.children[0] as HTMLImageElement;
-    imgTrack.src = data[0].image;
-    Player.audio.src = data[0].audio;
-   
+    const imgPause = Player.playOrPauseBlock.element
+      .children[0] as HTMLImageElement;
+    imgTrack.src = currentTrackData[0].image;
+    Player.audio.src = currentTrackData[0].audio;
     let pauseImgSrc: string = `../../assets/images/panel/pause.svg`;
     imgPause.src = pauseImgSrc;
     Player.aboutBlock.innerHTML = `
-                            <span class="info-block__song-name">${data[0].name}</span>
-                            <div class="info-block__author">${data[0].artist_name}</div>
+                            <span class="info-block__song-name">${currentTrackData[0].name}</span>
+                            <div class="info-block__author">${currentTrackData[0].artist_name}</div>
     `;
     localStorage.setItem("isPlay", "true");
     Player.audio.play();
+  }
+
+  static getArray(array?: any) {
+    Player.arrayOfTracks = array;
+    console.log(Player.arrayOfTracks);
+  }
+
+  static borderSongBlock(element: HTMLElement) {
+    Player.borderedSongBlock = element;
+    let collectionOfTrackBlocks = document.querySelectorAll(".song");
+    collectionOfTrackBlocks.forEach((el) => {
+      el.classList.remove("current-track");
+    });
+
+    element.classList.add("current-track");
   }
 
   private progressBar: BaseComponent;
@@ -85,6 +107,29 @@ export class Player extends Component {
     this.changeVolume();
     this.volumeBtnEvents();
     this.onloadProgress();
+    this.nextTrack();
+    this.previousTrack();
+  }
+
+  private nextTrack() {
+    this.next.element.addEventListener("click", (e) => {
+      let nextTrackId = Player.arrayOfTracks[Player.currentTrackIndex + 1].id;
+      let nextSongBlock = Player.borderedSongBlock
+        .nextElementSibling as HTMLElement;
+      if (nextSongBlock !== null) Player.borderSongBlock(nextSongBlock);
+      Player.startTrack(Player.arrayOfTracks, nextTrackId);
+    });
+  }
+
+  private previousTrack() {
+    this.previous.element.addEventListener("click", (e) => {
+      let previousTrackId =
+        Player.arrayOfTracks[Player.currentTrackIndex - 1].id;
+      let previousSongBlock = Player.borderedSongBlock
+        .previousElementSibling as HTMLElement;
+      if (previousSongBlock !== null) Player.borderSongBlock(previousSongBlock);
+      Player.startTrack(Player.arrayOfTracks, previousTrackId);
+    });
   }
 
   private createProgress(): void {
