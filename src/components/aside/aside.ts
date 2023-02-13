@@ -1,6 +1,7 @@
 import { Component } from "../../templates/components";
 import { BaseComponent } from "../../templates/basecomponent";
 import { PageIds } from "../../templates/pages";
+import { Theme } from "../theme/theme"
 
 function changeHash() {
   if (
@@ -53,11 +54,14 @@ const CategoriesButtons = [
 ];
 
 export class Aside extends Component {
+  static switcher: Theme;
+  static switcherBlock: HTMLElement;
   constructor(tagName: string, className: string) {
     super(tagName, className);
     const appTitle = new BaseComponent("h1", "aside__title", "RS Music");
     this.container.append(appTitle.element);
-    
+    Aside.switcher = new Theme();
+    Aside.switcherBlock = Aside.switcher.render();
   }
 
   renderPageBtns() {
@@ -86,6 +90,7 @@ export class Aside extends Component {
 
   render(): HTMLElement {
     this.renderPageBtns();
+    this.container.append(Aside.switcherBlock);
     return this.container;
   }
 
