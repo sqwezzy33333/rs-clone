@@ -15,7 +15,6 @@ export class LogOut extends BaseComponent {
     const asideProfileBtn = document.getElementById(
       "aside-Profile"
     ) as HTMLLinkElement;
-    console.log(this.element);
     this.element.addEventListener("click", (e) => {
       e.preventDefault();
 

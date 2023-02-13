@@ -13,6 +13,7 @@ import { RegistrationPage } from "../pages/registration/registrations";
 import { ProfilePage } from "../pages/profile/profile";
 import { Header } from "../components/header/header";
 import { Player } from "../components/player/player";
+import { Theme } from "../components/theme/theme";
 
 export class App {
   static container: HTMLElement = document.createElement("div");
@@ -111,6 +112,19 @@ export class App {
     });
   }
 
+  private runDarkTheme() {
+    localStorage.setItem("theme", "ligth");
+    Aside.switcherBlock.classList.toggle("light");
+    const aside = App.mainWrapper.previousSibling as HTMLElement;
+    const player = Player.playerContainer.element.children[0] as HTMLElement;
+    Theme.textSpan.innerHTML = `Light`;
+    document.body.style.background = "none";
+    App.mainWrapper.classList.toggle("dark");
+    if (aside) aside.classList.toggle("dark");
+    player.classList.toggle("dark-player");
+    document.body.style.background = "black";
+  }
+
   run() {
     App.container.className = "container";
     App.container.id = "container";
@@ -128,5 +142,9 @@ export class App {
     App.container.append(this.player.render());
 
     this.enableRouteChange();
+
+    if (localStorage.getItem("theme") === "dark") {
+      this.runDarkTheme();
+    }
   }
 }
