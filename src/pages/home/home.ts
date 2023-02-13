@@ -47,7 +47,7 @@ export class HomePage extends Page {
   }
 
   async getNewAlbums() {
-    for(let i = 0; i < 10; i++) {
+    for(let i = 0; i < 12; i++) {
       const random = getRandomAlbums()
       if(storeAlbums.albumName !== random) {
       storeAlbums.albumName = random;

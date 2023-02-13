@@ -26,8 +26,11 @@ export let storeTracks = {
   tags: [],
   audio: "",
   trackId: 0,
-  trackName: "",
-};
+  trackName: '',
+  audiodownload: '',
+  duration: 0,
+  trackImage: '',
+}
 
 export let storeAlbums = {
   albumId: "",
@@ -254,13 +257,27 @@ export const getTracks = async (id: number[]) => {
   );
   const data = await response.json();
   const {
-    results: [{ audio }],
+    results: [
+      {
+        audio,
+        audiodownload,
+        duration,
+        artist_name: artistName,
+        name: trackName,
+        album__image: trackImage,
+      },
+    ],
   } = data;
 
   storeTracks = {
     ...storeTracks,
     audio,
-  };
+    audiodownload,
+    duration,
+    artistName,
+    trackName,
+    trackImage,
+  }
 
   console.log("getTracks", data);
   return await data;
