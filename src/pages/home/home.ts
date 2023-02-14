@@ -55,14 +55,8 @@ export class HomePage extends Page {
   }
 
   async getNewAlbums() {
-    for(let i = 0; i < 12; i++) {
-      const random = getRandomAlbums()
-      if(storeAlbums.albumName !== random) {
-      storeAlbums.albumName = random;
-        const albums = await getAlbums();
-        this.newAlbums();
-      }
-    }
+    await getAlbums();
+    this.newAlbums();
     this.windowOnload();
    }
 
@@ -98,10 +92,10 @@ export class HomePage extends Page {
   }
 
   newAlbums() {
-    const albumCards = new AlbumCard(
-     storeAlbums.albumImage,
-     storeAlbums.albumName);
-     this.albumsContainer.addCards([albumCards]);
+    let albums = storeAlbums.albums;
+    const albumCards = albums.map(({image, name}) => new AlbumCard(
+     image, name));
+    this.albumsContainer.addCards(albumCards);
   }
 
   windowOnload() {

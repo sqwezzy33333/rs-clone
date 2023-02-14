@@ -116,8 +116,6 @@ export const getArtistTracks = async (order: sortOrderStrings) => {
   const {
     results: [
       {
-        // name: artistName,
-        // id: artistId,
         image: artistImage,
         tracks,
       },
@@ -125,17 +123,6 @@ export const getArtistTracks = async (order: sortOrderStrings) => {
   } = data;
 
   const track = tracks.map((track: Track) => track);
-
-  // const [
-  //   {
-  //   audio,
-  //   audiodownload,
-  //   duration,
-  //   name: trackName,
-  //   image: trackImage,
-  //   id: trackId
-  //   },
-  // ] = track;
 
   storeTracks = {
     ...storeTracks,
@@ -171,6 +158,8 @@ export const getArtistAlbums = async (order: sortOrderStrings) => {
     albumImage,
     albums: album,
   };
+
+  console.log(album)
   return await data;
 };
 
@@ -205,25 +194,18 @@ export const getPlaylist = async (name: string) => {
 // получать альбомы по названию
 export const getAlbums = async () => {
   const response = await fetch(
-    `${BaseRequest.Albums}/?client_id=${clientId}&format=jsonpretty&name=${storeAlbums.albumName}`
+    `${BaseRequest.Albums}/?client_id=${clientId}&format=jsonpretty&order=popularity_total&limit=20`
   );
   const data = await response.json();
-  const {
-    results: [
-      {
-        // name: albumName,
-        image: albumImage,
-        releasedate,
-        zip,
-      },
-    ],
-  } = data;
+
+  const album = data.results.map((album: Album) => album);
 
   storeAlbums = {
     ...storeAlbums,
-    // albumName,
-    albumImage,
+    albums: album,
   };
+
+  return await data;
 };
 
 export let storeTrackCategorie = {
@@ -295,10 +277,6 @@ export const getSearchTracks = async(search: string) => {
   );
   const data = await response.json();
 
-  const {
-    results: [{ artist_name, name, image, releasedate, id, audiodownload }],
-  } = data;
-
   let track = data.results.map((track: Track) => track);
 
   storeTrackSearch = {
@@ -306,7 +284,6 @@ export const getSearchTracks = async(search: string) => {
     tracks: track,
   };
 
-  console.log(track);
   return await data;
 }
 
@@ -318,16 +295,9 @@ export let storePopularTracks = {
 
 export const getPopularTracks = async () => {
   const response = await fetch(
-    `${BaseRequest.Tracks}/?client_id=${clientId}&format=jsonpretty&order=popularity_week&limit=12`
+    `${BaseRequest.Tracks}/?client_id=${clientId}&format=jsonpretty&order=downloads_month&limit=12&datebetween=2022-01-01_2023-02-01`
   );
   const data = await response.json();
-  const {
-    results: [
-      {
-        tracks,
-      },
-    ],
-  } = data;
 
   const track = data.results.map((track: Track) => track);
 
