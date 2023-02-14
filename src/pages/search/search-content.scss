@@ -1,0 +1,14 @@
+.search_container {
+  .song {
+    width: 100%;
+  }
+  .song__info {
+    flex: 1;
+  }
+
+  .song__icons {
+    align-items: end;
+    gap: 20px;
+  }
+
+}

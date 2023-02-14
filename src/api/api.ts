@@ -285,12 +285,28 @@ export const getTracks = async (id: number[]) => {
 
 
 //поиск треков
-export const getSearchTracks = async(name: string) => {
+
+export let storeTrackSearch = {
+  tracks: [{ artist_name: "", image: "", name: "", releasedate: "", id: "", audiodownload: ""}],
+};
+
+export const getSearchTracks = async(search: string) => {
   const response = await fetch(
-    `${BaseRequest.Tracks}/?client_id=${clientId}&format=jsonpretty&namesearch=${name}`
+    `${BaseRequest.Tracks}/?client_id=${clientId}&format=jsonpretty&namesearch=${search}`
   );
   const data = await response.json();
-  console.log(data);
 
+  const {
+    results: [{ artist_name, name, image, releasedate, id, audiodownload }],
+  } = data;
+
+  let track = data.results.map((track: Track) => track);
+
+  storeTrackSearch = {
+    ...storeTrackSearch,
+    tracks: track,
+  };
+
+  console.log(track);
   return await data;
 }

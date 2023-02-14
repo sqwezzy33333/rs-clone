@@ -25,7 +25,7 @@ export class HomePage extends Page {
   constructor(id: string) {
     super(id);
     this.preloader = new Preloader();
-    this.container.append(this.preloader.element);
+    // this.container.append(this.preloader.element);
     const recTitle = this.createHeaderTitle(HomePage.TextObject.recomendTitle);
     recTitle.className = 'recomend__title';
     this.recomendContainer = new Recomend();
@@ -42,7 +42,7 @@ export class HomePage extends Page {
     const tag = await getMusicInfo();
     this.newRecomendation();
     }
-    this.windowOnload();
+    // this.windowOnload();
     this.playSong();
   }
 
@@ -55,7 +55,7 @@ export class HomePage extends Page {
         this.newAlbums();
       }
     }
-    this.windowOnload();
+    // this.windowOnload();
    }
 
   newRecomendation() {
