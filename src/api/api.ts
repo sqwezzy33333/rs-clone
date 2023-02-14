@@ -279,7 +279,6 @@ export const getTracks = async (id: number[]) => {
     trackImage,
   }
 
-  console.log("getTracks", data);
   return await data;
 };
 
@@ -310,3 +309,32 @@ export const getSearchTracks = async(search: string) => {
   console.log(track);
   return await data;
 }
+
+
+//популярные треки
+export let storePopularTracks = {
+  tracks: [{ artist_name: "", image: "", name: "", releasedate: "", id: "", audiodownload: ""}],
+};
+
+export const getPopularTracks = async () => {
+  const response = await fetch(
+    `${BaseRequest.Tracks}/?client_id=${clientId}&format=jsonpretty&order=popularity_week&limit=12`
+  );
+  const data = await response.json();
+  const {
+    results: [
+      {
+        tracks,
+      },
+    ],
+  } = data;
+
+  const track = data.results.map((track: Track) => track);
+
+  storePopularTracks = {
+    ...storeTracks,
+    tracks: track,
+  };
+
+  return await data;
+};

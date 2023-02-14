@@ -1,4 +1,4 @@
-import { getArtistAlbums, getArtistTracks, getMusicInfo, getAlbums, getTracks} from "../../api/api";
+import { getArtistAlbums, getArtistTracks, getMusicInfo, getAlbums, getTracks, getPopularTracks} from "../../api/api";
 import { Page } from "../../templates/pages";
 import { CardTrack } from "./recomend/card-track";
 import { Recomend } from "./recomend/recomendation";
@@ -9,40 +9,48 @@ import { Album } from "./albums/albums";
 import { Preloader } from "../../components/preloader/preloader";
 import KeenSlider from 'keen-slider/keen-slider';
 import { Player } from "../../components/player/player";
+import { Songs } from "./songs/songs";
+import { storePopularTracks } from "../../api/api";
+import { SongCard } from "../categories/components-categories/song-card/song-card";
 
 
 
 export class HomePage extends Page {
   private readonly recomendContainer: Recomend;
   private readonly albumsContainer: Album;
+  private readonly songsContainer: Songs;
   private preloader: Preloader;
 
   static TextObject = {
     recomendTitle: "Recomended for you",
-    albumsTitle: "New Albums"
+    albumsTitle: "New Albums",
+    songsTitle: "Popular Songs"
   };
 
   constructor(id: string) {
     super(id);
     this.preloader = new Preloader();
-    // this.container.append(this.preloader.element);
+    this.container.append(this.preloader.element);
     const recTitle = this.createHeaderTitle(HomePage.TextObject.recomendTitle);
     recTitle.className = 'recomend__title';
     this.recomendContainer = new Recomend();
     const albumsTitle = this.createHeaderTitle(HomePage.TextObject.albumsTitle);
     albumsTitle.className = 'albums__title';
     this.albumsContainer = new Album();
-    this.container.append(recTitle, this.recomendContainer.element, albumsTitle, this.albumsContainer.element);
+    const songsTitle = this.createHeaderTitle(HomePage.TextObject.songsTitle);
+    songsTitle.className = 'songs__title';
+    this.songsContainer = new Songs();
+    this.container.append(recTitle, this.recomendContainer.element, albumsTitle, this.albumsContainer.element, songsTitle, this.songsContainer.element);
   }
 
   async getRecomendationTracks() {
     for(let i = 0; i < 3; i++) {
     storeTracks.artistName = getRandomArtist();
-    const data = await getArtistTracks('byName');
-    const tag = await getMusicInfo();
+    await getArtistTracks('byName');
+    await getMusicInfo();
     this.newRecomendation();
     }
-    // this.windowOnload();
+    this.windowOnload();
     this.playSong();
   }
 
@@ -55,7 +63,28 @@ export class HomePage extends Page {
         this.newAlbums();
       }
     }
-    // this.windowOnload();
+    this.windowOnload();
+   }
+
+   async getNewSongs() {
+    await getPopularTracks();
+    this.newSongs();
+   }
+
+   newSongs() {
+    let tracks = storePopularTracks.tracks;
+    Player.getArray(tracks);
+    const songs = tracks.map(({id, image, artist_name, name, releasedate, audiodownload}) =>
+        new SongCard(
+          id,
+          image,
+          artist_name,
+          name,
+          releasedate,
+          audiodownload
+        )
+      );
+      this.songsContainer.addCards(songs);
    }
 
   newRecomendation() {
@@ -119,6 +148,7 @@ export class HomePage extends Page {
   render(): HTMLElement {
     this.getRecomendationTracks();
     this.getNewAlbums();
+    this.getNewSongs();
     return this.container;
   }
 }

@@ -1,7 +1,5 @@
 import { Page } from "../../templates/pages";
 import { SearchContainer } from "./search-container";
-
-import { getSearchTracks } from "../../api/api";
 import { Player } from "../../components/player/player";
 import { storeTrackSearch } from "../../api/api";
 import { SongCard } from "../categories/components-categories/song-card/song-card";
@@ -17,11 +15,13 @@ export class SearchPage extends Page {
   constructor(id: string) {
     super(id);
 
-    this.searchContainer = new SearchContainer();
+   this.searchContainer = new SearchContainer();
     // this.header = new Header();
   }
 
   renderTracks() {
+    const searchTrack = document.querySelector('.search__input') as HTMLInputElement;
+    console.log('doc', searchTrack);
     let tracks = storeTrackSearch.tracks;
     Player.getArray(tracks);
     const cards = tracks.map(
