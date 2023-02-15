@@ -3,11 +3,13 @@ import { Search } from "./search/search";
 import { LogOut } from "../logout/logout";
 import { getSearchTracks } from "../../api/api";
 import { Menu } from "./menu/menu";
+import { SearchPage } from "../../pages/search/search-page";
 
 export class Header extends BaseComponent {
   private search: Search;
   private logout: LogOut;
   private menu: Menu;
+  private searchPage: SearchPage;
 
   constructor() {
     super("div", "header");
@@ -15,6 +17,7 @@ export class Header extends BaseComponent {
     this.search = new Search();
     this.logout = new LogOut();
     this.menu = new Menu();
+    this.searchPage = new SearchPage('');
   }
   
   getSearchTrack() {
@@ -24,7 +27,7 @@ export class Header extends BaseComponent {
       const target = event.target as HTMLSelectElement;
       const searchString = target.value.toLowerCase();
       await getSearchTracks(searchString);
-      // this.renderTracks();
+      this.searchPage.renderTracks();
     })
   }
   

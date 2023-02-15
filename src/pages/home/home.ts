@@ -104,24 +104,38 @@ export class HomePage extends Page {
         document.body.classList.add('loaded');
         document.body.classList.remove('loaded_hiding');
       }, 3000);
-      this.slider();
+      this.slider(5);
   }
 
-  slider() {
+  slider(num: number) {
     const slider = new KeenSlider(
       this.albumsContainer.element,
       {
         loop: true,
             mode: "free-snap",
             slides: {
-              perView: 5,
+              perView: num,
               spacing: 0,
             },
         created: () => {
-          // console.log('created')
+          // console.log()
         },
       },
     )
+  }
+
+  resize() {
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 640) {
+        this.slider(5);
+      };
+      if (window.innerWidth <= 640) {
+        this.slider(4);
+      };
+      if (window.innerWidth <= 320) {
+        this.slider(3);
+      }
+    });
   }
 
    playSong() {
@@ -132,7 +146,7 @@ export class HomePage extends Page {
         storeTracks.trackId = Number(trackName.id);
 
         let dataForPlay = await getTracks([storeTracks.trackId]);
-        console.log(dataForPlay)
+        // console.log(dataForPlay)
         Player.startTrack(dataForPlay.results, trackName.id);
 
         localStorage.setItem("currentTrackUrl", storeTracks.audio);
@@ -143,6 +157,7 @@ export class HomePage extends Page {
     this.getRecomendationTracks();
     this.getNewAlbums();
     this.getNewSongs();
+    this.resize();
     return this.container;
   }
 }

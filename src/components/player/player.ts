@@ -33,7 +33,7 @@ export class Player extends Component {
 
   static getArray(array?: any) {
     Player.arrayOfTracks = array;
-    console.log(Player.arrayOfTracks);
+    // console.log(Player.arrayOfTracks);
   }
 
   static borderSongBlock(element: HTMLElement) {

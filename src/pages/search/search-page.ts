@@ -20,9 +20,9 @@ export class SearchPage extends Page {
   }
 
   renderTracks() {
-    const searchTrack = document.querySelector('.search__input') as HTMLInputElement;
-    console.log('doc', searchTrack);
+    // this.searchContainer.element.innerHTML = '';
     let tracks = storeTrackSearch.tracks;
+    console.log(tracks)
     Player.getArray(tracks);
     const cards = tracks.map(
       ({id, image, artist_name, name, releasedate, audiodownload}) =>
@@ -35,7 +35,6 @@ export class SearchPage extends Page {
           audiodownload
         )
     );
-    this.searchContainer.clear();
     this.searchContainer.addCards(cards);
     this.container.append(this.searchContainer.element);
   }
