@@ -1,4 +1,4 @@
-import { getArtistAlbums, getArtistTracks, getMusicInfo, getAlbums, getTracks} from "../../api/api";
+import { getArtistAlbums, getArtistTracks, getMusicInfo, getAlbums, getTracks, getPopularTracks} from "../../api/api";
 import { Page } from "../../templates/pages";
 import { CardTrack } from "./recomend/card-track";
 import { Recomend } from "./recomend/recomendation";
@@ -9,17 +9,22 @@ import { Album } from "./albums/albums";
 import { Preloader } from "../../components/preloader/preloader";
 import KeenSlider from 'keen-slider/keen-slider';
 import { Player } from "../../components/player/player";
+import { Songs } from "./songs/songs";
+import { storePopularTracks } from "../../api/api";
+import { SongCard } from "../categories/components-categories/song-card/song-card";
 
 
 
 export class HomePage extends Page {
   private readonly recomendContainer: Recomend;
   private readonly albumsContainer: Album;
+  private readonly songsContainer: Songs;
   private preloader: Preloader;
 
   static TextObject = {
     recomendTitle: "Recomended for you",
-    albumsTitle: "New Albums"
+    albumsTitle: "New Albums",
+    songsTitle: "Popular Songs"
   };
 
   constructor(id: string) {
@@ -32,14 +37,17 @@ export class HomePage extends Page {
     const albumsTitle = this.createHeaderTitle(HomePage.TextObject.albumsTitle);
     albumsTitle.className = 'albums__title';
     this.albumsContainer = new Album();
-    this.container.append(recTitle, this.recomendContainer.element, albumsTitle, this.albumsContainer.element);
+    const songsTitle = this.createHeaderTitle(HomePage.TextObject.songsTitle);
+    songsTitle.className = 'songs__title';
+    this.songsContainer = new Songs();
+    this.container.append(recTitle, this.recomendContainer.element, albumsTitle, this.albumsContainer.element, songsTitle, this.songsContainer.element);
   }
 
   async getRecomendationTracks() {
     for(let i = 0; i < 3; i++) {
     storeTracks.artistName = getRandomArtist();
-    const data = await getArtistTracks('byName');
-    const tag = await getMusicInfo();
+    await getArtistTracks('byName');
+    await getMusicInfo();
     this.newRecomendation();
     }
     this.windowOnload();
@@ -47,15 +55,30 @@ export class HomePage extends Page {
   }
 
   async getNewAlbums() {
-    for(let i = 0; i < 10; i++) {
-      const random = getRandomAlbums()
-      if(storeAlbums.albumName !== random) {
-      storeAlbums.albumName = random;
-        const albums = await getAlbums();
-        this.newAlbums();
-      }
-    }
+    await getAlbums();
+    this.newAlbums();
     this.windowOnload();
+   }
+
+   async getNewSongs() {
+    await getPopularTracks();
+    this.newSongs();
+   }
+
+   newSongs() {
+    let tracks = storePopularTracks.tracks;
+    Player.getArray(tracks);
+    const songs = tracks.map(({id, image, artist_name, name, releasedate, audiodownload}) =>
+        new SongCard(
+          id,
+          image,
+          artist_name,
+          name,
+          releasedate,
+          audiodownload
+        )
+      );
+      this.songsContainer.addCards(songs);
    }
 
   newRecomendation() {
@@ -69,10 +92,10 @@ export class HomePage extends Page {
   }
 
   newAlbums() {
-    const albumCards = new AlbumCard(
-     storeAlbums.albumImage,
-     storeAlbums.albumName);
-     this.albumsContainer.addCards([albumCards]);
+    let albums = storeAlbums.albums;
+    const albumCards = albums.map(({image, name}) => new AlbumCard(
+     image, name));
+    this.albumsContainer.addCards(albumCards);
   }
 
   windowOnload() {
@@ -81,24 +104,38 @@ export class HomePage extends Page {
         document.body.classList.add('loaded');
         document.body.classList.remove('loaded_hiding');
       }, 3000);
-      this.slider();
+      this.slider(5);
   }
 
-  slider() {
+  slider(num: number) {
     const slider = new KeenSlider(
       this.albumsContainer.element,
       {
         loop: true,
             mode: "free-snap",
             slides: {
-              perView: 5,
+              perView: num,
               spacing: 0,
             },
         created: () => {
-          // console.log('created')
+          // console.log()
         },
       },
     )
+  }
+
+  resize() {
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 640) {
+        this.slider(5);
+      };
+      if (window.innerWidth <= 640) {
+        this.slider(3);
+      };
+      if (window.innerWidth <= 320) {
+        this.slider(2);
+      }
+    });
   }
 
    playSong() {
@@ -109,7 +146,7 @@ export class HomePage extends Page {
         storeTracks.trackId = Number(trackName.id);
 
         let dataForPlay = await getTracks([storeTracks.trackId]);
-        console.log(dataForPlay)
+        // console.log(dataForPlay)
         Player.startTrack(dataForPlay.results, trackName.id);
 
         localStorage.setItem("currentTrackUrl", storeTracks.audio);
@@ -119,6 +156,8 @@ export class HomePage extends Page {
   render(): HTMLElement {
     this.getRecomendationTracks();
     this.getNewAlbums();
+    this.getNewSongs();
+    this.resize();
     return this.container;
   }
 }

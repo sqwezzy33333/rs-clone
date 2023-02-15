@@ -21,8 +21,8 @@ export class CategoriesThemePage extends Page {
     this.tagsCateg = new TagsCategories("tags_theme", "tags__categories");
     this.container.addEventListener("click", (e) => {
       if ((<HTMLInputElement>e.target).classList.contains("tag")) {
-        TagsCategories.changeColorBorderTag("theme");
-        (<HTMLInputElement>e.target).style.border = `2px solid black`;
+        // TagsCategories.changeColorBorderTag("theme");
+        // (<HTMLInputElement>e.target).style.border = `2px solid white`;
         const arrGenre = [];
         const titleCateg = [];
         const categorie = (<HTMLInputElement>e.target).innerText;

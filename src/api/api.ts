@@ -26,8 +26,11 @@ export let storeTracks = {
   tags: [],
   audio: "",
   trackId: 0,
-  trackName: "",
-};
+  trackName: '',
+  audiodownload: '',
+  duration: 0,
+  trackImage: '',
+}
 
 export let storeAlbums = {
   albumId: "",
@@ -113,8 +116,6 @@ export const getArtistTracks = async (order: sortOrderStrings) => {
   const {
     results: [
       {
-        // name: artistName,
-        // id: artistId,
         image: artistImage,
         tracks,
       },
@@ -122,17 +123,6 @@ export const getArtistTracks = async (order: sortOrderStrings) => {
   } = data;
 
   const track = tracks.map((track: Track) => track);
-
-  // const [
-  //   {
-  //   audio,
-  //   audiodownload,
-  //   duration,
-  //   name: trackName,
-  //   image: trackImage,
-  //   id: trackId
-  //   },
-  // ] = track;
 
   storeTracks = {
     ...storeTracks,
@@ -168,6 +158,8 @@ export const getArtistAlbums = async (order: sortOrderStrings) => {
     albumImage,
     albums: album,
   };
+
+  console.log(album)
   return await data;
 };
 
@@ -202,25 +194,18 @@ export const getPlaylist = async (name: string) => {
 // получать альбомы по названию
 export const getAlbums = async () => {
   const response = await fetch(
-    `${BaseRequest.Albums}/?client_id=${clientId}&format=jsonpretty&name=${storeAlbums.albumName}`
+    `${BaseRequest.Albums}/?client_id=${clientId}&format=jsonpretty&order=popularity_total&limit=20`
   );
   const data = await response.json();
-  const {
-    results: [
-      {
-        // name: albumName,
-        image: albumImage,
-        releasedate,
-        zip,
-      },
-    ],
-  } = data;
+
+  const album = data.results.map((album: Album) => album);
 
   storeAlbums = {
     ...storeAlbums,
-    // albumName,
-    albumImage,
+    albums: album,
   };
+
+  return await data;
 };
 
 export let storeTrackCategorie = {
@@ -254,14 +239,72 @@ export const getTracks = async (id: number[]) => {
   );
   const data = await response.json();
   const {
-    results: [{ audio }],
+    results: [
+      {
+        audio,
+        audiodownload,
+        duration,
+        artist_name: artistName,
+        name: trackName,
+        album__image: trackImage,
+      },
+    ],
   } = data;
 
   storeTracks = {
     ...storeTracks,
     audio,
+    audiodownload,
+    duration,
+    artistName,
+    trackName,
+    trackImage,
+  }
+
+  return await data;
+};
+
+
+//поиск треков
+
+export let storeTrackSearch = {
+  tracks: [{ artist_name: "", image: "", name: "", releasedate: "", id: "", audiodownload: ""}],
+};
+
+export const getSearchTracks = async(search: string) => {
+  const response = await fetch(
+    `${BaseRequest.Tracks}/?client_id=${clientId}&format=jsonpretty&namesearch=${search}`
+  );
+  const data = await response.json();
+
+  let track = data.results.map((track: Track) => track);
+
+  storeTrackSearch = {
+    ...storeTrackSearch,
+    tracks: track,
   };
 
-  console.log("getTracks", data);
+  return await data;
+}
+
+
+//популярные треки
+export let storePopularTracks = {
+  tracks: [{ artist_name: "", image: "", name: "", releasedate: "", id: "", audiodownload: ""}],
+};
+
+export const getPopularTracks = async () => {
+  const response = await fetch(
+    `${BaseRequest.Tracks}/?client_id=${clientId}&format=jsonpretty&order=downloads_month&limit=12&datebetween=2022-01-01_2023-02-01`
+  );
+  const data = await response.json();
+
+  const track = data.results.map((track: Track) => track);
+
+  storePopularTracks = {
+    ...storeTracks,
+    tracks: track,
+  };
+
   return await data;
 };

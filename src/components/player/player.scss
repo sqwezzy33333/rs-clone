@@ -3,7 +3,7 @@
   position: absolute;
   z-index: 50;
   bottom: 0;
-  right: calc((100vw - 1440px) / 2);
+  right: calc((100% - 1440px) / 2);
   height: 100%;
   width: 1192px;
   padding: 0px 80px 11px 21px;
@@ -13,8 +13,13 @@
     user-select: none !important;
 
   @include content-desktop {
-    width: calc(100vw - 248px);
+    width: calc(100% - 248px);
     right: 0;
+  }
+
+  @include media-tablet {
+    width: 100%;
+    padding: 0px 10px 10px 10px;
   }
 
   &__panel-wrap {
@@ -98,6 +103,10 @@
       border-radius: 50%;
     }
   }
+}
+
+.player.hidden {
+  display: none;
 }
 
 .info-block {
@@ -202,5 +211,5 @@
 }
 
 .current-track{
-  box-shadow: 0px 4px 4px rgb(23, 136, 0);
+  box-shadow: 0px 4px 4px rgb(134, 255, 69);
 }

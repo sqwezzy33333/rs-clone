@@ -1,12 +1,12 @@
-import { SongCard } from "../../categories/components-categories/song-card/song-card";
-import { BaseComponent } from "../../../templates/basecomponent";
+import { SongCard } from "../categories/components-categories/song-card/song-card";
+import { BaseComponent } from "../../templates/basecomponent";
 
-export class Songs extends BaseComponent {
+export class SearchContainer extends BaseComponent {
     private cards: SongCard[] = [];
 
     
     constructor() {
-      super('div', 'songs__container');
+      super('div', 'search_container');
     }
   
     clear() {
