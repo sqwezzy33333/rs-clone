@@ -19,8 +19,7 @@ export class SearchPage extends Page {
     // this.header = new Header();
   }
 
-  renderTracks() {
-    // this.searchContainer.element.innerHTML = '';
+  static renderTracks() {
     let tracks = storeTrackSearch.tracks;
     console.log(tracks)
     Player.getArray(tracks);
@@ -35,14 +34,14 @@ export class SearchPage extends Page {
           audiodownload
         )
     );
-    this.searchContainer.addCards(cards);
-    this.container.append(this.searchContainer.element);
+    // this.searchContainer.addCards(cards);
+    // this.container.append(this.searchContainer.element);
   }
   
   render(): HTMLElement {
     const title = this.createHeaderTitle(SearchPage.TextObject.MainTitle);
     this.container.append(title);
-    this.renderTracks();
+    // this.renderTracks();
     return this.container;
   }
 }

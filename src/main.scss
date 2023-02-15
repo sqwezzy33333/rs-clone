@@ -46,6 +46,9 @@ body {
   flex: 1 1 auto;
   padding: 30px;
   margin-bottom: 70px;
-  max-width: 1040px;
+  max-width: calc(100% - 248px);
+  @include media-tablet {
+    max-width: calc(100%);
+  }
 }
 

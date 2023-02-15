@@ -9,7 +9,7 @@ export class Header extends BaseComponent {
   private search: Search;
   private logout: LogOut;
   private menu: Menu;
-  private searchPage: SearchPage;
+  // public searchPage: SearchPage;
 
   constructor() {
     super("div", "header");
@@ -17,17 +17,18 @@ export class Header extends BaseComponent {
     this.search = new Search();
     this.logout = new LogOut();
     this.menu = new Menu();
-    this.searchPage = new SearchPage('');
+    // this.searchPage = new SearchPage();
   }
   
   getSearchTrack() {
     const searchTrack = this.search.element.querySelector('.search__input') as HTMLInputElement;
-    console.log(searchTrack);
+    // console.log(searchTrack);
     searchTrack.addEventListener('keyup', async (event) => {
       const target = event.target as HTMLSelectElement;
       const searchString = target.value.toLowerCase();
       await getSearchTracks(searchString);
-      this.searchPage.renderTracks();
+      SearchPage.renderTracks();
+      // this.searchPage.renderTracks();
     })
   }
   

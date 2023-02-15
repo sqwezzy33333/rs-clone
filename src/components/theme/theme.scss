@@ -52,7 +52,7 @@
   --text: #222;
   .box-switch {
     z-index: 100;
-    background: rgb(10, 4, 4) !important;
+    background:  #474545 !important;
     .switch {
       z-index: 100;
       transform: translateX(30px);
@@ -73,10 +73,39 @@
     background-color: #181818 !important;
     color: #fff !important;
   }
+  .play-button {
+    background-color: rgb(255 255 255 / 80%) !important;
+  }
 }
 
 .dark-player {
   //transition: all 0.3s ease;
   background-color: #474545 !important;
   color: #fff !important;
+  .progress__bar {
+    background:  #fff;
+    &::after {
+      background:  #fff;
+    }
+  }
+  .panel__btn {
+    img {
+      filter: invert(100%);
+    }
+  }
+  .player__sound {
+    img {
+      filter: invert(100%);
+    }
+  }
+  .player__volume input {
+    background: rgb(255, 255, 255);
+    border: 1px solid rgb(255, 255, 255);
+  }
+  .player__volume {
+    input::-webkit-slider-thumb {
+      background: rgb(255, 255, 255);
+      border: 8px solid rgb(255, 255, 255);
+    }
+  }
 }

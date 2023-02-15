@@ -29,11 +29,15 @@ export class Theme extends Component {
     const aside = App.mainWrapper.previousSibling as HTMLElement;
     const player = Player.playerContainer.element.children[0] as HTMLElement;
     Theme.textSpan.innerHTML = `Dark`;
-    document.body.style.background = "black";
+    document.body.style.background = "#3a3535";
     App.mainWrapper.classList.toggle("dark");
     if (aside) aside.classList.toggle("dark");
     player.classList.toggle("dark-player");
     Theme.textSpan.style.border = "1px solid white";
+    const menu = document.querySelector('.menu') as HTMLElement;
+    menu.style.filter = 'invert(100%)';
+    const close = document.querySelector('.close') as HTMLElement;
+    close.style.filter = 'invert(100%)';
   }
 
   private makeLigth() {

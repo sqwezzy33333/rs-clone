@@ -130,10 +130,10 @@ export class HomePage extends Page {
         this.slider(5);
       };
       if (window.innerWidth <= 640) {
-        this.slider(4);
+        this.slider(3);
       };
       if (window.innerWidth <= 320) {
-        this.slider(3);
+        this.slider(2);
       }
     });
   }
