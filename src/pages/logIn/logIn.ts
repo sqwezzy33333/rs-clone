@@ -1,4 +1,5 @@
 import { Page } from "../../templates/pages";
+import { Player } from "../../components/player/player";
 const Parse = require("parse");
 
 export class LoginPage extends Page {
@@ -47,11 +48,14 @@ export class LoginPage extends Page {
   private async logIn(login?: string, password?: string) {
     let user = Parse.User.logIn(login, password)
       .then(() => {
+        console.log(user)
         window.location.hash = "profile";
         const profileLink = document.getElementById(
           "aside-Profile"
         ) as HTMLLinkElement;
         profileLink.href = "#profile";
+        Player.arrayOfUser = this.getArrayOfTracks();
+        console.log(Player.arrayOfUser)
       })
       .catch((error: { code: string; message: string }) => {
         if (error instanceof Error) {
@@ -72,5 +76,18 @@ export class LoginPage extends Page {
       let password = formData.get("password") as FormDataEntryValue;
       this.logIn(`${login}`, `${password}`);
     });
+  }
+
+  private getArrayOfTracks(): string[] {
+    let userParse = localStorage.getItem(
+      "Parse/fHTtYX3oryuYW1MNXV6nvRxfu2xGoRXPu71vYXWH/currentUser"
+    );
+    if (userParse) {
+      let objectParsed = JSON.parse(userParse);
+
+      let User: string[] = objectParsed.tracks;
+      return User;
+    }
+    return ['']
   }
 }

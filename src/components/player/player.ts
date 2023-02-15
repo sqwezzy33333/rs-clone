@@ -1,5 +1,7 @@
 import { BaseComponent } from "../../templates/basecomponent";
 import { Component } from "../../templates/components";
+import { UserInfo } from "../../templates/types";
+const Parse = require("parse");
 
 export class Player extends Component {
   static playOrPauseBlock: BaseComponent;
@@ -9,8 +11,10 @@ export class Player extends Component {
   static currentTrackIndex: number;
   static arrayOfTracks: any;
   static borderedSongBlock: HTMLElement;
-
+  static arrayOfUser: string[];
+  static currentTrackId: string;
   static startTrack(data: any, id: string): void {
+    Player.currentTrackId = id;
     const currentTrackData = data.filter((el: any) => el.id == id);
     let currentTrackIndex: number = Player.arrayOfTracks.findIndex(
       (el: any) => el.id === id
@@ -33,7 +37,6 @@ export class Player extends Component {
 
   static getArray(array?: any) {
     Player.arrayOfTracks = array;
-    // console.log(Player.arrayOfTracks);
   }
 
   static borderSongBlock(element: HTMLElement) {
@@ -47,7 +50,7 @@ export class Player extends Component {
   }
 
   private progressBar: BaseComponent;
-  private playerContainer: BaseComponent;
+  static playerContainer: BaseComponent;
   private player: BaseComponent;
   private infoBlock: BaseComponent;
   private likeBlock: BaseComponent;
@@ -61,7 +64,7 @@ export class Player extends Component {
 
   constructor(tagName: string, className: string) {
     super(tagName, className);
-    this.playerContainer = new BaseComponent("div", "player__container");
+    Player.playerContainer = new BaseComponent("div", "player__container");
     this.progressBar = new BaseComponent("div", "progress");
     this.player = new BaseComponent("div", "player");
     this.infoBlock = new BaseComponent("div", "player__info-block");
@@ -85,8 +88,8 @@ export class Player extends Component {
     this.createPlayer();
     this.player.element.append(this.progressBar.element);
     this.player.element.append(this.wrapperForPanel.element);
-    this.playerContainer.element.append(this.player.element);
-    this.container.append(this.playerContainer.element);
+    Player.playerContainer.element.append(this.player.element);
+    this.container.append(Player.playerContainer.element);
     this.soundEvents();
     return this.container;
   }
@@ -108,7 +111,35 @@ export class Player extends Component {
     this.volumeBtnEvents();
     this.onloadProgress();
     this.nextTrack();
-    this.previousTrack();
+    this.previousTrack(); 
+  }
+
+  private createLikeBlock(): void {
+    let src: string = "../../assets/images/noLike.svg";
+    const likeImg: HTMLImageElement = document.createElement("img");
+    likeImg.src = src;
+    this.likeBlock.element.append(likeImg);
+    this.likeBlock.element.addEventListener("click", () => {
+      src = "../../assets/images/like.svg";
+      likeImg.src = src;
+    });
+  }
+
+  private async onloadTrackList(arrayOfTracks: string[]) {
+    const User = new Parse.User();
+    const query = new Parse.Query(User);
+    try {
+      let user = await query.get("ehLYWjvnq6");
+      user.set("tracks", ["486770"]);
+      try {
+        let response = await user.save();
+        console.log("OK");
+      } catch (error: any) {
+        console.error("Error while updating user", error);
+      }
+    } catch (error: any) {
+      console.error("Error while retrieving user", error);
+    }
   }
 
   private nextTrack() {
@@ -153,16 +184,6 @@ export class Player extends Component {
     this.infoBlock.element.append(Player.aboutBlock);
   }
 
-  private createLikeBlock(): void {
-    let src: string = "../../assets/images/noLike.svg";
-    const likeImg: HTMLImageElement = document.createElement("img");
-    likeImg.src = src;
-    this.likeBlock.element.append(likeImg);
-    this.likeBlock.element.addEventListener("click", () => {
-      src = "../../assets/images/like.svg";
-      likeImg.src = src;
-    });
-  }
 
   private createPanelBlock(): void {
     Player.playOrPauseBlock.element.classList.add("pause");
