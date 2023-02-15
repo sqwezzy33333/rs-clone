@@ -23,7 +23,8 @@ export class Header extends BaseComponent {
   getSearchTrack() {
     const searchTrack = this.search.element.querySelector('.search__input') as HTMLInputElement;
     // console.log(searchTrack);
-    searchTrack.addEventListener('keyup', async (event) => {
+    searchTrack.addEventListener('input', async (event) => {
+      window.location.hash = "search"
       const target = event.target as HTMLSelectElement;
       const searchString = target.value.toLowerCase();
       await getSearchTracks(searchString);
@@ -33,6 +34,7 @@ export class Header extends BaseComponent {
   }
   
   render() {
+    console.log(this.container)
     this.element.append(this.menu.element, this.search.element, this.logout.element);
     this.logout.logOut();
     this.menu.openNavMenu();
