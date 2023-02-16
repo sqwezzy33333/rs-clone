@@ -24,9 +24,10 @@ export abstract class Page {
     this.container = document.createElement("div");
     this.container.id = id;
   }
-  protected createHeaderTitle(text: string): HTMLElement {
+  protected createHeaderTitle(text: string, className?: string): HTMLElement {
     const headerTitle = document.createElement("h1");
     headerTitle.innerText = text;
+    if (className) headerTitle.className = className;
     return headerTitle;
   }
 

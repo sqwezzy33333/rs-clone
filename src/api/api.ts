@@ -264,6 +264,37 @@ export const getTracks = async (id: number[]) => {
   return await data;
 };
 
+export const getMoreTracks = async (id: string) => {
+  const response = await fetch(
+    `${BaseRequest.Tracks}/?client_id=${clientId}&format=jsonpretty&id=${id}`
+  );
+  const data = await response.json();
+  const {
+    results: [
+      {
+        audio,
+        audiodownload,
+        duration,
+        artist_name: artistName,
+        name: trackName,
+        album__image: trackImage,
+      },
+    ],
+  } = data;
+
+  storeTracks = {
+    ...storeTracks,
+    audio,
+    audiodownload,
+    duration,
+    artistName,
+    trackName,
+    trackImage,
+  }
+
+  return await data;
+};
+
 
 //поиск треков
 
