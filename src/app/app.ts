@@ -148,6 +148,8 @@ export class App {
 
     this.enableRouteChange();
 
+    Player.arrayOfUser = LoginPage.getArrayOfTracks();
+
     if (localStorage.getItem("theme") === "dark") {
       this.runDarkTheme();
     }

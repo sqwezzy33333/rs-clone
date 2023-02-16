@@ -54,7 +54,7 @@ export class LoginPage extends Page {
           "aside-Profile"
         ) as HTMLLinkElement;
         profileLink.href = "#profile";
-        Player.arrayOfUser = this.getArrayOfTracks();
+        Player.arrayOfUser = LoginPage.getArrayOfTracks();
         console.log(Player.arrayOfUser)
       })
       .catch((error: { code: string; message: string }) => {
@@ -78,7 +78,7 @@ export class LoginPage extends Page {
     });
   }
 
-  private getArrayOfTracks(): string[] {
+  static getArrayOfTracks(): string[] {
     let userParse = localStorage.getItem(
       "Parse/fHTtYX3oryuYW1MNXV6nvRxfu2xGoRXPu71vYXWH/currentUser"
     );
