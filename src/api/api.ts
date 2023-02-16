@@ -180,14 +180,16 @@ export const getArtistLocation = async (
 };
 
 // получать плейлист по названию
-export const getPlaylist = async (name: string) => {
+export const getPlaylist = async (id: string) => {
   const response = await fetch(
-    `${BaseRequest.Playlist}/?client_id=${clientId}&format=jsonpretty&namesearch=${name}&datebetween=2021-01-01_2023-02-01`
+    `${BaseRequest.Playlist}/tracks/?client_id=${clientId}&format=jsonpretty&id=${id}`
   );
+  // https://www.jamendo.com/playlist/500608900/indie
   const data = await response.json();
   const {
     results: [{ name: playlistName, shareurl, zip }],
   } = data;
+  console.log(data)
   return await data;
 };
 

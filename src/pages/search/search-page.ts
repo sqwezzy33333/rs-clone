@@ -9,7 +9,7 @@ export class SearchPage extends Page {
   static TextObject = {
     MainTitle: "SearchPage",
   };
-  private searchContainer: SearchContainer;
+   searchContainer: SearchContainer;
   // private header: Header;
 
   constructor(id: string) {
@@ -19,7 +19,7 @@ export class SearchPage extends Page {
     // this.header = new Header();
   }
 
-  static renderTracks() {
+  public static renderTracks() {
     let tracks = storeTrackSearch.tracks;
     console.log(tracks)
     Player.getArray(tracks);
@@ -34,13 +34,18 @@ export class SearchPage extends Page {
           audiodownload
         )
     );
-    // this.searchContainer.addCards(cards);
-    // this.container.append(this.searchContainer.element);
+    const searchContainer = new SearchContainer();
+    searchContainer.addCards(cards);
+    console.log(searchContainer)
+      // this.searchContainer.addCards(cards);
+return searchContainer.addCards(cards);
+  // this.container.append(searchContainer);
   }
   
   render(): HTMLElement {
     const title = this.createHeaderTitle(SearchPage.TextObject.MainTitle);
     this.container.append(title);
+    // this.container.append(SearchPage.renderTracks);
     // this.renderTracks();
     return this.container;
   }

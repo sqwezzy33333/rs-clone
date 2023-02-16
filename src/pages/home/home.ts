@@ -1,4 +1,4 @@
-import { getArtistAlbums, getArtistTracks, getMusicInfo, getAlbums, getTracks, getPopularTracks} from "../../api/api";
+import { getArtistAlbums, getArtistTracks, getMusicInfo, getAlbums, getTracks, getPopularTracks, getPlaylist, getAlbumsPlay} from "../../api/api";
 import { Page } from "../../templates/pages";
 import { CardTrack } from "./recomend/card-track";
 import { Recomend } from "./recomend/recomendation";

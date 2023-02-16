@@ -9,7 +9,7 @@ export class Header extends BaseComponent {
   private search: Search;
   private logout: LogOut;
   private menu: Menu;
-  // public searchPage: SearchPage;
+  
 
   constructor() {
     super("div", "header");
