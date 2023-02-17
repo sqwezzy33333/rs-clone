@@ -30,6 +30,7 @@ export let storeTracks = {
   audiodownload: '',
   duration: 0,
   trackImage: '',
+  playlist: [{name: "", creationdate: "", id: "", zip: "", tracks: [{ audio: "", audiodownload: "", duration: "", name: "", image: "", id: 0 }]}],
 }
 
 export let storeAlbums = {
@@ -104,6 +105,7 @@ export const getMusicInfo = async () => {
     description,
     tags,
   };
+ 
   return await data;
 };
 
@@ -180,14 +182,21 @@ export const getArtistLocation = async (
 };
 
 // получать плейлист по названию
-export const getPlaylist = async (name: string) => {
+
+export const getPlaylist = async (id: string) => {
   const response = await fetch(
-    `${BaseRequest.Playlist}/?client_id=${clientId}&format=jsonpretty&namesearch=${name}&datebetween=2021-01-01_2023-02-01`
+    `${BaseRequest.Playlist}/tracks/?client_id=${clientId}&format=jsonpretty&id=${id}`
   );
   const data = await response.json();
   const {
-    results: [{ name: playlistName, shareurl, zip }],
+    results: [{ }],
   } = data;
+  let track = data.results.map((track: Track) => track);
+  storeTracks = {
+    ...storeTracks,
+    playlist: track
+  };
+  
   return await data;
 };
 
@@ -222,7 +231,6 @@ export const getTracksByTag = async (tag: string[], limit: number) => {
   const {
     results: [{ artist_name, name, image, releasedate, id, audiodownload }],
   } = data;
-
   let track = data.results.map((track: Track) => track);
 
   storeTrackCategorie = {

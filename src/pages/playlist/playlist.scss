@@ -1,0 +1,27 @@
+.playlist__container {
+  display: flex;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.playlist__card {
+  margin: 10px;
+  box-shadow: 0px 4px 4px rgb(102 173 195 / 25%);
+  border-radius: 15px;
+}
+
+.playlist__img {
+  width: 200px;
+  height: 200px;
+  border-radius: 15px 15px 0 0;
+  cursor: pointer;
+}
+
+.playlist__name {
+  margin: 2px 12px;
+}
+
+.playlist__count {
+  margin: 2px 12px;
+}

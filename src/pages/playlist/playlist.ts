@@ -1,4 +1,5 @@
 import { Page } from "../../templates/pages";
+import { BlockPlaylist } from "./block-playlist";
 
 export class PlaylistPage extends Page {
   static TextObject = {
@@ -12,6 +13,7 @@ export class PlaylistPage extends Page {
   render(): HTMLElement {
     const title = this.createHeaderTitle(PlaylistPage.TextObject.MainTitle);
     this.container.append(title);
+    this.container.append(new BlockPlaylist().render());
     return this.container;
   }
 }
