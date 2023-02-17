@@ -4,18 +4,17 @@ import { Player } from "../../components/player/player";
 import { storeTrackSearch } from "../../api/api";
 import { SongCard } from "../categories/components-categories/song-card/song-card";
 import { App } from "../../app/app";
-// import { Header } from "../../components/header/header";
+
 
 export class SearchPage extends Page {
   static TextObject = {
     MainTitle: "SearchPage",
   };
   static searchContainer: SearchContainer;
-  // private header: Header;
+
   constructor(id: string) {
     super(id);
     SearchPage.searchContainer = new SearchContainer();
-    // this.header = new Header();
   }
 
   static renderTracks = () => {
@@ -33,8 +32,6 @@ export class SearchPage extends Page {
   };
 
   render(): HTMLElement {
-    const title = this.createHeaderTitle(SearchPage.TextObject.MainTitle);
-    this.container.append(title);
     return this.container;
   }
 }

@@ -54,6 +54,9 @@
   height: 80px;
   margin-left: 5px;
   border-radius: 15px;
+  img {
+    max-width: 20px;
+  }
 }
 
 .song__manager {

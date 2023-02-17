@@ -17,14 +17,12 @@ export class Header extends BaseComponent {
     this.search = new Search();
     this.logout = new LogOut();
     this.menu = new Menu();
-    // this.searchPage = new SearchPage();
   }
 
   getSearchTrack() {
     const searchTrack = this.search.element.querySelector(
       ".search__input"
     ) as HTMLInputElement;
-    // console.log(searchTrack);
     searchTrack.addEventListener("keyup", async (event) => {
       event.preventDefault();
       window.location.hash = "search";
@@ -32,7 +30,6 @@ export class Header extends BaseComponent {
       const searchString = target.value.toLowerCase();
       await getSearchTracks(searchString);
       SearchPage.renderTracks();
-      // this.searchPage.renderTracks();
     });
   }
 

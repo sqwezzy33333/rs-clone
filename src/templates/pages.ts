@@ -12,6 +12,7 @@ export const enum PageIds {
   CategoriesMood = "mood",
   CategoriesTheme = "theme",
   Search = "search",
+  Album = "album",
 }
 
 export abstract class Page {

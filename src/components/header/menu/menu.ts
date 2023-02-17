@@ -1,4 +1,6 @@
 import { BaseComponent } from "../../../templates/basecomponent";
+import { App } from "../../../app/app";
+import { Player } from "../../player/player";
 
 export class Menu extends BaseComponent {
   public burger = document.createElement('img') as HTMLImageElement;
@@ -21,10 +23,10 @@ export class Menu extends BaseComponent {
 
   openNavMenu() {
     const aside = document.querySelector('.aside') as HTMLElement;
-    // const player = document.querySelector('.player__wrapper') as HTMLElement;
+    const player = Player.playerContainer;
     const click = () => {
       aside.classList.add('active');
-      // player.classList.add('hidden');
+      player.element.style.display = 'none';
       this.close.classList.add('active');
       this.overlay.classList.add('active');
       this.burger.classList.add('hidden');
@@ -36,6 +38,7 @@ export class Menu extends BaseComponent {
     document.addEventListener('click', (event) => {
       if(event.target === this.overlay) { 
         aside.classList.remove('active');
+        player.element.style.display = 'block';
         this.close.classList.remove('active');
         this.overlay.classList.remove('active'); 
         this.burger.classList.remove('hidden');
@@ -43,6 +46,7 @@ export class Menu extends BaseComponent {
       }
       else if(event.target === this.close) { 
         aside.classList.remove('active');
+        player.element.style.display = 'block';
         this.close.classList.remove('active');
         this.overlay.classList.remove('active'); 
         this.burger.classList.remove('hidden');

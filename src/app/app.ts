@@ -15,6 +15,7 @@ import { Header } from "../components/header/header";
 import { Player } from "../components/player/player";
 import { Theme } from "../components/theme/theme";
 import { SearchPage } from "../pages/search/search-page";
+import { AlbumPage } from "../pages/albums/albums-page";
 
 export class App {
   static container: HTMLElement = document.createElement("div");
@@ -33,6 +34,7 @@ export class App {
   private profilePage: ProfilePage;
   private header: Header;
   private searchPage: SearchPage;
+  private albumPage: AlbumPage;
   private currentUser: string =
     "Parse/fHTtYX3oryuYW1MNXV6nvRxfu2xGoRXPu71vYXWH/currentUser";
 
@@ -50,7 +52,8 @@ export class App {
     this.profilePage = new ProfilePage("profile");
     this.header = new Header();
     this.player = new Player("div", "player__wrapper");
-    this.searchPage = new SearchPage("search")
+    this.searchPage = new SearchPage("search");
+    this.albumPage = new AlbumPage('album');
   }
 
   fillMainWrapper() {
@@ -96,6 +99,8 @@ export class App {
       page = new CategoriesThemePage(idPage);
     } else if (idPage === PageIds.Search) {
       page = new SearchPage(idPage);
+    } else if (idPage === PageIds.Album) {
+      page = new AlbumPage(idPage);
     }
 
     if (page) {

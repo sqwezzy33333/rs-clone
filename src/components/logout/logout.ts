@@ -4,7 +4,7 @@ export class LogOut extends BaseComponent {
   constructor() {
     super("div", "button__logout");
     this.element.innerHTML = `
-    <a href="#home"><input type="submit" value="Log Out" id="logOut-form-btn"></a>`;
+    <a href="#home"><input type="submit" value="Log In" id="logOut-form-btn"></a>`;
   }
 
   render() {
@@ -23,6 +23,19 @@ export class LogOut extends BaseComponent {
         "Parse/fHTtYX3oryuYW1MNXV6nvRxfu2xGoRXPu71vYXWH/currentUser"
       );
       asideProfileBtn.href = "#login";
+      LogOut.changeBtnLogOut();
     });
+  }
+
+  static changeBtnLogIn() {
+    const btn = document.querySelector('#logOut-form-btn') as HTMLInputElement;
+    btn.value = 'Log Out';
+    btn.style.backgroundColor = 'rgb(233, 112, 104)';
+  }
+
+  static changeBtnLogOut() {
+    const btn = document.querySelector('#logOut-form-btn') as HTMLInputElement;
+    btn.value = 'Log In';
+    btn.style.backgroundColor = 'rgb(135, 207, 101)';
   }
 }
