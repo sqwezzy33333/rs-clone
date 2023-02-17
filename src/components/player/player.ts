@@ -1,6 +1,7 @@
 import { BaseComponent } from "../../templates/basecomponent";
 import { Component } from "../../templates/components";
 import { UserInfo } from "../../templates/types";
+import { RootObject } from "../../templates/types";
 const Parse = require("parse");
 
 export class Player extends Component {
@@ -13,57 +14,10 @@ export class Player extends Component {
   static borderedSongBlock: HTMLElement;
   static arrayOfUser: string[];
   static currentTrackId: string;
+  static playerContainer: BaseComponent;
   static likeImg: HTMLImageElement = document.createElement("img");
 
-  static startTrack(data: any, id: string): void {
-    Player.likeImg.classList.remove("liked");
-    Player.currentTrackId = id;
-    const currentTrackData = data.filter((el: any) => el.id == id);
-    let currentTrackIndex: number = Player.arrayOfTracks.findIndex(
-      (el: any) => el.id === id
-    );
-    Player.currentTrackIndex = currentTrackIndex;
-    const imgTrack = Player.imageBlock.children[0] as HTMLImageElement;
-    const imgPause = Player.playOrPauseBlock.element
-      .children[0] as HTMLImageElement;
-    imgTrack.src = currentTrackData[0].image;
-    Player.audio.src = currentTrackData[0].audio;
-    let pauseImgSrc: string = `../../assets/images/panel/pause.svg`;
-    imgPause.src = pauseImgSrc;
-    Player.aboutBlock.innerHTML = `
-                            <span class="info-block__song-name">${currentTrackData[0].name}</span>
-                            <div class="info-block__author">${currentTrackData[0].artist_name}</div>
-    `;
-    localStorage.setItem("isPlay", "true");
-    Player.audio.play();
-    Player.likeCheck();
-  }
-
-  static getArray(array?: any) {
-    Player.arrayOfTracks = array;
-  }
-
-  static borderSongBlock(element: HTMLElement) {
-    Player.borderedSongBlock = element;
-    let collectionOfTrackBlocks = document.querySelectorAll(".song");
-    collectionOfTrackBlocks.forEach((el) => {
-      el.classList.remove("current-track");
-    });
-
-    element.classList.add("current-track");
-  }
-
-  static likeCheck() {
-    if (Player.arrayOfUser.find((el) => el == Player.currentTrackId)) {
-      Player.likeImg.src = "../../assets/images/like.svg";
-      Player.likeImg.classList.add("liked");
-    } else {
-      Player.likeImg.src = "../../assets/images/noLike.svg";
-    }
-  }
-
   private progressBar: BaseComponent;
-  static playerContainer: BaseComponent;
   private player: BaseComponent;
   private infoBlock: BaseComponent;
   private likeBlock: BaseComponent;
@@ -130,24 +84,32 @@ export class Player extends Component {
   private createLikeBlock(): void {
     let array: string[] = this.getArrayOfTracks();
     let src: string = "../../assets/images/noLike.svg";
+
     Player.likeImg.src = src;
     this.likeBlock.element.append(Player.likeImg);
     this.likeBlock.element.addEventListener("click", () => {
+      const likeSvg = Player.borderedSongBlock.children[2]
+        .children[2] as HTMLImageElement;
+
       Player.likeImg.classList.toggle("liked");
+
       if (Player.likeImg.classList.contains("liked")) {
         array.push(Player.currentTrackId);
         Player.likeImg.src = "../../assets/images/like.svg";
         Player.arrayOfUser = array;
-        this.onloadTrackList(Player.arrayOfUser);
+        Player.onloadTrackList(Player.arrayOfUser);
+        likeSvg.src = "../../assets/images/like.svg";
       } else {
         Player.likeImg.src = src;
         let indexOfUnLikedTrack = array.findIndex(
           (el) => el === Player.currentTrackId
         );
+
         if (indexOfUnLikedTrack !== -1) {
           array.splice(indexOfUnLikedTrack, 1);
-          this.onloadTrackList(array);
+          Player.onloadTrackList(array);
         }
+        likeSvg.src = "../../assets/images/noLike.svg";
       }
     });
   }
@@ -165,7 +127,7 @@ export class Player extends Component {
     return [""];
   }
 
-  private async onloadTrackList(arrayOfTracks: string[]) {
+  static async onloadTrackList(arrayOfTracks: string[]) {
     const User = new Parse.User();
     const query = new Parse.Query(User);
     try {
@@ -219,7 +181,7 @@ export class Player extends Component {
                             <span class="info-block__song-name"></span>
                             <div class="info-block__author"></div>
     `;
-    Player.imageBlock.innerHTML = `<img src="../../assets/images/music-album.png" alt="Album">`;
+    Player.imageBlock.innerHTML = `<img src="../../assets/images/music-album.png" alt="">`;
     this.infoBlock.element.append(Player.imageBlock);
     this.infoBlock.element.append(Player.aboutBlock);
   }
@@ -371,5 +333,52 @@ export class Player extends Component {
         }
       }
     });
+  }
+
+  static startTrack(data: any, id: string): void {
+    Player.likeImg.classList.remove("liked");
+    Player.currentTrackId = id;
+    const currentTrackData = data.filter((el: any) => el.id == id);
+    let currentTrackIndex: number = Player.arrayOfTracks.findIndex(
+      (el: any) => el.id === id
+    );
+    Player.currentTrackIndex = currentTrackIndex;
+    const imgTrack = Player.imageBlock.children[0] as HTMLImageElement;
+    const imgPause = Player.playOrPauseBlock.element
+      .children[0] as HTMLImageElement;
+    imgTrack.src = currentTrackData[0].image;
+    Player.audio.src = currentTrackData[0].audio;
+    let pauseImgSrc: string = `../../assets/images/panel/pause.svg`;
+    imgPause.src = pauseImgSrc;
+    Player.aboutBlock.innerHTML = `
+                            <span class="info-block__song-name">${currentTrackData[0].name}</span>
+                            <div class="info-block__author">${currentTrackData[0].artist_name}</div>
+    `;
+    localStorage.setItem("isPlay", "true");
+    Player.audio.play();
+    Player.likeCheck();
+  }
+
+  static getArray(array?: any) {
+    Player.arrayOfTracks = array;
+  }
+
+  static borderSongBlock(element: HTMLElement) {
+    Player.borderedSongBlock = element;
+    let collectionOfTrackBlocks = document.querySelectorAll(".song");
+    collectionOfTrackBlocks.forEach((el) => {
+      el.classList.remove("current-track");
+    });
+
+    element.classList.add("current-track");
+  }
+
+  static likeCheck() {
+    if (Player.arrayOfUser.find((el) => el == Player.currentTrackId)) {
+      Player.likeImg.src = "../../assets/images/like.svg";
+      Player.likeImg.classList.add("liked");
+    } else {
+      Player.likeImg.src = "../../assets/images/noLike.svg";
+    }
   }
 }
