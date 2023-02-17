@@ -219,7 +219,7 @@ export class Player extends Component {
                             <span class="info-block__song-name"></span>
                             <div class="info-block__author"></div>
     `;
-    Player.imageBlock.innerHTML = `<img src="https://avatars.yandex.net/get-music-content/2358262/410e8a7a.a.11322908-1/m1000x1000" alt="">`;
+    Player.imageBlock.innerHTML = `<img src="../../assets/images/music-album.png" alt="Album">`;
     this.infoBlock.element.append(Player.imageBlock);
     this.infoBlock.element.append(Player.aboutBlock);
   }

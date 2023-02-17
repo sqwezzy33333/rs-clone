@@ -1,5 +1,6 @@
 import { Page } from "../../templates/pages";
 import { Player } from "../../components/player/player";
+import { LogOut } from "../../components/logout/logout";
 const Parse = require("parse");
 
 export class LoginPage extends Page {
@@ -56,6 +57,7 @@ export class LoginPage extends Page {
         profileLink.href = "#profile";
         Player.arrayOfUser = LoginPage.getArrayOfTracks();
         console.log(Player.arrayOfUser)
+        LogOut.changeBtnLogIn();
       })
       .catch((error: { code: string; message: string }) => {
         if (error instanceof Error) {

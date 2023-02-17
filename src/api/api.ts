@@ -180,21 +180,23 @@ export const getArtistLocation = async (
 };
 
 // получать плейлист по названию
-export const getPlaylist = async (name: string) => {
+export const getPlaylist = async (id: string) => {
   const response = await fetch(
-    `${BaseRequest.Playlist}/?client_id=${clientId}&format=jsonpretty&namesearch=${name}&datebetween=2021-01-01_2023-02-01`
+    `${BaseRequest.Playlist}/tracks/?client_id=${clientId}&format=jsonpretty&id=${id}`
   );
+  // https://www.jamendo.com/playlist/500608900/indie
   const data = await response.json();
   const {
     results: [{ name: playlistName, shareurl, zip }],
   } = data;
+  console.log('playlist', data)
   return await data;
 };
 
 // получать альбомы по названию
 export const getAlbums = async () => {
   const response = await fetch(
-    `${BaseRequest.Albums}/?client_id=${clientId}&format=jsonpretty&order=popularity_total&limit=20`
+    `${BaseRequest.Albums}/?client_id=${clientId}&format=jsonpretty&order=popularity_total&limit=25`
   );
   const data = await response.json();
 
@@ -204,7 +206,7 @@ export const getAlbums = async () => {
     ...storeAlbums,
     albums: album,
   };
-
+  console.log('albums', album)
   return await data;
 };
 
@@ -339,3 +341,47 @@ export const getPopularTracks = async () => {
 
   return await data;
 };
+
+export let storeAlbumTracks = {
+  artist_name: '',
+  releasedate: '',
+  image: '',
+  name: '',
+  tracks: [{ position: "", name: "", id: "", audiodownload: ""}],
+};
+
+// получать треки альбома
+export const getAlbumsTracks = async (id: string) => {
+  const response = await fetch(
+    `${BaseRequest.Albums}/tracks/?client_id=${clientId}&format=jsonpretty&id=${id}`
+  );
+  const data = await response.json();
+
+  const {
+    results: [
+      {
+        tracks,
+        artist_name,
+        releasedate,
+        image,
+        name,
+      },
+    ],
+  } = data;
+
+  const track = tracks.map((track: Track) => track);
+  // const album = data.results.map((album: Album) => album);
+
+  storeAlbumTracks = {
+    ...storeAlbumTracks,
+    artist_name,
+    releasedate,
+    image,
+    name,
+    tracks: track
+  };
+  // console.log('albumTracks', track);
+  // console.log('data', data);
+  return await data;
+};
+
