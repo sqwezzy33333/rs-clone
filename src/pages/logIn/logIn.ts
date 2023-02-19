@@ -1,5 +1,6 @@
 import { Page } from "../../templates/pages";
 import { Player } from "../../components/player/player";
+import { LogOut } from "../../components/logout/logout";
 const Parse = require("parse");
 
 export class LoginPage extends Page {
@@ -54,8 +55,9 @@ export class LoginPage extends Page {
           "aside-Profile"
         ) as HTMLLinkElement;
         profileLink.href = "#profile";
-        Player.arrayOfUser = this.getArrayOfTracks();
+        Player.arrayOfUser = LoginPage.getArrayOfTracks();
         console.log(Player.arrayOfUser)
+        LogOut.changeBtnLogIn();
       })
       .catch((error: { code: string; message: string }) => {
         if (error instanceof Error) {
@@ -78,7 +80,7 @@ export class LoginPage extends Page {
     });
   }
 
-  private getArrayOfTracks(): string[] {
+  static getArrayOfTracks(): string[] {
     let userParse = localStorage.getItem(
       "Parse/fHTtYX3oryuYW1MNXV6nvRxfu2xGoRXPu71vYXWH/currentUser"
     );

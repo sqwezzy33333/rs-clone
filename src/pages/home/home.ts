@@ -1,4 +1,4 @@
-import { getArtistAlbums, getArtistTracks, getMusicInfo, getAlbums, getTracks, getPopularTracks} from "../../api/api";
+import { getArtistTracks, getMusicInfo, getAlbums, getTracks, getPopularTracks} from "../../api/api";
 import { Page } from "../../templates/pages";
 import { CardTrack } from "./recomend/card-track";
 import { Recomend } from "./recomend/recomendation";
@@ -93,9 +93,10 @@ export class HomePage extends Page {
 
   newAlbums() {
     let albums = storeAlbums.albums;
-    const albumCards = albums.map(({image, name}) => new AlbumCard(
-     image, name));
+    const albumCards = albums.map(({image, name, id}) => new AlbumCard(
+     image, name, id));
     this.albumsContainer.addCards(albumCards);
+    this.albumsContainer.openAlbum(albumCards);
   }
 
   windowOnload() {
@@ -126,13 +127,13 @@ export class HomePage extends Page {
 
   resize() {
     window.addEventListener('resize', () => {
-      if (window.innerWidth > 640) {
+      if (window.innerWidth > 950) {
         this.slider(5);
       };
-      if (window.innerWidth <= 640) {
+      if (window.innerWidth <= 950) {
         this.slider(3);
       };
-      if (window.innerWidth <= 320) {
+      if (window.innerWidth <= 420) {
         this.slider(2);
       }
     });

@@ -9,7 +9,7 @@ export class Header extends BaseComponent {
   private search: Search;
   private logout: LogOut;
   private menu: Menu;
-  // public searchPage: SearchPage;
+  
 
   constructor() {
     super("div", "header");
@@ -17,25 +17,28 @@ export class Header extends BaseComponent {
     this.search = new Search();
     this.logout = new LogOut();
     this.menu = new Menu();
-    // this.searchPage = new SearchPage();
   }
-  
+
   getSearchTrack() {
-    const searchTrack = this.search.element.querySelector('.search__input') as HTMLInputElement;
-    // console.log(searchTrack);
-    searchTrack.addEventListener('input', async (event) => {
-      window.location.hash = "search"
+    const searchTrack = this.search.element.querySelector(
+      ".search__input"
+    ) as HTMLInputElement;
+    searchTrack.addEventListener("keyup", async (event) => {
+      event.preventDefault();
+      window.location.hash = "search";
       const target = event.target as HTMLSelectElement;
       const searchString = target.value.toLowerCase();
       await getSearchTracks(searchString);
       SearchPage.renderTracks();
-      // this.searchPage.renderTracks();
-    })
+    });
   }
-  
+
   render() {
-    console.log(this.container)
-    this.element.append(this.menu.element, this.search.element, this.logout.element);
+    this.element.append(
+      this.menu.element,
+      this.search.element,
+      this.logout.element
+    );
     this.logout.logOut();
     this.menu.openNavMenu();
     this.getSearchTrack();
