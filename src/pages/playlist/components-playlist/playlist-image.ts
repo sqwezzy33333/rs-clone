@@ -36,9 +36,15 @@ export class PlaylistImg extends BaseComponent {
     this.element.style.background = `url(${src})`;
     this.element.style.backgroundSize = "cover";
     this.element.style.backgroundPosition = "center";
+    this.element.addEventListener("click", this.click);
   }
 
   render() {
     return this.element;
+  }
+
+  click() {
+    const trackId:string = this.getAttribute("id")!;
+    localStorage.setItem("playlistId", `${trackId}`);
   }
 }

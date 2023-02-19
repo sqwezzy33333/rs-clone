@@ -258,7 +258,6 @@ export const getTracks = async (id: number[]) => {
       },
     ],
   } = data;
-
   storeTracks = {
     ...storeTracks,
     audio,

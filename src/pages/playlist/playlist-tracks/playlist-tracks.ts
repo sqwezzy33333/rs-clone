@@ -1,18 +1,45 @@
 import { Page } from "../../../templates/pages";
-
+import { getPlaylist, storeTracks, getTracks } from "../../../api/api";
+import { BaseComponent } from "../../../templates/basecomponent";
+import { SongCard } from "../../categories/components-categories/song-card/song-card";
+import { Player } from "../../../components/player/player";
 
 export class PlaylistTrack extends Page {
-    static TextObject = {
-        MainTitle: "Playlist Tracks",
-      };
+  static TextObject = {
+    MainTitle: "Playlist Tracks",
+  };
+  playlistTracksContainer: BaseComponent;
+  constructor(id: string) {
+    super(id);
+    this.playlistTracksContainer = new BaseComponent("div", "playlist__tracks_container");
+  }
 
-      constructor(id: string) {
-        super(id);
-      }
-
-      render(){
-        const title = this.createHeaderTitle(PlaylistTrack.TextObject.MainTitle);
+  render() {
+    const id = localStorage.getItem("playlistId")!;
+    const title = this.createHeaderTitle(PlaylistTrack.TextObject.MainTitle);
     this.container.append(title);
-          return this.container;
-      }
+    this.getPlaylist(id);
+    this.container.append(this.playlistTracksContainer.element);
+    return this.container;
+  }
+
+  async getPlaylist(id: string) {
+    const data = await getPlaylist(id);
+    console.log(data)
+    this.newTracksPlaylist();
+  }
+
+  newTracksPlaylist() {
+    let playlist = storeTracks.playlist;
+    
+    playlist.map((el) => 
+    {
+      Player.getArray(el.tracks);
+      el.tracks.map((tr) =>
+      
+       {
+        this.playlistTracksContainer.element.append(new SongCard(`${tr.id}`, tr.image, tr.name, tr.name, tr.duration, tr.audiodownload).element);
+       })
+      });
+  }
 }

@@ -8,11 +8,11 @@ export class PlaylistPage extends Page {
   static TextObject = {
     MainTitle: "Playlist Page",
   };
-  recomendPlaylistContainer: BaseComponent;
+  playlistContainer: BaseComponent;
 
   constructor(id: string) {
     super(id);
-    this.recomendPlaylistContainer = new BaseComponent(
+    this.playlistContainer = new BaseComponent(
       "div",
       "playlist__container"
     );
@@ -22,28 +22,28 @@ export class PlaylistPage extends Page {
     const title = this.createHeaderTitle(PlaylistPage.TextObject.MainTitle);
     this.container.append(title);
     for (let i = 0; i < PlaylistImg.playlists.length; i++) {
-      this.getRecomendationPlaylist(
+      this.getPlaylist(
         `${PlaylistImg.playlistIds[i]}`,
         `${PlaylistImg.playlists[i]}`
       );
     }
-    this.container.append(this.recomendPlaylistContainer.element);
+    this.container.append(this.playlistContainer.element);
     return this.container;
   }
 
-  async getRecomendationPlaylist(id: string, src: string) {
+  async getPlaylist(id: string, src: string) {
     const data = await getPlaylist(id);
-    this.newRecomendation(id, src);
+    this.newPlaylist(id, src);
   }
 
-  newRecomendation(id: string, src: string) {
+  newPlaylist(id: string, src: string) {
     let tracks = storeTracks.playlist;
     let name = "";
     let count = 0;
     tracks.map((el) => (name = el.name));
     tracks.map((el) => (count = el.tracks.length));
     const card = new PlaylistCard(id, src, name, count);
-    this.recomendPlaylistContainer.element.append(card.element);
+    this.playlistContainer.element.append(card.element);
   }
 
 }
