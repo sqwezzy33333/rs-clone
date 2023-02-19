@@ -25,7 +25,6 @@ export class PlaylistTrack extends Page {
 
   async getPlaylist(id: string) {
     const data = await getPlaylist(id);
-    console.log(data)
     this.newTracksPlaylist();
   }
 
