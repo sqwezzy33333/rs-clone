@@ -45,6 +45,8 @@ export class PlaylistImg extends BaseComponent {
 
   click() {
     const trackId:string = this.getAttribute("id")!;
+    const trackImg:string = this.style.background;
     localStorage.setItem("playlistId", `${trackId}`);
+    localStorage.setItem("playlistImg", `${trackImg}`)
   }
 }

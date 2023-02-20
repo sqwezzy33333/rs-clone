@@ -26,12 +26,31 @@ export let storeTracks = {
   tags: [],
   audio: "",
   trackId: 0,
-  trackName: '',
-  audiodownload: '',
+  trackName: "",
+  audiodownload: "",
   duration: 0,
-  trackImage: '',
-  playlist: [{name: "", creationdate: "", id: "", zip: "", tracks: [{ audio: "", audiodownload: "", duration: "", name: "", image: "", id: 0 }]}],
-}
+  trackImage: "",
+  playlist: [
+    {
+      name: "",
+      creationdate: "",
+      id: "",
+      zip: "",
+      tracks: [
+        {
+          audio: "",
+          artist_name: "",
+          playlistadddate: "",
+          audiodownload: "",
+          duration: "",
+          name: "",
+          image: "",
+          id: 0,
+        },
+      ],
+    },
+  ],
+};
 
 export let storeAlbums = {
   albumId: "",
@@ -82,9 +101,27 @@ export const allGenres = [
   "blues",
 ];
 
-export const allMood = ["Angry", "Bright", "Dark", "Funky", "Horror", "Happy", "Inspiration", "Romantic", "Sad", "Dramatic", "Calm"];
+export const allMood = [
+  "Angry",
+  "Bright",
+  "Dark",
+  "Funky",
+  "Horror",
+  "Happy",
+  "Inspiration",
+  "Romantic",
+  "Sad",
+  "Dramatic",
+  "Calm",
+];
 
-export const allTheme = ["Music for Vlog", "Music for Film", "Cinematic Music", "Music for Podcast", "Background Music"];
+export const allTheme = [
+  "Music for Vlog",
+  "Music for Film",
+  "Cinematic Music",
+  "Music for Podcast",
+  "Background Music",
+];
 
 //получать описание и тэги
 export const getMusicInfo = async () => {
@@ -105,7 +142,7 @@ export const getMusicInfo = async () => {
     description,
     tags,
   };
- 
+
   return await data;
 };
 
@@ -116,12 +153,7 @@ export const getArtistTracks = async (order: sortOrderStrings) => {
   );
   const data = await response.json();
   const {
-    results: [
-      {
-        image: artistImage,
-        tracks,
-      },
-    ],
+    results: [{ image: artistImage, tracks }],
   } = data;
 
   const track = tracks.map((track: Track) => track);
@@ -161,7 +193,7 @@ export const getArtistAlbums = async (order: sortOrderStrings) => {
     albums: album,
   };
 
-  console.log(album)
+  console.log(album);
   return await data;
 };
 
@@ -189,14 +221,14 @@ export const getPlaylist = async (id: string) => {
   // https://www.jamendo.com/playlist/500608900/indie
   const data = await response.json();
   const {
-    results: [{ }],
+    results: [{}],
   } = data;
   let track = data.results.map((track: Track) => track);
   storeTracks = {
     ...storeTracks,
-    playlist: track
+    playlist: track,
   };
-  
+
   return await data;
 };
 
@@ -213,12 +245,21 @@ export const getAlbums = async () => {
     ...storeAlbums,
     albums: album,
   };
-  console.log('albums', album)
+  console.log("albums", album);
   return await data;
 };
 
 export let storeTrackCategorie = {
-  tracks: [{ artist_name: "", image: "", name: "", releasedate: "", id: "", audiodownload: ""}],
+  tracks: [
+    {
+      artist_name: "",
+      image: "",
+      name: "",
+      releasedate: "",
+      id: "",
+      audiodownload: "",
+    },
+  ],
 };
 
 // получать треки по тэгам
@@ -266,7 +307,7 @@ export const getTracks = async (id: number[]) => {
     artistName,
     trackName,
     trackImage,
-  }
+  };
 
   return await data;
 };
@@ -296,7 +337,7 @@ export const getMoreTracks = async (id: string) => {
     artistName,
     trackName,
     trackImage,
-  }
+  };
 
   return await data;
 };
@@ -304,10 +345,19 @@ export const getMoreTracks = async (id: string) => {
 //поиск треков
 
 export let storeTrackSearch = {
-  tracks: [{ artist_name: "", image: "", name: "", releasedate: "", id: "", audiodownload: ""}],
+  tracks: [
+    {
+      artist_name: "",
+      image: "",
+      name: "",
+      releasedate: "",
+      id: "",
+      audiodownload: "",
+    },
+  ],
 };
 
-export const getSearchTracks = async(search: string) => {
+export const getSearchTracks = async (search: string) => {
   const response = await fetch(
     `${BaseRequest.Tracks}/?client_id=${clientId}&format=jsonpretty&namesearch=${search}`
   );
@@ -321,12 +371,20 @@ export const getSearchTracks = async(search: string) => {
   };
 
   return await data;
-}
-
+};
 
 //популярные треки
 export let storePopularTracks = {
-  tracks: [{ artist_name: "", image: "", name: "", releasedate: "", id: "", audiodownload: ""}],
+  tracks: [
+    {
+      artist_name: "",
+      image: "",
+      name: "",
+      releasedate: "",
+      id: "",
+      audiodownload: "",
+    },
+  ],
 };
 
 export const getPopularTracks = async () => {
@@ -346,11 +404,11 @@ export const getPopularTracks = async () => {
 };
 
 export let storeAlbumTracks = {
-  artist_name: '',
-  releasedate: '',
-  image: '',
-  name: '',
-  tracks: [{ position: "", name: "", id: "", audiodownload: ""}],
+  artist_name: "",
+  releasedate: "",
+  image: "",
+  name: "",
+  tracks: [{ position: "", name: "", id: "", audiodownload: "" }],
 };
 
 // получать треки альбома
@@ -361,15 +419,7 @@ export const getAlbumsTracks = async (id: string) => {
   const data = await response.json();
 
   const {
-    results: [
-      {
-        tracks,
-        artist_name,
-        releasedate,
-        image,
-        name,
-      },
-    ],
+    results: [{ tracks, artist_name, releasedate, image, name }],
   } = data;
 
   const track = tracks.map((track: Track) => track);
@@ -381,10 +431,9 @@ export const getAlbumsTracks = async (id: string) => {
     releasedate,
     image,
     name,
-    tracks: track
+    tracks: track,
   };
   // console.log('albumTracks', track);
   // console.log('data', data);
   return await data;
 };
-
