@@ -4,6 +4,7 @@ export const enum PageIds {
   MainPage = "home",
   Favorite = "favorite",
   Playlist = "playlist",
+  PlaylistTrack = "playlist-tracks",
   Profile = "profile",
   Login = "login",
   Categories = "categories",

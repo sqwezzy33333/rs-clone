@@ -15,6 +15,7 @@ import { Header } from "../components/header/header";
 import { Player } from "../components/player/player";
 import { Theme } from "../components/theme/theme";
 import { SearchPage } from "../pages/search/search-page";
+import { PlaylistTrack } from "../pages/playlist/playlist-tracks/playlist-tracks";
 import { AlbumPage } from "../pages/albums/albums-page";
 
 export class App {
@@ -23,6 +24,7 @@ export class App {
   private homePage: HomePage;
   static aside: Aside;
   private player: Player;
+  private playlistTrack: PlaylistTrack;
   private favoritePage: FavoritePage;
   private categoriesPage: CategoriesPage;
   private categoriesGenrePage: CategoriesGenrePage;
@@ -41,6 +43,7 @@ export class App {
   constructor() {
     this.homePage = new HomePage("home-page");
     App.aside = new Aside("aside", "aside");
+    this.playlistTrack = new PlaylistTrack("playlist-track");
     this.favoritePage = new FavoritePage("favorite");
     this.categoriesPage = new CategoriesPage("categories");
     this.categoriesGenrePage = new CategoriesGenrePage("categorie-genre");
@@ -72,6 +75,9 @@ export class App {
 
     if (idPage === PageIds.MainPage) {
       page = new HomePage(idPage);
+      Aside.renderCategoriesBtns(false);
+    } else if (idPage === PageIds.PlaylistTrack) {
+      page = new PlaylistTrack(idPage);
       Aside.renderCategoriesBtns(false);
     } else if (idPage === PageIds.Favorite) {
       page = new FavoritePage(idPage);

@@ -1,7 +1,7 @@
 import { BaseComponent } from "../../../../templates/basecomponent";
 import { LikeTrack } from "./like-track";
 import { PlayTrack } from "./play-track";
-import { DownloadTrack } from "./download-track2";
+import { DownloadTrack } from "./download-track";
 
 export class BlockButtonTrack extends BaseComponent {
   constructor() {
