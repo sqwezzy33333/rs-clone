@@ -7,9 +7,7 @@ import { ImgBlockPlaylist } from "./block-playlist-img";
 import { InfoBlockPlaylist } from "./block-playlist-info";
 
 export class PlaylistTrack extends Page {
-  static TextObject = {
-    MainTitle: "Playlist Tracks",
-  };
+  
   playlistTracksContainer: BaseComponent;
   blockPlaylist: BaseComponent;
   constructor(id: string) {
@@ -20,8 +18,6 @@ export class PlaylistTrack extends Page {
 
   render() {
     const id = localStorage.getItem("playlistId")!;
-    // const title = this.createHeaderTitle(PlaylistTrack.TextObject.MainTitle);
-    // this.container.append(title);
     this.getPlaylist(id);
     this.container.append(this.blockPlaylist.element);
     this.container.append(this.playlistTracksContainer.element);
@@ -30,7 +26,6 @@ export class PlaylistTrack extends Page {
 
   async getPlaylist(id: string) {
     const data = await getPlaylist(id);
-    console.log(data);
     this.newTracksPlaylist();
   }
 
