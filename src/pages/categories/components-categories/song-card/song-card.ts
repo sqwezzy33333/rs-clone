@@ -22,16 +22,19 @@ export class SongCard extends BaseComponent {
     `;
     this.element.append(new BlockButtonTrack().render(id, link));
     const infoBlock = this.element.children[1] as HTMLElement;
-    const likeBlock = infoBlock.nextElementSibling?.children[2] as HTMLImageElement;
+    const likeBlock = infoBlock.nextElementSibling
+      ?.children[2] as HTMLImageElement;
     let idOfCard: string | null = infoBlock?.getAttribute("data-item-id");
     if (idOfCard) {
-      let likedTrackByUser: string | undefined = Player.arrayOfUser.find(
-        (el) => {
-          return el === idOfCard?.toString();
+      if (Player.arrayOfUser) {
+        let likedTrackByUser: string | undefined = Player.arrayOfUser.find(
+          (el) => {
+            return el === idOfCard?.toString();
+          }
+        );
+        if (likedTrackByUser) {
+          likeBlock.src = "../../../../assets/images/like.svg";
         }
-      );
-      if (likedTrackByUser) {
-        likeBlock.src = '../../../../assets/images/like.svg'
       }
     }
   }
