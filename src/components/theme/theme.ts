@@ -38,6 +38,12 @@ export class Theme extends Component {
     menu.style.filter = 'invert(100%)';
     const close = document.querySelector('.close') as HTMLElement;
     close.style.filter = 'invert(100%)';
+    const logoRs = document.querySelector('.rs_image') as HTMLElement;
+    logoRs.style.filter = 'invert(100%)';
+    const logoGithub = document.querySelectorAll('.github_image') as NodeListOf<HTMLElement>;
+    logoGithub.forEach((item) => {
+      item.style.filter = 'invert(100%)';
+    })
   }
 
   private makeLigth() {
@@ -50,6 +56,16 @@ export class Theme extends Component {
     if (aside) aside.classList.toggle("dark");
     player.classList.toggle("dark-player");
     Theme.textSpan.style.border = "1px solid black";
+    const menu = document.querySelector('.menu') as HTMLElement;
+    menu.style.filter = 'invert(0%)';
+    const close = document.querySelector('.close') as HTMLElement;
+    close.style.filter = 'invert(0%)';
+    const logoRs = document.querySelector('.rs_image') as HTMLElement;
+    logoRs.style.filter = 'invert(0%)';
+    const logoGithub = document.querySelectorAll('.github_image') as NodeListOf<HTMLElement>;
+    logoGithub.forEach((item) => {
+      item.style.filter = 'invert(0%)';
+    })
   }
 
   public render() {

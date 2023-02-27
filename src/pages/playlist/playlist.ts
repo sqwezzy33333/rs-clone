@@ -19,8 +19,8 @@ export class PlaylistPage extends Page {
   }
 
   render(): HTMLElement {
-    const title = this.createHeaderTitle(PlaylistPage.TextObject.MainTitle);
-    this.container.append(title);
+    // const title = this.createHeaderTitle(PlaylistPage.TextObject.MainTitle);
+    // this.container.append(title);
     for (let i = 0; i < PlaylistImg.playlists.length; i++) {
       this.getPlaylist(
         `${PlaylistImg.playlistIds[i]}`,

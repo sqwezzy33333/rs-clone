@@ -9,7 +9,7 @@ export class Header extends BaseComponent {
   private search: Search;
   private logout: LogOut;
   private menu: Menu;
-  
+
 
   constructor() {
     super("div", "header");
@@ -38,8 +38,9 @@ export class Header extends BaseComponent {
       this.menu.element,
       this.search.element,
       this.logout.element
-    );
+      );
     this.logout.logOut();
+    // this.logout.checkLogin();
     this.menu.openNavMenu();
     this.getSearchTrack();
 

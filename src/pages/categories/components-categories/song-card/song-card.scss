@@ -61,7 +61,7 @@
   margin-left: 5px;
   border-radius: 15px;
   @include media-tablet {
-   flex-direction: column;
+   flex-direction: row;
    margin-right: 10px;
   }
   img {

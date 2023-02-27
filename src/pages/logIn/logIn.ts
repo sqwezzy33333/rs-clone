@@ -9,6 +9,7 @@ export class LoginPage extends Page {
   registrationSpan = document.createElement("span");
   title = document.createElement("div");
   form = document.createElement("form");
+  private logout: LogOut;
 
   constructor(id: string) {
     super(id);
@@ -18,6 +19,7 @@ export class LoginPage extends Page {
     this.form.className = "form";
     this.form.action = "#";
     this.form.id = "registr-form";
+    this.logout = new LogOut();
   }
 
   protected drowSignInBlock(): HTMLElement {
@@ -56,7 +58,7 @@ export class LoginPage extends Page {
         ) as HTMLLinkElement;
         profileLink.href = "#profile";
         Player.arrayOfUser = LoginPage.getArrayOfTracks();
-        console.log(Player.arrayOfUser)
+        console.log(Player.arrayOfUser);
         LogOut.changeBtnLogIn();
       })
       .catch((error: { code: string; message: string }) => {
@@ -77,6 +79,7 @@ export class LoginPage extends Page {
       let login = formData.get("login") as FormDataEntryValue;
       let password = formData.get("password") as FormDataEntryValue;
       this.logIn(`${login}`, `${password}`);
+
     });
   }
 
