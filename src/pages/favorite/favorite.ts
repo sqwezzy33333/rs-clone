@@ -74,7 +74,7 @@ export class FavoritePage extends Page {
         let indexOfTrack: number;
         if (currentId) {
           indexOfTrack = Player.arrayOfUser.findIndex((el) => el === currentId);
-          Player.arrayOfUser.splice(indexOfTrack, 1);
+          Player.arrayOfUser.splice(1, indexOfTrack);
           Player.onloadTrackList(Player.arrayOfUser);
           card.style.display = "none";
         }
