@@ -35,8 +35,11 @@ export class AlbumPage extends Page {
   }
   
   renderAlbumTracks() {
-    
     let tracks = storeAlbumTracks.tracks;
+    for (let i = 0; i < tracks.length; i++) {
+      tracks[i].image = storeAlbumTracks.image;
+      tracks[i].artist_name = storeAlbumTracks.artist_name;
+    }
     Player.getArray(tracks);
     const songs = tracks.map(({id, name, audiodownload}) =>
     new SongCard(

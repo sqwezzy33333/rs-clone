@@ -53,6 +53,21 @@ const CategoriesButtons = [
   },
 ];
 
+const Links = [
+  {
+    link: "https://github.com/sqwezzy33333",
+    name: "Serhei Korneu",
+  },
+  {
+    link: "https://github.com/tarasovamary",
+    name: "Mariya Tarasova",
+  },
+  {
+    link: "https://github.com/chelovek-zeml",
+    name: "Alexey Andreev",
+  },
+];
+
 export class Aside extends Component {
   static switcher: Theme;
   static switcherBlock: HTMLElement;
@@ -88,8 +103,58 @@ export class Aside extends Component {
     this.container.append(navBlock);
   }
 
+  renderGithubLinks() {
+    const info = document.createElement("div");
+    info.className = "info";
+    const linksContainer = document.createElement("div");
+    linksContainer.className = "github-links";
+    const titleContainer = document.createElement("div");
+    titleContainer.className = "github-title";
+
+    // const gitLogo = document.createElement("img");
+    // gitLogo.src = "../../assets/images/git.png";
+    // gitLogo.width = 70;
+    // gitLogo.height = 48;
+    // const text = document.createElement("span");
+    // text.innerText = "Developers GitHub:";
+
+    // titleContainer.append(gitLogo, text);
+
+    Links.forEach((el) => {
+      const block =  document.createElement("div");
+      block.className = "block";
+      const gitLogo = document.createElement("img");
+      gitLogo.src = "../../assets/images/git.png";
+      gitLogo.width = 50;
+      gitLogo.height = 35;
+      gitLogo.className = "github_image";
+      const linkInfo = document.createElement("a");
+      linkInfo.href = `${el.link}`;
+      linkInfo.innerText = el.name;
+      block.append(gitLogo, linkInfo);
+      linksContainer.append(block);
+    })
+
+    const rsContainer = document.createElement("div");
+    rsContainer.className = "rs";
+    const linkRs = document.createElement("a");
+      linkRs.href = "https://rs.school/js/";
+    const rsLogo = document.createElement("img");
+    rsLogo.src = "../../assets/images/rss.png";
+    rsLogo.className = "rs_image";
+    rsLogo.width = 80;
+    const textRs = document.createElement("span");
+    textRs.innerText = "2023";
+    linkRs.append(rsLogo);
+    rsContainer.append(linkRs, textRs);
+
+    info.append(titleContainer, linksContainer, rsContainer);
+    this.container.append(info);
+  }
+
   render(): HTMLElement {
     this.renderPageBtns();
+    this.renderGithubLinks();
     this.container.append(Aside.switcherBlock);
     return this.container;
   }

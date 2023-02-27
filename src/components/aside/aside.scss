@@ -49,3 +49,46 @@
   line-height: 3.7rem;
 }
 
+.info {
+  display: flex;
+  flex-direction: column;
+  flex: 0 1 auto;
+  padding-left: 31px;
+}
+
+.github-title, .rs {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.rs {
+  gap: 12px;
+  padding-top: 27px;
+  padding-left: 14px;
+  @include media-tablet {
+    display: none;
+  }
+}
+
+.github-links {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  a {
+    color: $color-text;
+    @include font($size: 1.7rem, $weight: 300);
+    &:hover {
+      color: $color-hover-text;
+      @extend %transition;
+    }
+  }
+}
+
+.block {
+  display: flex;
+  align-items: center;
+  @include media-tablet {
+    display: none;
+  }
+}

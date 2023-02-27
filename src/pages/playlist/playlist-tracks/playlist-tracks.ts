@@ -20,8 +20,8 @@ export class PlaylistTrack extends Page {
 
   render() {
     const id = localStorage.getItem("playlistId")!;
-    const title = this.createHeaderTitle(PlaylistTrack.TextObject.MainTitle);
-    this.container.append(title);
+    // const title = this.createHeaderTitle(PlaylistTrack.TextObject.MainTitle);
+    // this.container.append(title);
     this.getPlaylist(id);
     this.container.append(this.blockPlaylist.element);
     this.container.append(this.playlistTracksContainer.element);

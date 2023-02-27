@@ -408,7 +408,7 @@ export let storeAlbumTracks = {
   releasedate: "",
   image: "",
   name: "",
-  tracks: [{ position: "", name: "", id: "", audiodownload: "" }],
+  tracks: [{ position: "", name: "", id: "", audiodownload: "", image: "", artist_name: ""}],
 };
 
 // получать треки альбома
@@ -433,7 +433,7 @@ export const getAlbumsTracks = async (id: string) => {
     name,
     tracks: track,
   };
-  // console.log('albumTracks', track);
-  // console.log('data', data);
+  console.log('albumTracks', track);
+  console.log('data', data);
   return await data;
 };
