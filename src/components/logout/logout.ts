@@ -23,8 +23,25 @@ export class LogOut extends BaseComponent {
         "Parse/fHTtYX3oryuYW1MNXV6nvRxfu2xGoRXPu71vYXWH/currentUser"
       );
       asideProfileBtn.href = "#login";
-      LogOut.changeBtnLogOut();
+      LogOut.changeBtnLogOut()
     });
+  }
+
+public checkLogin() {
+  this.element.addEventListener("click", (e) => {
+    // console.log('click');
+    if(localStorage.getItem(
+      "Parse/fHTtYX3oryuYW1MNXV6nvRxfu2xGoRXPu71vYXWH/currentUser"
+    )) {
+      // console.log('true');
+      LogOut.changeBtnLogIn();
+    } else if (localStorage.getItem(
+      "Parse/fHTtYX3oryuYW1MNXV6nvRxfu2xGoRXPu71vYXWH/currentUser"
+    ) === null) {
+      // console.log('false');
+      LogOut.changeBtnLogOut();
+    }
+  })
   }
 
   static changeBtnLogIn() {

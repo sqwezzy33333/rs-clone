@@ -193,7 +193,7 @@ export const getArtistAlbums = async (order: sortOrderStrings) => {
     albums: album,
   };
 
-  console.log(album);
+  // console.log(album);
   return await data;
 };
 
@@ -245,7 +245,7 @@ export const getAlbums = async () => {
     ...storeAlbums,
     albums: album,
   };
-  console.log("albums", album);
+  // console.log("albums", album);
   return await data;
 };
 
@@ -433,7 +433,7 @@ export const getAlbumsTracks = async (id: string) => {
     name,
     tracks: track,
   };
-  console.log('albumTracks', track);
-  console.log('data', data);
+  // console.log('albumTracks', track);
+  // console.log('data', data);
   return await data;
 };
