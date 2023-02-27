@@ -56,7 +56,7 @@ export class App {
     this.header = new Header();
     this.player = new Player("div", "player__wrapper");
     this.searchPage = new SearchPage("search");
-    this.albumPage = new AlbumPage('album');
+    this.albumPage = new AlbumPage("album");
   }
 
   fillMainWrapper() {
@@ -142,6 +142,7 @@ export class App {
   }
 
   run() {
+    let userTracks = LoginPage.getArrayOfTracks();
     App.container.className = "container";
     App.container.id = "container";
 
@@ -159,7 +160,9 @@ export class App {
 
     this.enableRouteChange();
 
-    Player.arrayOfUser = LoginPage.getArrayOfTracks();
+    Player.arrayOfTracks = [];
+
+    if (userTracks) Player.arrayOfUser = LoginPage.getArrayOfTracks();
 
     if (localStorage.getItem("theme") === "dark") {
       this.runDarkTheme();
