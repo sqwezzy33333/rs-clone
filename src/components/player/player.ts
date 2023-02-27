@@ -12,7 +12,7 @@ export class Player extends Component {
   static currentTrackIndex: number;
   static arrayOfTracks: any;
   static borderedSongBlock: HTMLElement;
-  static arrayOfUser: string[];
+  static arrayOfUser: string[] = [];
   static currentTrackId: string;
   static playerContainer: BaseComponent;
   static likeImg: HTMLImageElement = document.createElement("img");
@@ -127,11 +127,24 @@ export class Player extends Component {
     return [""];
   }
 
+  static getUserId(): string {
+    let id: string = "";
+    let userString = localStorage.getItem(
+      "Parse/fHTtYX3oryuYW1MNXV6nvRxfu2xGoRXPu71vYXWH/currentUser"
+    );
+    if (userString) {
+      id = JSON.parse(userString).objectId;
+    }
+
+    return id;
+  }
+
   static async onloadTrackList(arrayOfTracks: string[]) {
+    let id: string = Player.getUserId();
     const User = new Parse.User();
     const query = new Parse.Query(User);
     try {
-      let user = await query.get("ehLYWjvnq6");
+      let user = await query.get(id);
       user.set("tracks", arrayOfTracks);
       try {
         let response = await user.save();

@@ -6,6 +6,7 @@ export type UserInfo = {
   confirmPass?: string;
   phone: number,
   id?: string,
+  tracks?: []
 };
 
 export interface RootObject {

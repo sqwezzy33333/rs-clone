@@ -6,6 +6,7 @@ export class LikeTrack extends BaseComponent {
     super("img", "song__like");
     let src: string = "../../assets/images/noLike.svg";
     this.element.setAttribute("src", src);
+
     this.element.addEventListener("click", (e) => {
       const like = e.target as HTMLElement;
       const panelBlock = like.parentElement?.previousElementSibling;
@@ -17,10 +18,11 @@ export class LikeTrack extends BaseComponent {
         this.element.setAttribute("src", "../../assets/images/like.svg");
         Player.likeImg.src = "../../assets/images/like.svg";
         Player.likeImg.classList.toggle("liked");
-        console.log(Player.arrayOfUser);
         if (id) {
+          console.log(id)
+          console.log(Player.arrayOfUser)
           Player.arrayOfUser.push(id);
-          console.log(Player.arrayOfUser);
+          console.log(id);
           Player.onloadTrackList(Player.arrayOfUser);
         }
       } else {
