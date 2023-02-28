@@ -211,11 +211,7 @@ export class Player extends Component {
   }
 
   private createSoundBlock() {
-    if (localStorage.getItem("sound") !== "on") {
-      this.sound.element.innerHTML = `<img src="../../assets/images/panel/noSound.svg" alt="#">`;
-    } else {
-      this.sound.element.innerHTML = `<img src="../../assets/images/panel/sound.svg" alt="#">`;
-    }
+    this.sound.element.innerHTML = `<img src="../../assets/images/panel/sound.svg" alt="#">`;
   }
 
   private soundEvents(): void {

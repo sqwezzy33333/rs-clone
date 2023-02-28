@@ -226,3 +226,18 @@
 .current-track{
   box-shadow: 0px 4px 4px rgb(134, 255, 69);
 }
+
+@media screen and (max-width: 752px) {
+  .player__panel div{
+    margin: 0px 10px !important;
+  }
+  .player__panel{
+    
+  }
+}
+
+@media screen and (max-width: 388px){
+  .info-block__about-wrapp{
+    display: none;
+  }
+}

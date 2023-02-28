@@ -54,3 +54,21 @@
     flex-direction: row;
   }
 }
+
+@media (max-width: 548px){
+  .keen-slider__slide{
+    height: 300px ;
+    img{
+      object-fit: cover;
+    }
+  }
+}
+
+@media (max-width: 480px){
+  .keen-slider__slide{
+    height: 300px ;
+    img{
+      object-fit: cover;
+    }
+  }
+}
